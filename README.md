@@ -26,7 +26,7 @@ yarn dev
 
 To run the app in development mode with electron.<br />
 
-### `yarn dist`
+`yarn dist`
 
 Production build.<br />
 
