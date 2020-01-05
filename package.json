@@ -1,0 +1,73 @@
+{
+  "name": "Sakura",
+  "version": "0.0.1",
+  "description": "Sakura Wallet is a secure and user-friendly Polkadot desktop wallet",
+  "license": "GPL v3",
+  "author": {
+    "name": "DOTPay Technology",
+    "email": "hizhaoyun@gmail.com"
+  },
+  "private": true,
+  "homepage": "./",
+  "main": "public/electron.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "dev": "NODE_ENV=development electron .",
+    "pack": "electron-builder --dir",
+    "dist": "yarn build && rm -rf dist && electron-builder"
+  },
+  "build": {
+    "productName": "Sakura",
+    "appId": "tech.dotpay.sakura",
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "identity": null
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    }
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "prop-types": "latest",
+    "react-scripts": "3.3.0"
+  },
+  "devDependencies": {
+    "@material-ui/core": "^4.8.1",
+    "@material-ui/styles": "^4.8.2",
+    "@polkadot/api": "^0.99.1",
+    "electron": "^6.1.5",
+    "electron-builder": "^21.2.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
