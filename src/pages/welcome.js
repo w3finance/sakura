@@ -18,6 +18,7 @@ class WelcomePage extends Component {
     }
 
     async main() {
+        console.log(`Now time is ${new Date()}`);
         const wsProvider = new WsProvider("wss://kusama-rpc.polkadot.io/");
         const api = await ApiPromise.create({ provider: wsProvider });
         const [chain, nodeName, nodeVersion] = await Promise.all([
@@ -25,8 +26,16 @@ class WelcomePage extends Component {
             api.rpc.system.name(),
             api.rpc.system.version()
         ]);
+        console.log(`Now time is ${new Date()}`);
         console.log(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
         this.setState({text : `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`})
+
+        // Subscribe to balance changes for our account
+        const ADDR = "H2RsFakY6CW3xLYTMvLhFJ7oFctxkuqaSfEQLRwbRsEynx8"
+        const unsub = await api.query.balances.freeBalance(ADDR, (balance) => {
+            console.log(`Your account balance is ${balance}`);
+
+        });
     }
 
     render() {
