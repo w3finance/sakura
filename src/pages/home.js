@@ -3,6 +3,7 @@ import Wrapper from "../components/Wrapper";
 import {Button} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {Save, Add} from '@material-ui/icons';
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -10,7 +11,6 @@ const useStyles = makeStyles(theme => ({
         background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
         height: 48,
         width: 200
-
     },
 }));
 

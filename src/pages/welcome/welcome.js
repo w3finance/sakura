@@ -1,8 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
-import Wrapper from "../components/Wrapper";
-import Logo from "../logo.svg";
-import "../logo.css"
-import {ApiContext} from "../context/api";
+import Wrapper from "../../components/Wrapper";
+import Logo from "./logo.svg";
+import "./logo.css"
+import {ApiContext} from "../../context/api";
 import {useHistory} from "react-router-dom";
 
 export default function WelcomePage() {
@@ -24,7 +24,7 @@ export default function WelcomePage() {
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
 
                     timer = setTimeout(() => {
-                        history.push("./home")
+                        history.push("/home");
                     }, 2500);
                 }
             })()
