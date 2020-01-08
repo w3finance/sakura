@@ -1,9 +1,10 @@
 import React from 'react';
 import Wrapper from "../components/Wrapper";
 import {Button} from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import {Save, Add} from '@material-ui/icons';
+import {makeStyles} from '@material-ui/core/styles';
+import {Save, Add, Language} from '@material-ui/icons';
 import {useHistory} from "react-router-dom";
+import {useTranslation} from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 export default function HomePage() {
     const classes = useStyles();
     const history = useHistory();
+    const {t, i18n} = useTranslation()
 
     function createAccount() {
         history.push("/create");
@@ -24,6 +26,14 @@ export default function HomePage() {
 
     function importAccount() {
         history.push("/restore");
+    }
+
+    function changeLng() {
+        if (i18n.language && i18n.language === 'zh') {
+            i18n.changeLanguage('en').then(r => r);
+        } else {
+            i18n.changeLanguage('zh').then(r => r);
+        }
     }
 
     return (
@@ -35,9 +45,9 @@ export default function HomePage() {
                     size="medium"
                     className={classes.button}
                     onClick={createAccount}
-                    startIcon={<Add />}
+                    startIcon={<Add/>}
                 >
-                    Create Account
+                    {t('createAccount')}
                 </Button>
 
                 <Button
@@ -46,9 +56,20 @@ export default function HomePage() {
                     size="medium"
                     className={classes.button}
                     onClick={importAccount}
-                    startIcon={<Save />}
+                    startIcon={<Save/>}
                 >
-                    Restore Account
+                    {t('restoreAccount')}
+                </Button>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="medium"
+                    className={classes.button}
+                    onClick={changeLng}
+                    startIcon={<Language/>}
+                >
+                    Change Language
                 </Button>
             </>
         </Wrapper>
