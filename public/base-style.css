@@ -8,10 +8,10 @@ body,
 }
 
 body {
-    background-color: white;
-    color: rgba(0, 0, 0, 0.87);
+    background-color: #282c34;
     cursor: default;
     font-family: "Roboto", sans-serif;
     font-size: 13px;
     line-height: 20px;
+    -webkit-user-select: none;
 }
