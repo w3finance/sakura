@@ -49,7 +49,7 @@ export default function WelcomePage() {
         <Wrapper style={{"justifyContent": "center", "alignItems": "center"}}>
             <>
                 <img src={Logo} className="App-logo" alt="logo"/>
-                <h3 style={{textAlign: "center", color: '#fff'}}>{title}</h3>
+                <h3 style={{textAlign: "center", color: '#FFF'}}>{title}</h3>
             </>
         </Wrapper>
     )

@@ -16,9 +16,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function HomePage() {
     const classes = useStyles();
+    const history = useHistory();
 
-    function f() {
-        console.log('click!');
+    function createAccount() {
+        history.push("/create");
+    }
+
+    function importAccount() {
+        history.push("/restore");
     }
 
     return (
@@ -29,10 +34,10 @@ export default function HomePage() {
                     color="primary"
                     size="medium"
                     className={classes.button}
-                    onClick={f}
+                    onClick={createAccount}
                     startIcon={<Add />}
                 >
-                    Create
+                    Create Account
                 </Button>
 
                 <Button
@@ -40,9 +45,10 @@ export default function HomePage() {
                     color="primary"
                     size="medium"
                     className={classes.button}
+                    onClick={importAccount}
                     startIcon={<Save />}
                 >
-                    Import
+                    Restore Account
                 </Button>
             </>
         </Wrapper>

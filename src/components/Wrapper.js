@@ -10,9 +10,10 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         justifyContent: "center",
         alignItems: "center",
+        color: "#FFF",
         overflow: "visible",
     }
-})
+});
 
 function Header() {
     return (
