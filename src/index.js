@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter as Router, Switch, Route} from "react-router-dom";
 import {AccountsProvider} from "./context/accounts";
+import {ApiProvider} from "./context/api";
 import WelcomePage from "./pages/welcome";
 import HomePage from "./pages/home";
 import CreateAccount from "./pages/account/create-account";
@@ -9,7 +10,9 @@ import RestoreAccount from "./pages/account/restore-acount";
 
 const Providers = (props) => (
     <Router>
-        <AccountsProvider>{props.children}</AccountsProvider>
+        <ApiProvider>
+            <AccountsProvider>{props.children}</AccountsProvider>
+        </ApiProvider>
     </Router>
 )
 

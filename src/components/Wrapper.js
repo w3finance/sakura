@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {makeStyles} from "@material-ui/styles";
 
 const useStyles = makeStyles({
@@ -9,11 +8,13 @@ const useStyles = makeStyles({
         backgroundColor: "#282c34",
         display: 'flex',
         flexDirection: 'column',
-        overflow: "visible"
+        justifyContent: "center",
+        alignItems: "center",
+        overflow: "visible",
     }
 })
 
-const Header = function Header() {
+function Header() {
     return (
         <div style={{
             width: '800px',
@@ -31,7 +32,7 @@ export default function Wrapper(props) {
     const styles = useStyles();
     return (
         <div className={styles.root} style={props.style}>
-            {props.drag ? <Header/> : null}
+            <Header/>
             {props.children}
         </div>
     )

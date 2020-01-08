@@ -1,53 +1,58 @@
-import React, {Component} from 'react';
-import {useHistory} from "react-router-dom";
+import React, {useState, useContext, useEffect} from 'react';
 import Wrapper from "../components/Wrapper";
 import Logo from "../logo.svg";
 import "../logo.css"
-import { ApiPromise, WsProvider } from '@polkadot/api';
+import {ApiContext} from "../context/api";
+import {useHistory} from "react-router-dom";
 
-class WelcomePage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: 'Hello Polkadot'
+export default function WelcomePage() {
+    const [title, setTitle] = useState("Hello Polkadot");
+    const api = useContext(ApiContext).ksmApi;
+    const history = useHistory();
+
+    useEffect(() => {
+        let timer;
+        try {
+            (async () => {
+                if (judgeObj(api)) {
+                    const [chain, nodeName, nodeVersion] = await Promise.all([
+                        api.rpc.system.chain(),
+                        api.rpc.system.name(),
+                        api.rpc.system.version()
+                    ]);
+                    console.log(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
+                    setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
+
+                    timer = setTimeout(() => {
+                        history.push("./home")
+                    }, 2500);
+                }
+            })()
+        } catch (e) {
+            console.log(e)
         }
+
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [api]);
+
+    function judgeObj(obj) {
+        let attr;
+        for (attr in obj) {
+            return true
+        }
+        return false
     }
 
-    componentDidMount() {
-        this.main().catch(console.error).finally(()=>{})
-    }
+    return (
+        <Wrapper style={{"justifyContent": "center", "alignItems": "center"}}>
+            <>
+                <img src={Logo} className="App-logo" alt="logo"/>
+                <h3 style={{textAlign: "center", color: '#fff'}}>{title}</h3>
+            </>
+        </Wrapper>
+    )
 
-    async main() {
-        console.log(`Now time is ${new Date()}`);
-        const wsProvider = new WsProvider("wss://kusama-rpc.polkadot.io/");
-        const api = await ApiPromise.create({ provider: wsProvider });
-        const [chain, nodeName, nodeVersion] = await Promise.all([
-            api.rpc.system.chain(),
-            api.rpc.system.name(),
-            api.rpc.system.version()
-        ]);
-        console.log(`Now time is ${new Date()}`);
-        console.log(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
-        this.setState({text : `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`})
-
-        // Subscribe to balance changes for our account
-        const ADDR = "H2RsFakY6CW3xLYTMvLhFJ7oFctxkuqaSfEQLRwbRsEynx8"
-        const unsub = await api.query.balances.freeBalance(ADDR, (balance) => {
-            console.log(`Your account balance is ${balance}`);
-
-        });
-    }
-
-    render() {
-        return (
-            <Wrapper drag={true} style={{"justifyContent": "center", "alignItems": "center"}}>
-                <div>
-                    <img src={Logo} className="App-logo"/>
-                    <h3 style={{textAlign: "center",color: '#fff'}}>{this.state.text}</h3>
-                </div>
-            </Wrapper>
-        )
-    }
 }
 
-export default WelcomePage

@@ -1,29 +1,50 @@
 import React from 'react';
-import {makeStyles} from "@material-ui/styles";
-import {ActionButton} from "../components/ActionButton";
-import Wrapper from "../components/Wrapper"
-import {useHistory} from "react-router-dom";
+import Wrapper from "../components/Wrapper";
+import {Button} from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import {Save, Add} from '@material-ui/icons';
 
-const useStyles = makeStyles({})
+const useStyles = makeStyles(theme => ({
+    button: {
+        margin: theme.spacing(2),
+        background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+        height: 48,
+        width: 200
 
+    },
+}));
 
-export default class HomePage extends React.Component {
-    constructor(props) {
-        super(props);
+export default function HomePage() {
+    const classes = useStyles();
 
+    function f() {
+        console.log('click!');
     }
 
-    componentDidMount() {
-        let history = useHistory();
-    }
+    return (
+        <Wrapper>
+            <>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="medium"
+                    className={classes.button}
+                    onClick={f}
+                    startIcon={<Add />}
+                >
+                    Create
+                </Button>
 
-    render() {
-        const styles = useStyles();
-        return (
-            <Wrapper>
-                <ActionButton variant="contained" color="primary" to={'/'}>Back</ActionButton>
-                <h3>Home Page</h3>
-            </Wrapper>
-        )
-    }
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="medium"
+                    className={classes.button}
+                    startIcon={<Save />}
+                >
+                    Import
+                </Button>
+            </>
+        </Wrapper>
+    )
 }
