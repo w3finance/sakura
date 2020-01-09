@@ -3,14 +3,17 @@ import {Wrapper} from "../../components/Layout";
 import Logo from "./logo.svg";
 import "./logo.css"
 import {ApiContext} from "../../context/api";
+import {SettingsContext} from "../../context/setting";
 import {useHistory} from "react-router-dom";
 
 export default function WelcomePage() {
     const [title, setTitle] = useState("Hello Polkadot");
     const api = useContext(ApiContext).ksmApi;
+    const language = useContext(SettingsContext).language;
     const history = useHistory();
 
     useEffect(() => {
+        console.log(language);
         let timer;
         try {
             (async () => {
