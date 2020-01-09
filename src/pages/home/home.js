@@ -1,10 +1,10 @@
 import React from 'react';
-import Wrapper from "../components/Wrapper";
+import {Wrapper} from "../../components/Layout";
 import {Button} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
 import {Save, Add, Language} from '@material-ui/icons';
 import {useHistory} from "react-router-dom";
-import {useTranslation} from 'react-i18next'
+import {useTranslation} from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -37,7 +37,7 @@ export default function HomePage() {
     }
 
     return (
-        <Wrapper>
+        <Wrapper style={{alignItems: "center", justifyContent: "center"}}>
             <>
                 <Button
                     variant="contained"

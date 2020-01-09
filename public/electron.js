@@ -33,6 +33,8 @@ function createWindow() {
     // and load the index.html of the app.
     mainWindow.loadURL(winURL)
 
+    mainWindow.removeMenu()
+
     // Open the DevTools.
     process.env.NODE_ENV === 'development' && mainWindow.webContents.openDevTools()
 

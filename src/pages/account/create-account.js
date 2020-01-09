@@ -1,5 +1,5 @@
 import React from "react";
-import Wrapper from "../../components/Wrapper";
+import {Wrapper} from "../../components/Layout";
 
 export default function CreateAccount() {
     return (

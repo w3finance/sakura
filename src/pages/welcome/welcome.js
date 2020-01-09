@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import Wrapper from "../../components/Wrapper";
+import {Wrapper} from "../../components/Layout";
 import Logo from "./logo.svg";
 import "./logo.css"
 import {ApiContext} from "../../context/api";
@@ -20,9 +20,7 @@ export default function WelcomePage() {
                         api.rpc.system.name(),
                         api.rpc.system.version()
                     ]);
-                    console.log(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
-
                     timer = setTimeout(() => {
                         history.push("/home");
                     }, 2500);
@@ -46,7 +44,7 @@ export default function WelcomePage() {
     }
 
     return (
-        <Wrapper style={{"justifyContent": "center", "alignItems": "center"}}>
+        <Wrapper style={{alignItems: "center", justifyContent: "center"}}>
             <>
                 <img src={Logo} className="App-logo" alt="logo"/>
                 <h3 style={{textAlign: "center", color: '#FFF'}}>{title}</h3>
