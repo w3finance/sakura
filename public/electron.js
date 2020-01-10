@@ -25,7 +25,6 @@ function createWindow() {
         titleBarStyle: process.platform === 'darwin' ? 'hidden' : 'default',
         webPreferences: {
             nodeIntegration: false,
-            nodeIntegrationInWorker: false,
             preload: path.join(__dirname, 'preload.js'),
         }
     })
