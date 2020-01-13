@@ -13,7 +13,7 @@ export default function WelcomePage() {
     const history = useHistory();
 
     useEffect(() => {
-        console.log(language);
+        console.log(`Current Language: ${language}`);
         let timer;
         try {
             (async () => {
@@ -24,6 +24,7 @@ export default function WelcomePage() {
                         api.rpc.system.version()
                     ]);
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
+                    console.log(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
                     timer = setTimeout(() => {
                         history.push("/home");
                     }, 2500);
