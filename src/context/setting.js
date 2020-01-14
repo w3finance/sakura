@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
-import {setSetting, getSetting} from "../common/store";
+import {loadSettings, saveSettings} from "../common/store";
 
 const initialSettings = {
     "language": "en",
@@ -14,7 +14,7 @@ export function SettingsProvider(props) {
 
     useEffect(() => {
         Promise
-            .all([getSetting()])
+            .all([loadSettings()])
             .then(([data]) => {
                 setSettings({...settings, ...data})
             })
@@ -27,8 +27,8 @@ export function SettingsProvider(props) {
                 ...settings,
                 ...update
             };
-            setSettings(updatedSettings)
-            setSetting(updatedSettings)
+            setSettings(updatedSettings);
+            saveSettings(updatedSettings);
         } catch (e) {
             console.log(e)
         }

@@ -1,1 +1,1 @@
-import "./storage";
+import "./electron-store";

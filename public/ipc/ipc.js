@@ -1,6 +1,6 @@
-const {ipcMain} = require('electron');
+const {ipcMain} = require("electron");
 
-export function expose(
+function expose(
     messageType,
     handler
 ) {
@@ -16,3 +16,7 @@ export function expose(
         }
     })
 }
+
+module.exports = {
+    expose,
+};

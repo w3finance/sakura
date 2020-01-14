@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Wrapper} from "../../components/Layout";
 import {Button} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 export default function HomePage() {
     const classes = useStyles();
     const history = useHistory();
-    const {t, i18n} = useTranslation()
+    const {t, i18n} = useTranslation();
 
     function createAccount() {
         history.push("/create");
