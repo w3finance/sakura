@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     layout: {
         width: "800px",
         height: "600px",
-        backgroundColor: "#282c34",
+        backgroundColor: "#000232",
         overflow: "hidden",
         color: "#FFF",
     },

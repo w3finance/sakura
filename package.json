@@ -11,9 +11,9 @@
   "homepage": "./",
   "main": "public/electron.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "export BROWSER=none && react-scripts start",
     "build": "react-scripts build",
-    "dev": "NODE_ENV=development electron .",
+    "dev": "export ELECTRON_START_URL=http://localhost:3000 && electron .",
     "pack": "electron-builder --dir",
     "dist": "yarn build && rm -rf dist && electron-builder"
   },
@@ -48,7 +48,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.8.2",
     "@polkadot/api": "^0.100.1",
-    "electron": "^6.1.5",
+    "electron": "7.1.9",
     "electron-builder": "^21.2.0",
     "electron-store": "^5.1.0",
     "i18next": "^19.0.3",

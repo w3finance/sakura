@@ -1,4 +1,4 @@
-const { ipcRenderer } = window;
+const {ipcRenderer} = window;
 
 function sendMessage(messageType, ...args) {
     const responsePromise = new Promise((resolve, reject) => {
@@ -19,12 +19,11 @@ function sendMessage(messageType, ...args) {
         ipcRenderer.on(messageType, listener);
     });
 
-    ipcRenderer.send(messageType, {args});
+    ipcRenderer.send(messageType, ...args);
     return responsePromise;
 }
 
-async function sendIPCMessage(messageType, message) {
-    const {args} = message;
+async function sendIPCMessage(messageType, ...args) {
     return sendMessage(messageType, ...args);
 }
 
@@ -35,7 +34,7 @@ function subscribeToIPCMessages(messageType, subscribeCallback) {
 }
 
 function Call(messageType, ...args) {
-    sendIPCMessage(messageType, args).then(r => r);
+    sendIPCMessage(messageType, ...args).then(r => r);
 
     return new Promise((resolve, reject) => {
         const unsubscribe = subscribeToIPCMessages(messageType, (event, message) => {

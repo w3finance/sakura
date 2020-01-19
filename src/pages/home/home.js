@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useContext} from 'react';
 import {Wrapper} from "../../components/Layout";
 import {Button} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
 import {Save, Add, Language} from '@material-ui/icons';
 import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
+import {SettingsContext} from "../../context/setting";
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -19,6 +20,7 @@ export default function HomePage() {
     const classes = useStyles();
     const history = useHistory();
     const {t, i18n} = useTranslation();
+    const settings = useContext(SettingsContext);
 
     function createAccount() {
         history.push("/create");
@@ -30,9 +32,9 @@ export default function HomePage() {
 
     function changeLng() {
         if (i18n.language && i18n.language === 'zh') {
-            i18n.changeLanguage('en').then(r => r);
+            settings.toggleLanguage('en');
         } else {
-            i18n.changeLanguage('zh').then(r => r);
+            settings.toggleLanguage('zh');
         }
     }
 

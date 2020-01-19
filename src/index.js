@@ -26,19 +26,21 @@ const Providers = (props) => (
     </Router>
 );
 
-function App() {
-    return (
-        <Providers>
-            <Layout>
-                <Switch>
-                    <Route exact path="/" component={WelcomePage}/>
-                    <Route exact path="/home" component={HomePage}/>
-                    <Route exact path="/create" component={CreateAccount}/>
-                    <Route exact path="/restore" component={RestoreAccount}/>
-                </Switch>
-            </Layout>
-        </Providers>
-    );
+class App extends React.Component {
+    render() {
+        return (
+            <Providers>
+                <Layout>
+                    <Switch>
+                        <Route exact path="/" component={WelcomePage}/>
+                        <Route exact path="/home" component={HomePage}/>
+                        <Route exact path="/create" component={CreateAccount}/>
+                        <Route exact path="/restore" component={RestoreAccount}/>
+                    </Switch>
+                </Layout>
+            </Providers>
+        );
+    }
 }
 
 ReactDOM.render(<App/>, document.getElementById("root"));

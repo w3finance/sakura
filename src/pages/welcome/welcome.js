@@ -5,15 +5,18 @@ import "./logo.css"
 import {ApiContext} from "../../context/api";
 import {SettingsContext} from "../../context/setting";
 import {useHistory} from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 
 export default function WelcomePage() {
     const [title, setTitle] = useState("Hello Polkadot");
     const api = useContext(ApiContext).ksmApi;
     const language = useContext(SettingsContext).language;
     const history = useHistory();
+    const {i18n} = useTranslation();
 
     useEffect(() => {
         console.log(`Current Language: ${language}`);
+        i18n.changeLanguage(language).then(r => console.log(r));
         let timer;
         try {
             (async () => {
@@ -24,7 +27,6 @@ export default function WelcomePage() {
                         api.rpc.system.version()
                     ]);
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
-                    console.log(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
                     timer = setTimeout(() => {
                         history.push("/home");
                     }, 2500);

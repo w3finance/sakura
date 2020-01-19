@@ -1,37 +1,37 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
-
+const url = require('url');
+const Store = require('electron-store');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-const winURL = process.env.NODE_ENV === 'development'
-    ? `http://localhost:3000`
-    : `file://${__dirname}/index.html`;
-
 function createWindow() {
+    const startUrl = process.env.ELECTRON_START_URL || url.format({
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'file:',
+        slashes: true,
+    });
+
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
-        minWidth: 400,
-        minHeight: 300,
-        backgroundColor: '#000232',
-        useContentSize: true,
+        minWidth: 800,
+        minHeight: 600,
         resizable: false,
-        maximizable: false,
-        fullscreen: false,
+        title: "Sakura Wallet",
+        backgroundColor: '#000232',
         titleBarStyle: process.platform === 'darwin' ? 'hidden' : 'default',
         webPreferences: {
-            nodeIntegration: false,
             preload: path.join(__dirname, 'preload.js'),
         }
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL(winURL);
+    mainWindow.loadURL(startUrl);
 
     mainWindow.removeMenu();
 
@@ -67,3 +67,35 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+function expose(
+    messageType,
+    handler
+) {
+    ipcMain.on(messageType, async (event, payload) => {
+        const {args} = payload;
+        try {
+            const result = await handler(...args);
+            event.sender.send(messageType, {result});
+        } catch (error) {
+            event.sender.send(messageType, {
+                error: {name: error.name || "Error", message: error.message, stack: error.stack},
+            })
+        }
+    })
+}
+
+////////// User Settings //////////
+const SettingsStore = new Store({
+    name: "Settings",
+});
+
+expose("ReadSettings", function readSettings() {
+    return SettingsStore.has("settings") ? SettingsStore.get("settings") : {};
+});
+
+expose("StoreSettings", function storeSettings(updatedSettings) {
+    const prevSettings = SettingsStore.has("settings") ? SettingsStore.get("settings") : {};
+    SettingsStore.set("settings", {...prevSettings, ...updatedSettings});
+    return true
+});
