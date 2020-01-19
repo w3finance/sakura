@@ -72,8 +72,7 @@ function expose(
     messageType,
     handler
 ) {
-    ipcMain.on(messageType, async (event, payload) => {
-        const {args} = payload;
+    ipcMain.on(messageType, async (event, ...args) => {
         try {
             const result = await handler(...args);
             event.sender.send(messageType, {result});
