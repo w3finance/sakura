@@ -20,26 +20,6 @@
     "dist:win": "yarn build && rm -rf dist && electron-builder --win --x64",
     "dist:linux": "yarn build && rm -rf dist && electron-builder --linux"
   },
-  "build": {
-    "productName": "Sakura",
-    "appId": "tech.dotpay.sakura",
-    "directories": {
-      "buildResources": "public"
-    },
-    "mac": {
-      "target": [
-        "dmg",
-        "zip"
-      ],
-      "identity": null
-    },
-    "win": {
-      "target": [
-        "nsis",
-        "zip"
-      ]
-    }
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
