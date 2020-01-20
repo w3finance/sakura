@@ -13,24 +13,26 @@ yarn
 Then you can run:
 
 ```
-# Windows is yarn start:win
 yarn start
+# or
+yarn start:win
 ```
 
 Open another terminal run:
 
 ```
-# Windows is yarn dev:win
 yarn dev
+# or
+yarn dev:win
 ```
-
 You will see the app in development mode with electron.
 
+## Production build.
 ```
-# Windows is yarn dist:win
 yarn dist
+# or
+yarn dist:win
 ```
-Production build.
 
 ## License
 GPL v3
