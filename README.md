@@ -2,7 +2,7 @@
 
 [Sakura Wallet](http://www.dotpay.tech/) is a secure and user-friendly polkadot desktop wallet.
 
-## Development
+### Development
 
 In the project directory, install the dependencies first:
 
@@ -27,12 +27,13 @@ yarn dev:win
 ```
 You will see the app in development mode with electron.
 
-## Production build.
+### Production build.
+run:
 ```
 yarn dist
 # or
 yarn dist:win
 ```
 
-## License
+### License
 GPL v3
