@@ -28,7 +28,7 @@ export default function WelcomePage() {
                     ]);
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
                     timer = setTimeout(() => {
-                        history.push("/home");
+                        history.push("/allAccounts");
                     }, 2500);
                 }
             })()

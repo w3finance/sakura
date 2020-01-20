@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function HomePage() {
+export default function AllAccounts() {
     const classes = useStyles();
     const history = useHistory();
     const {t, i18n} = useTranslation();
