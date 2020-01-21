@@ -14,7 +14,7 @@ Then you can run:
 
 ```bash
 yarn start
-# or
+# in windows
 yarn start:win
 ```
 
@@ -22,7 +22,7 @@ Open another terminal run:
 
 ```bash
 yarn dev
-# or
+# in windows
 yarn dev:win
 ```
 

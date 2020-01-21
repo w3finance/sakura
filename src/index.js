@@ -6,7 +6,6 @@ import {AccountsProvider} from "./context/accounts";
 import {ApiProvider} from "./context/api";
 import {I18nextProvider} from "react-i18next";
 import i18n from "./common/i18n";
-import {Layout} from "./components/Layout";
 import WelcomePage from "./pages/welcome/welcome";
 import AllAccounts from "./pages/account/all-accounts";
 import CreateAccount from "./pages/account/create-account";
@@ -30,14 +29,12 @@ class App extends React.Component {
     render() {
         return (
             <Providers>
-                <Layout>
-                    <Switch>
-                        <Route exact path="/" component={WelcomePage}/>
-                        <Route exact path="/allAccounts" component={AllAccounts}/>
-                        <Route exact path="/create" component={CreateAccount}/>
-                        <Route exact path="/restore" component={RestoreAccount}/>
-                    </Switch>
-                </Layout>
+                <Switch>
+                    <Route exact path="/" component={WelcomePage}/>
+                    <Route exact path="/allAccounts" component={AllAccounts}/>
+                    <Route exact path="/create" component={CreateAccount}/>
+                    <Route exact path="/restore" component={RestoreAccount}/>
+                </Switch>
             </Providers>
         );
     }

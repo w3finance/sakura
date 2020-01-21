@@ -3,24 +3,14 @@ import {makeStyles} from "@material-ui/styles";
 
 const useStyles = makeStyles({
     layout: {
-        width: "800px",
-        height: "600px",
-        backgroundColor: "#000232",
-        overflow: "hidden",
-        color: "#FFF",
-    },
-    wrapper: {
-        width: "100%",
-        height: "100%",
-        display: 'flex',
-        flexDirection: 'column',
-        zIndex: 1,
+        flexGrow: 1,
+        zIndex: 1
     },
     header: {
         position: 'absolute',
         top: 0,
         left: 0,
-        width: '800px',
+        width: '100%',
         height: '22px',
         background: 'transparent',
         WebkitAppRegion: 'drag',
@@ -47,15 +37,14 @@ const Layout = React.forwardRef(function Layout(props, ref) {
 
 const Wrapper = React.forwardRef(function Wrapper(props, ref) {
     const {children, style} = props;
-    const styles = useStyles();
     return (
-        <div className={styles.wrapper} style={style} ref={ref}>
+        <Layout style={style} ref={ref}>
             <>
                 <Header/>
                 {children}
             </>
-        </div>
+        </Layout>
     )
 });
 
-export {Wrapper, Layout}
+export {Wrapper}

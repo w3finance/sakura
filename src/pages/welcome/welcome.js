@@ -6,6 +6,7 @@ import {ApiContext} from "../../context/api";
 import {SettingsContext} from "../../context/setting";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
+import Grid from '@material-ui/core/Grid';
 
 export default function WelcomePage() {
     const [title, setTitle] = useState("Hello Polkadot");
@@ -50,11 +51,15 @@ export default function WelcomePage() {
     }
 
     return (
-        <Wrapper style={{alignItems: "center", justifyContent: "center"}}>
-            <>
-                <img src={Logo} className="App-logo" alt="logo"/>
-                <h3 style={{textAlign: "center", color: '#FFF'}}>{title}</h3>
-            </>
+        <Wrapper>
+            <Grid container direction="column" alignItems="center" justify="center" style={{height: "100%"}}>
+                <Grid item>
+                    <img src={Logo} className="App-logo" alt="logo"/>
+                </Grid>
+                <Grid item>
+                    <h3 style={{textAlign: "center", color: '#FFF'}}>{title}</h3>
+                </Grid>
+            </Grid>
         </Wrapper>
     )
 
