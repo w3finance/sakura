@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
-import {loadSettings, saveSettings} from "../common/store";
+import {loadSettings, saveSettings} from "../common/call";
 
 const initialSettings = {
     "language": "en",
@@ -19,7 +19,7 @@ export function SettingsProvider(props) {
                 setSettings({...settings, ...data})
             })
             .catch(e => console.log(e))
-    }, [settings]);
+    }, []);
 
     const updateSettings = (update) => {
         try {
