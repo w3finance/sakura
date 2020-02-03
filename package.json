@@ -22,17 +22,17 @@
     "dist:linux": "yarn build && rm -rf dist && electron-builder --linux"
   },
   "dependencies": {
+    "@polkadot/api": "^1.0.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "react-scripts": "3.3.0",
-    "electron-store": "^5.1.0"
+    "electron-store": "^5.1.0",
+    "react-scripts": "3.3.0"
   },
   "devDependencies": {
     "@material-ui/core": "^4.8.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.8.2",
-    "@polkadot/api": "^0.100.1",
     "electron": "7.1.9",
     "electron-builder": "^21.2.0",
     "i18next": "^19.0.3",
