@@ -10,6 +10,7 @@ import WelcomePage from "./pages/welcome/welcome";
 import AllAccounts from "./pages/account/all-accounts";
 import CreateAccount from "./pages/account/create-account";
 import RestoreAccount from "./pages/account/restore-acount";
+import Setting from "./pages/setting/setting";
 
 const Providers = (props) => (
     <Router>
@@ -34,6 +35,7 @@ class App extends React.Component {
                     <Route exact path="/allAccounts" component={AllAccounts}/>
                     <Route exact path="/create" component={CreateAccount}/>
                     <Route exact path="/restore" component={RestoreAccount}/>
+                    <Route exact path="/setting" component={Setting}/>
                 </Switch>
             </Providers>
         );

@@ -1,7 +1,7 @@
 {
   "name": "Sakura",
   "version": "0.0.1",
-  "description": "Sakura Wallet is a secure and user-friendly polkadot desktop wallet",
+  "description": "Sakura Wallet is a secure and user-friendly Polkadot desktop wallet",
   "license": "GPL v3",
   "author": {
     "name": "DOTPay Technology",
@@ -22,7 +22,6 @@
     "dist:linux": "yarn build && rm -rf dist && electron-builder --linux"
   },
   "dependencies": {
-    "@polkadot/api": "1.1.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -30,6 +29,7 @@
     "react-scripts": "3.3.0"
   },
   "devDependencies": {
+    "@polkadot/api": "1.2.1",
     "@material-ui/core": "^4.8.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.8.2",

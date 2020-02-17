@@ -5,15 +5,19 @@ i18n.init({
         en: {
             translation: {
                 en: "English",
-                createAccount: "Create Account",
-                restoreAccount: "Restore Account"
+                tl_allAccounts: "All Accounts",
+                bt_createAccount: "Create Account",
+                bt_restoreAccount: "Restore Account",
+                tl_setting: "Setting"
             }
         },
         zh: {
             translation: {
                 en: "英语",
-                createAccount: "新建账户",
-                restoreAccount: "恢复账户"
+                tl_allAccounts: "全部账户",
+                bt_createAccount: "新建账户",
+                bt_restoreAccount: "恢复账户",
+                tl_setting: "设置"
             }
         }
     },

@@ -23,7 +23,7 @@ function createWindow() {
         minHeight: 600,
         resizable: false,
         title: "Sakura Wallet",
-        backgroundColor: '#000232',
+        backgroundColor: '#FFF',
         titleBarStyle: process.platform === 'darwin' ? 'hidden' : 'default',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),

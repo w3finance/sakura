@@ -11,7 +11,7 @@ const useStyles = makeStyles({
         top: 0,
         left: 0,
         width: '100%',
-        height: '22px',
+        height: '30px',
         background: 'transparent',
         WebkitAppRegion: 'drag',
         zIndex: 2,

@@ -1,19 +1,28 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {Wrapper} from "../../components/Layout";
-import Logo from "./logo.svg";
+import Logo from "./logo.png";
 import "./logo.css"
 import {ApiContext} from "../../context/api";
 import {SettingsContext} from "../../context/setting";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {makeStyles} from "@material-ui/styles";
+
+const useStyles = makeStyles({
+    process: {
+        marginTop: '5vmin'
+    },
+});
 
 export default function WelcomePage() {
-    const [title, setTitle] = useState("Hello Polkadot");
+    const [title, setTitle] = useState("");
     const api = useContext(ApiContext).ksmApi;
     const language = useContext(SettingsContext).language;
     const history = useHistory();
     const {i18n} = useTranslation();
+    const styles = useStyles();
 
     useEffect(() => {
         console.log(`Current Language: ${language}`);
@@ -27,10 +36,10 @@ export default function WelcomePage() {
                         api.rpc.system.name(),
                         api.rpc.system.version()
                     ]);
-                    setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
+                    setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}.`);
                     timer = setTimeout(() => {
                         history.push("/allAccounts");
-                    }, 2500);
+                    }, 3000);
                 }
             })()
         } catch (e) {
@@ -52,13 +61,20 @@ export default function WelcomePage() {
 
     return (
         <Wrapper>
-            <Grid container direction="column" alignItems="center" justify="center" style={{height: "100%"}}>
+            <Grid container direction="column" alignItems="center" style={{height: "100%"}}>
                 <Grid item>
                     <img src={Logo} className="App-logo" alt="logo"/>
                 </Grid>
-                <Grid item>
-                    <h3 style={{textAlign: "center", color: '#FFF'}}>{title}</h3>
-                </Grid>
+                {
+                    title === "" ?
+                    <Grid item className={styles.process}>
+                        <CircularProgress size={20} color={'inherit'}/>
+                    </Grid>
+                    :
+                    <Grid item>
+                        <h3 style={{textAlign: "center", color: 'rgba(0,0,0,.6)'}}>{title}</h3>
+                    </Grid>
+                }
             </Grid>
         </Wrapper>
     )

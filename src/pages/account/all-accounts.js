@@ -3,11 +3,11 @@ import {Wrapper} from "../../components/Layout";
 import {Button} from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core/styles';
-import {Save, Add, Language} from '@material-ui/icons';
+import {Save, Add} from '@material-ui/icons';
 import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import {SettingsContext} from "../../context/setting";
-import HeaderTitle from "../../components/HeaderTitle";
+import Header from "../../components/Header";
 import Settings from "@material-ui/icons/Settings";
 
 const useStyles = makeStyles(theme => ({
@@ -33,20 +33,28 @@ function AllAccounts() {
         history.push("/restore");
     }
 
-    // function changeLng() {
-    //     if (i18n.language && i18n.language === 'zh') {
-    //         settings.toggleLanguage('en');
-    //         i18n.changeLanguage('en');
-    //     } else {
-    //         settings.toggleLanguage('zh');
-    //         i18n.changeLanguage('zh');
-    //     }
-    // }
+    function goSetting() {
+        history.push("/setting");
+    }
+
+    function changeLng() {
+        if (i18n.language && i18n.language === 'zh') {
+            settings.toggleLanguage('en');
+            i18n.changeLanguage('en');
+        } else {
+            settings.toggleLanguage('zh');
+            i18n.changeLanguage('zh');
+        }
+    }
 
     return (
         <Wrapper>
             <>
-                <HeaderTitle title={'My Accounts'} icon={<Settings style={{color: "white"}}/>}/>
+                <Header
+                    title={t('tl_allAccounts')}
+                    icon={<Settings style={{color: "rgba(0,0,0.5)"}}/>}
+                    onClick={goSetting}
+                />
                 <Grid container justify="center">
                     <Button
                         variant="contained"
@@ -56,7 +64,7 @@ function AllAccounts() {
                         onClick={createAccount}
                         startIcon={<Add/>}
                     >
-                        {t('createAccount')}
+                        {t('bt_createAccount')}
                     </Button>
 
                     <Button
@@ -67,7 +75,7 @@ function AllAccounts() {
                         onClick={importAccount}
                         startIcon={<Save/>}
                     >
-                        {t('restoreAccount')}
+                        {t('bt_restoreAccount')}
                     </Button>
                 </Grid>
             </>

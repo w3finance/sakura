@@ -1,12 +1,13 @@
 import React from "react";
 import {Wrapper} from "../../components/Layout";
-import HeaderTitle from "../../components/HeaderTitle";
+import Header from "../../components/Header";
 import {useHistory} from "react-router-dom";
-import ArrowBack from "@material-ui/icons/ArrowBack";
+
+import {useTranslation} from "react-i18next";
 
 export default function RestoreAccount() {
     const history = useHistory();
-
+    const {t} = useTranslation();
     function back() {
         history.goBack();
     }
@@ -14,7 +15,7 @@ export default function RestoreAccount() {
     return (
         <Wrapper>
             <>
-                <HeaderTitle title={'Restore Account'} icon={<ArrowBack style={{color: "white"}}/>} onClick={back}/>
+                <Header lfIcon title={t('bt_restoreAccount')} goBack={back}/>
             </>
         </Wrapper>
     )
