@@ -29,11 +29,12 @@ function Header(props) {
     return (
         <div className={classes.box}
              style={{background: bg ? '#4664DC' : 'transparent'}}>
-            <Grid container alignItems="center" style={{backgroundColor: "transparent", height: "100%"}}>
+            <Grid container alignItems="center" style={{height: "100%"}}>
                 {
                     lfIcon ?
                         <Grid item className={classes.lfIcon}>
-                            <IconButton style={{backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0}} onClick={goBack}>
+                            <IconButton style={{backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0}}
+                                        onClick={goBack}>
                                 <ArrowBack style={{color: bg ? '#FFF' : 'rgb(0,0,0.5)'}}/>
                             </IconButton>
                         </Grid>
@@ -41,12 +42,13 @@ function Header(props) {
                         null
                 }
                 <Grid item className={classes.title} style={{paddingLeft: lfIcon ? '10px' : '30px'}}>
-                    <Typography style={{fontSize: 22 , color: bg ? '#FFF' : 'rgb(0,0,0.5)'}}>
+                    <Typography style={{fontSize: 22, color: bg ? '#FFF' : 'rgb(0,0,0.5)'}}>
                         {title}
                     </Typography>
                 </Grid>
                 <Grid item className={classes.icon}>
-                    <IconButton style={{backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0}} onClick={onClick}>
+                    <IconButton style={{backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0}}
+                                onClick={onClick}>
                         {icon ? icon : null}
                     </IconButton>
                 </Grid>

@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 export default function CreateAccount() {
     const history = useHistory();
     const {t} = useTranslation();
+
     function back() {
         history.goBack();
     }

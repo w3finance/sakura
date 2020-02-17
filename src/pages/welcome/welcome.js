@@ -67,13 +67,13 @@ export default function WelcomePage() {
                 </Grid>
                 {
                     title === "" ?
-                    <Grid item className={styles.process}>
-                        <CircularProgress size={20} color={'inherit'}/>
-                    </Grid>
-                    :
-                    <Grid item>
-                        <h3 style={{textAlign: "center", color: 'rgba(0,0,0,.6)'}}>{title}</h3>
-                    </Grid>
+                        <Grid item className={styles.process}>
+                            <CircularProgress size={20} color={'inherit'}/>
+                        </Grid>
+                        :
+                        <Grid item>
+                            <h3 style={{textAlign: "center", color: 'rgba(0,0,0,.6)'}}>{title}</h3>
+                        </Grid>
                 }
             </Grid>
         </Wrapper>

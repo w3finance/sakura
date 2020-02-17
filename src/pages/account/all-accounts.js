@@ -6,7 +6,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Save, Add} from '@material-ui/icons';
 import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
-import {SettingsContext} from "../../context/setting";
 import Header from "../../components/Header";
 import Settings from "@material-ui/icons/Settings";
 
@@ -22,8 +21,7 @@ const useStyles = makeStyles(theme => ({
 function AllAccounts() {
     const classes = useStyles();
     const history = useHistory();
-    const {t, i18n} = useTranslation();
-    const settings = useContext(SettingsContext);
+    const {t} = useTranslation();
 
     function createAccount() {
         history.push("/create");
@@ -35,16 +33,6 @@ function AllAccounts() {
 
     function goSetting() {
         history.push("/setting");
-    }
-
-    function changeLng() {
-        if (i18n.language && i18n.language === 'zh') {
-            settings.toggleLanguage('en');
-            i18n.changeLanguage('en');
-        } else {
-            settings.toggleLanguage('zh');
-            i18n.changeLanguage('zh');
-        }
     }
 
     return (

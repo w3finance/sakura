@@ -11,44 +11,53 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         flexGrow: 1,
-        color: "black",
         minWidth: "20%",
         paddingLeft: '30px',
+        fontSize: 16,
+        color: 'rgba(16,16,16,1)'
+    },
+    subTitle: {
+        fontSize: 16,
+        color: 'rgba(16,16,16,.5)'
     },
     icon: {
-        paddingRight: '30px',
+        marginRight: '30px',
     },
-    lfIcon: {
-        paddingLeft: '30px',
+    line: {
+        height: 1,
+        width: "740px",
+        background: 'rgba(16,16,16,.1)',
+        marginLeft: '30px',
     }
 }));
 
 function Cell(props) {
-    const { title, subTitle, icon, onClick,} = props;
+    const {title, subTitle, icon, line, onClick} = props;
     const classes = useStyles();
     return (
         <div className={classes.box}>
-            <Grid container alignItems="center" style={{backgroundColor: "transparent", height: "100%"}}>
+            <Grid container alignItems="center" style={{height: "100%"}} onClick={onClick ? onClick : null}>
                 <Grid item className={classes.title} style={{paddingLeft: '30px'}}>
-                    <Typography style={{fontSize: 16 , color: 'rgb(0,0,0.5)'}}>
+                    <Typography>
                         {title}
                     </Typography>
                 </Grid>
                 {
                     subTitle ?
-                    <Grid item className={classes.title} style={{paddingLeft: '30px'}}>
-                        <Typography style={{fontSize: 16 , color: 'rgb(0,0,0.5)'}}>
-                            {subTitle}
-                        </Typography>
-                    </Grid>
-                    :
-                    null
+                        <Grid item className={classes.subTitle} style={{paddingRight: '10px'}}>
+                            <Typography>
+                                {subTitle}
+                            </Typography>
+                        </Grid>
+                        :
+                        null
                 }
                 <Grid item className={classes.icon}>
                     <IconButton style={{backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0}}>
                         {icon ? icon : null}
                     </IconButton>
                 </Grid>
+                {line ? <div className={classes.line}/> : null}
             </Grid>
         </div>
     )

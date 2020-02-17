@@ -8,6 +8,7 @@ import {useTranslation} from "react-i18next";
 export default function RestoreAccount() {
     const history = useHistory();
     const {t} = useTranslation();
+
     function back() {
         history.goBack();
     }
