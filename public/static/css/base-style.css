@@ -22,6 +22,10 @@ body {
     line-height: 20px;
 }
 
+img {
+    border: none;
+}
+
 *:not(input):not(textarea) {
     user-select: none;
     -webkit-user-select: none;

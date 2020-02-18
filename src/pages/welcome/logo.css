@@ -3,7 +3,8 @@
     pointer-events: none;
     width: 20vmin;
     margin-top: 35vmin;
-    filter: drop-shadow(0 0 20px #4664DC)
+    filter: drop-shadow(0 0 20px #4664DC);
+    border: none;
 }
 
 /*@media (prefers-reduced-motion: no-preference) {*/
