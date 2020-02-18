@@ -2,48 +2,36 @@ import React from 'react';
 import {makeStyles} from "@material-ui/styles";
 
 const useStyles = makeStyles({
-    layout: {
+    wrapper: {
         flexGrow: 1,
-        zIndex: 1
     },
-    header: {
+    drag: {
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
         height: '30px',
-        background: 'transparent',
         WebkitAppRegion: 'drag',
-        zIndex: 2,
     }
 });
 
-function Header() {
+function Drag() {
     const styles = useStyles();
     return (
-        <div className={styles.header}/>
+        <div className={styles.drag}/>
     )
 }
 
-const Layout = React.forwardRef(function Layout(props, ref) {
+const Wrapper = React.forwardRef(function Wrapper(props, ref) {
     const {children, style} = props;
     const styles = useStyles();
     return (
-        <div className={styles.layout} style={style} ref={ref}>
-            {children}
-        </div>
-    )
-});
-
-const Wrapper = React.forwardRef(function Wrapper(props, ref) {
-    const {children, style} = props;
-    return (
-        <Layout style={style} ref={ref}>
+        <div className={styles.wrapper} style={style} ref={ref}>
             <>
-                <Header/>
+                <Drag/>
                 {children}
             </>
-        </Layout>
+        </div>
     )
 });
 

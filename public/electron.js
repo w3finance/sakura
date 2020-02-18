@@ -98,3 +98,8 @@ expose("StoreSettings", function storeSettings(updatedSettings) {
     SettingsStore.set("settings", {...prevSettings, ...updatedSettings});
     return true
 });
+
+////////// App API //////////
+expose("AppVersion", function readSettings() {
+    return app.getVersion();
+});

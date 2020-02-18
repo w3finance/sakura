@@ -6,20 +6,16 @@ import {makeStyles} from '@material-ui/core/styles';
 import ArrowBack from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles(theme => ({
-    box: {
-        width: "100%",
-        height: 100,
-    },
     title: {
         flexGrow: 1,
-        color: "black",
-        minWidth: "20%",
+        color: 'rgba(16,16,16,.1)',
+        minWidth: '20%',
     },
     icon: {
-        paddingRight: '30px',
+        paddingRight: '18px',
     },
     lfIcon: {
-        paddingLeft: '30px',
+        paddingLeft: '18px',
     }
 }));
 
@@ -27,33 +23,31 @@ function Header(props) {
     const {lfIcon, goBack, title, icon, onClick, bg} = props;
     const classes = useStyles();
     return (
-        <div className={classes.box}
-             style={{background: bg ? '#4664DC' : 'transparent'}}>
-            <Grid container alignItems="center" style={{height: "100%"}}>
-                {
-                    lfIcon ?
-                        <Grid item className={classes.lfIcon}>
-                            <IconButton style={{backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0}}
-                                        onClick={goBack}>
-                                <ArrowBack style={{color: bg ? '#FFF' : 'rgb(0,0,0.5)'}}/>
-                            </IconButton>
-                        </Grid>
-                        :
-                        null
-                }
-                <Grid item className={classes.title} style={{paddingLeft: lfIcon ? '10px' : '30px'}}>
-                    <Typography style={{fontSize: 22, color: bg ? '#FFF' : 'rgb(0,0,0.5)'}}>
-                        {title}
-                    </Typography>
-                </Grid>
-                <Grid item className={classes.icon}>
-                    <IconButton style={{backgroundColor: 'transparent', paddingLeft: 0, paddingRight: 0}}
-                                onClick={onClick}>
-                        {icon ? icon : null}
-                    </IconButton>
-                </Grid>
+        <Grid container alignItems="center"
+              style={{height: '100px', width: '800px', background: bg ? '#4664DC' : 'transparent'}}>
+            {
+                lfIcon ?
+                    <Grid item className={classes.lfIcon}>
+                        <IconButton style={{backgroundColor: 'transparent'}}
+                                    onClick={goBack}>
+                            <ArrowBack style={{color: bg ? '#FFF' : 'rgba(16,16,16,1)'}}/>
+                        </IconButton>
+                    </Grid>
+                    :
+                    null
+            }
+            <Grid item className={classes.title} style={{paddingLeft: lfIcon ? '0px' : '30px'}}>
+                <Typography style={{fontSize: 22, color: bg ? '#FFF' : 'rgba(16,16,16,1)'}}>
+                    {title}
+                </Typography>
             </Grid>
-        </div>
+            <Grid item className={classes.icon}>
+                <IconButton style={{backgroundColor: 'transparent'}}
+                            onClick={onClick}>
+                    {icon ? icon : null}
+                </IconButton>
+            </Grid>
+        </Grid>
     )
 }
 
