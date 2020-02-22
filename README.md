@@ -4,9 +4,14 @@
 
 ### Development
 
-Clone first, in the project directory, install the dependencies:
+To clone and run this repo you'll need [Node.js](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/) installed on your computer.
 
 ```bash
+# Clone first
+git clone https://github.com/dotpaytech/sakura.git
+# Go into the repository
+cd sakura
+# Install the dependencies
 yarn
 ```
 
@@ -38,7 +43,7 @@ Toggle DevTools:
 
 ### Production build.
 
-Create a package for OSX, Windows and Linux
+Create a package for OSX, Windows and Linux.
 
 ```bash
 yarn dist
@@ -49,4 +54,4 @@ yarn dist:linux
 ```
 
 ### License
-GPL v3
+GPL v3.
