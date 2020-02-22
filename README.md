@@ -1,10 +1,10 @@
 # Sakura Wallet
 
-[Sakura Wallet](http://www.dotpay.tech/) is a secure and user-friendly polkadot desktop wallet.
+[Sakura Wallet](https://www.dotpay.tech/) is a secure and user-friendly Polkadot desktop wallet.
 
 ### Development
 
-In the project directory, install the dependencies first:
+Clone first, in the project directory, install the dependencies:
 
 ```bash
 yarn
