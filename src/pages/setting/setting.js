@@ -16,10 +16,13 @@ const useStyles = makeStyles(theme => ({
         fontSize: 16,
         width: '100%',
         height: '50px',
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
         textAlign: 'center'
+    },
+    footer: {
+        flexGrow: '1',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
     }
 }));
 
@@ -54,28 +57,20 @@ export default function Setting() {
 
     return (
         <Wrapper>
-            <Grid container>
-                <Grid item>
-                    <Header lfIcon bg title={t('tl_setting')} goBack={back}/>
-                </Grid>
-                <Grid item>
-                    <Cell title={t('tl_language')}
-                          subTitle={t(`${language}`)}
-                          icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
-                          line
-                          onClick={changeLng}
-                    />
-                </Grid>
-                <Grid item>
-                    <Cell title={t('tl_terms')}
-                          icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
-                          line
-                    />
-                </Grid>
-                <Grid item>
-                    <div className={classes.version}>{`v${version}`}</div>
-                </Grid>
-            </Grid>
+            <Header lfIcon bg title={t('tl_setting')} goBack={back}/>
+            <Cell title={t('tl_language')}
+                  subTitle={t(`${language}`)}
+                  icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
+                  line
+                  onClick={changeLng}
+            />
+            <Cell title={t('tl_terms')}
+                  icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
+                  line
+            />
+            <div className={classes.footer}>
+                <div className={classes.version}>{`v${version}`}</div>
+            </div>
         </Wrapper>
     )
 }

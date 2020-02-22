@@ -9,12 +9,7 @@ import {useTranslation} from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {makeStyles} from "@material-ui/styles";
-
-const useStyles = makeStyles({
-    process: {
-        marginTop: '5vmin'
-    },
-});
+import Typography from "@material-ui/core/Typography";
 
 export default function WelcomePage() {
     const [title, setTitle] = useState("");
@@ -22,7 +17,7 @@ export default function WelcomePage() {
     const language = useContext(SettingsContext).language;
     const history = useHistory();
     const {i18n} = useTranslation();
-    const styles = useStyles();
+    const classes = useStyles();
 
     useEffect(() => {
         console.log(`Current Language: ${language}`);
@@ -67,12 +62,12 @@ export default function WelcomePage() {
                 </Grid>
                 {
                     title === "" ?
-                        <Grid item className={styles.process}>
+                        <Grid item className={classes.process}>
                             <CircularProgress size={20} color={'inherit'}/>
                         </Grid>
                         :
-                        <Grid item>
-                            <h3 style={{textAlign: "center", color: 'rgba(0,0,0,.6)'}}>{title}</h3>
+                        <Grid item className={classes.process}>
+                            <Typography style={{textAlign: "center", color: 'rgba(16,16,16,.5)'}}>{title}</Typography>
                         </Grid>
                 }
             </Grid>
@@ -80,4 +75,10 @@ export default function WelcomePage() {
     )
 
 }
+
+const useStyles = makeStyles({
+    process: {
+        marginTop: '5vmin'
+    },
+});
 

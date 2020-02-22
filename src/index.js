@@ -8,8 +8,7 @@ import {I18nextProvider} from "react-i18next";
 import i18n from "./common/i18n";
 import WelcomePage from "./pages/welcome/welcome";
 import AllAccounts from "./pages/account/all-accounts";
-import CreateAccount from "./pages/account/create-account";
-import RestoreAccount from "./pages/account/restore-acount";
+import AddAccount from "./pages/account/add-account";
 import Setting from "./pages/setting/setting";
 
 const Providers = (props) => (
@@ -33,8 +32,7 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={WelcomePage}/>
                     <Route exact path="/allAccounts" component={AllAccounts}/>
-                    <Route exact path="/create" component={CreateAccount}/>
-                    <Route exact path="/restore" component={RestoreAccount}/>
+                    <Route exact path="/addAccount" component={AddAccount}/>
                     <Route exact path="/setting" component={Setting}/>
                 </Switch>
             </Providers>

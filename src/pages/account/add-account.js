@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
-export default function CreateAccount() {
+export default function AddAccount() {
     const history = useHistory();
     const {t} = useTranslation();
 
@@ -15,7 +15,7 @@ export default function CreateAccount() {
     return (
         <Wrapper>
             <>
-                <Header lfIcon title={t('bt_createAccount')} goBack={back}/>
+                <Header lfIcon bg title={t('tl_addAccount')} goBack={back}/>
             </>
         </Wrapper>
     )

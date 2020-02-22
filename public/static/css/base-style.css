@@ -10,8 +10,8 @@ body {
     width: 800px;
     height: 600px;
     margin: auto;
+    padding: 0;
     background-color: #FFFFFF;
-    display: flex;
 }
 
 body {

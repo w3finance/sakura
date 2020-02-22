@@ -3,7 +3,10 @@ import {makeStyles} from "@material-ui/styles";
 
 const useStyles = makeStyles({
     wrapper: {
-        flexGrow: 1,
+        width: '800px',
+        height: '600px',
+        display: 'flex',
+        flexDirection: 'column',
     },
     drag: {
         position: 'absolute',
