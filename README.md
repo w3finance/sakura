@@ -1,17 +1,26 @@
 # Sakura Wallet
 
 [Sakura Wallet](https://www.dotpay.tech/) is a secure and user-friendly Polkadot desktop wallet.
+<p align="center">
+  <a href="">
+    <img alt="MacOS" src="https://badgen.net/badge/icon/MacOS?icon=apple&label" />
+  </a>
+  <a href="">
+    <img alt="Windows" src="https://badgen.net/badge/icon/Windows?icon=windows&label" />
+  </a>
+  <a href="">
+    <img alt="Linux" src="https://badgen.net/badge/icon/Linux" />
+  </a>
+  </a>
+</p>
 
 ### Development
 
 To clone and run this repo you'll need [Node.js](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/) installed on your computer.
 
 ```bash
-# Clone first
 git clone https://github.com/dotpaytech/sakura.git
-# Go into the repository
 cd sakura
-# Install the dependencies
 yarn
 ```
 
@@ -19,7 +28,7 @@ Then you can run:
 
 ```bash
 yarn start
-# in windows
+# or
 yarn start:win
 ```
 
@@ -27,7 +36,7 @@ Open another terminal run:
 
 ```bash
 yarn dev
-# in windows
+# or
 yarn dev:win
 ```
 

@@ -65,39 +65,37 @@ export default function Setting() {
 
     return (
         <Wrapper>
-            <>
-                <Dialog open={open}
-                        onClose={handleClose}
-                        fullWidth={true}
-                        maxWidth={'xs'}
-                >
-                    <DialogTitle>{t('tl_language')}</DialogTitle>
-                    <DialogContent dividers>
-                        <RadioGroup
-                            aria-label="ringtone"
-                            name="ringtone"
-                            value={value}
-                            onChange={handleChange}
-                            color={'primary'}
-                        >
-                            {options.map(option => (
-                                <FormControlLabel value={option}
-                                                  key={option}
-                                                  control={<Radio color="primary"/>}
-                                                  label={t(`${option}`)}/>
-                            ))}
-                        </RadioGroup>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button autoFocus onClick={handleClose} color="primary">
-                            {t('bt_cancel')}
-                        </Button>
-                        <Button autoFocus onClick={handleOk} color="primary">
-                            {t('bt_ok')}
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            </>
+            <Dialog open={open}
+                    onClose={handleClose}
+                    fullWidth={true}
+                    maxWidth={'xs'}
+            >
+                <DialogTitle>{t('tl_language')}</DialogTitle>
+                <DialogContent dividers>
+                    <RadioGroup
+                        aria-label="ringtone"
+                        name="ringtone"
+                        value={value}
+                        onChange={handleChange}
+                        color={'primary'}
+                    >
+                        {options.map(option => (
+                            <FormControlLabel value={option}
+                                              key={option}
+                                              control={<Radio color="primary"/>}
+                                              label={t(`${option}`)}/>
+                        ))}
+                    </RadioGroup>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleClose} color="primary">
+                        {t('bt_cancel')}
+                    </Button>
+                    <Button autoFocus onClick={handleOk} color="primary">
+                        {t('bt_ok')}
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Header lfIcon bg title={t('tl_setting')} goBack={back}/>
             <Cell title={t('tl_language')}
                   subTitle={t(`${language}`)}
