@@ -8,7 +8,7 @@ import {I18nextProvider} from "react-i18next";
 import i18n from "./common/i18n";
 import WelcomePage from "./pages/welcome/welcome";
 import AllAccounts from "./pages/account/all-accounts";
-import AddAccount from "./pages/account/add-account";
+import AddAccount from "./pages/account/add/add-account";
 import Setting from "./pages/setting/setting";
 
 const Providers = (props) => (

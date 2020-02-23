@@ -1,0 +1,20 @@
+{
+  "en": "English",
+  "zh": "简体中文",
+  "bt_cancel": "Cancel",
+  "bt_ok": "OK",
+  "tl_allAccounts": "All Accounts",
+  "tl_addAccount": "Add Account",
+  "tl_setting": "Setting",
+  "tl_language": "Language",
+  "tl_terms": "Terms of Use",
+
+  "a_noAccount": "No account yet!",
+
+  "tl_create": "Create",
+  "tl_createWallet": "Create Wallet",
+  "tl_import": "Import",
+  "tl_privateKey": "Private Key",
+  "tl_mnemonic": "Mnemonic",
+  "tl_keyStore": "Keystore"
+}

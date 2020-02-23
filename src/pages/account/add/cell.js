@@ -3,8 +3,16 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
 const useStyles = makeStyles(theme => ({
+    box: {
+        height: '60px',
+        width: '740px',
+        marginLeft: '30px',
+        borderRadius: '5px',
+        boxShadow: '0px 0px 5px rgb(16,16,16,.4)'
+    },
     title: {
         flexGrow: 1,
         minWidth: "20%",
@@ -27,34 +35,24 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Cell(props) {
-    const {title, subTitle, icon, line, onClick} = props;
+function AddCell(props) {
+    const {title, onClick, style} = props;
     const classes = useStyles();
     return (
-        <Grid container alignItems="center" style={{height: '60px', width: '800px'}} onClick={onClick ? onClick : null}>
+        <Grid container alignItems="center" className={classes.box} onClick={onClick ? onClick : null} style={style}>
             <Grid item className={classes.title} style={{paddingLeft: '30px'}}>
                 <Typography>
                     {title}
                 </Typography>
             </Grid>
-            {
-                subTitle ?
-                    <Grid item className={classes.subTitle}>
-                        <Typography>
-                            {subTitle}
-                        </Typography>
-                    </Grid>
-                    :
-                    null
-            }
+
             <Grid item className={classes.icon}>
                 <IconButton style={{backgroundColor: 'transparent'}}>
-                    {icon ? icon : null}
+                    <NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>
                 </IconButton>
             </Grid>
-            {line ? <div className={classes.line}/> : null}
         </Grid>
     )
 }
 
-export default React.memo(Cell)
+export default React.memo(AddCell)

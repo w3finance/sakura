@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Wrapper} from "../../components/Layout";
 import Header from "../../components/Header";
-import Cell from "../../components/cell/cell";
+import SettingCell from "./cell";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {makeStyles} from "@material-ui/core/styles";
@@ -97,13 +97,13 @@ export default function Setting() {
                 </DialogActions>
             </Dialog>
             <Header lfIcon bg title={t('tl_setting')} goBack={back}/>
-            <Cell title={t('tl_language')}
+            <SettingCell title={t('tl_language')}
                   subTitle={t(`${language}`)}
                   icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
                   line
                   onClick={changeLng}
             />
-            <Cell title={t('tl_terms')}
+            <SettingCell title={t('tl_terms')}
                   icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
                   line
             />
