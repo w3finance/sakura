@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
         width: '740px',
         marginLeft: '30px',
         borderRadius: '5px',
-        boxShadow: '0px 0px 5px rgb(16,16,16,.4)'
+        boxShadow: '0px 0px 5px rgb(16,16,16,.4)',
+        cursor: 'pointer'
     },
     title: {
         flexGrow: 1,

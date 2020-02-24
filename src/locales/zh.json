@@ -12,8 +12,9 @@
   "a_noAccount": "还没有账户!",
 
   "tl_create": "新建",
-  "tl_createWallet": "创建钱包",
+  "tl_createAccount": "创建新账户",
   "tl_import": "导入",
+  "tl_importAccount": "导入账户",
   "tl_privateKey": "私钥导入",
   "tl_mnemonic": "助记词",
   "tl_keyStore": "Keystore"

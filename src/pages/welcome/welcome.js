@@ -34,7 +34,7 @@ export default function WelcomePage() {
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}.`);
                     timer = setTimeout(() => {
                         history.push("/allAccounts");
-                    }, 3000);
+                    }, 1000);
                 }
             })()
         } catch (e) {

@@ -12,8 +12,9 @@
   "a_noAccount": "No account yet!",
 
   "tl_create": "Create",
-  "tl_createWallet": "Create Wallet",
+  "tl_createAccount": "Create Account",
   "tl_import": "Import",
+  "tl_importAccount": "Import Account",
   "tl_privateKey": "Private Key",
   "tl_mnemonic": "Mnemonic",
   "tl_keyStore": "Keystore"
