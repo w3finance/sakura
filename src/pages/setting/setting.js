@@ -17,10 +17,7 @@ import Radio from '@material-ui/core/Radio';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const options = [
-    'en',
-    'zh'
-];
+const options = ['en', 'zh'];
 
 export default function Setting() {
     const history = useHistory();
@@ -70,7 +67,7 @@ export default function Setting() {
                     fullWidth={true}
                     maxWidth={'xs'}
             >
-                <DialogTitle>{t('tl_language')}</DialogTitle>
+                <DialogTitle>{t('Title.language')}</DialogTitle>
                 <DialogContent dividers>
                     <RadioGroup
                         aria-label="ringtone"
@@ -83,27 +80,27 @@ export default function Setting() {
                             <FormControlLabel value={option}
                                               key={option}
                                               control={<Radio color="primary"/>}
-                                              label={t(`${option}`)}/>
+                                              label={t(`${'Title.'+option}`)}/>
                         ))}
                     </RadioGroup>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleClose} color="primary">
-                        {t('bt_cancel')}
+                        {t('Btn.cancel')}
                     </Button>
                     <Button autoFocus onClick={handleOk} color="primary">
-                        {t('bt_ok')}
+                        {t('Btn.ok')}
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Header lfIcon bg title={t('tl_setting')} goBack={back}/>
-            <SettingCell title={t('tl_language')}
-                  subTitle={t(`${language}`)}
+            <Header lfIcon bg title={t('Title.setting')} goBack={back}/>
+            <SettingCell title={t('Title.language')}
+                  subTitle={t(`${'Title.'+language}`)}
                   icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
                   line
                   onClick={changeLng}
             />
-            <SettingCell title={t('tl_terms')}
+            <SettingCell title={t('Title.terms')}
                   icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
                   line
             />

@@ -8,7 +8,6 @@ import {I18nextProvider} from "react-i18next";
 import i18n from "./common/i18n";
 import WelcomePage from "./pages/welcome/welcome";
 import AllAccounts from "./pages/account/all-accounts";
-import AddAccount from "./pages/account/add/add-account";
 import CreateAccount from "./pages/account/add/create-account";
 import ImportAccount from "./pages/account/add/import-account";
 import Setting from "./pages/setting/setting";
@@ -34,9 +33,8 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={WelcomePage}/>
                     <Route exact path="/allAccounts" component={AllAccounts}/>
-                    <Route exact path="/addAccount" component={AddAccount}/>
-                    <Route exact path="/create/:type/:chain" component={CreateAccount}/>
-                    <Route exact path="/import/:type/:chain" component={ImportAccount}/>
+                    <Route exact path="/createAccount" component={CreateAccount}/>
+                    <Route exact path="/importAccount" component={ImportAccount}/>
                     <Route exact path="/setting" component={Setting}/>
                 </Switch>
             </Providers>

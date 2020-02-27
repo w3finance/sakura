@@ -24,7 +24,7 @@ function Header(props) {
     const classes = useStyles();
     return (
         <Grid container alignItems="center"
-              style={{height: '100px', width: '800px', background: bg ? '#4664DC' : 'transparent'}}>
+              style={{height: '100px', width: '800px', background: bg ? '#3f51b5' : 'transparent'}}>
             {
                 lfIcon ?
                     <Grid item className={classes.lfIcon}>

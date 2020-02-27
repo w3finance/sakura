@@ -1,21 +1,21 @@
 {
-  "en": "English",
-  "zh": "简体中文",
-  "bt_cancel": "取消",
-  "bt_ok": "确定",
-  "tl_allAccounts": "全部账户",
-  "tl_addAccount": "添加账户",
-  "tl_setting": "设置",
-  "tl_language": "多语言",
-  "tl_terms": "用户协议",
-
-  "a_noAccount": "还没有账户!",
-
-  "tl_create": "新建",
-  "tl_createAccount": "创建新账户",
-  "tl_import": "导入",
-  "tl_importAccount": "导入账户",
-  "tl_privateKey": "私钥导入",
-  "tl_mnemonic": "助记词",
-  "tl_keyStore": "Keystore"
+  "Title": {
+    "en": "English",
+    "zh": "简体中文",
+    "allWallets": "全部账户",
+    "setting": "设置",
+    "language": "多语言",
+    "terms": "用户协议",
+    "createWallet": "新建钱包",
+    "importWallet": "导入钱包"
+  },
+  "Btn": {
+    "cancel": "取消",
+    "ok": "确定",
+    "create": "Create",
+    "import": "Import"
+  },
+  "AllWallets": {
+    "noWallet": "还没有账户!"
+  }
 }

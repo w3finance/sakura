@@ -3,14 +3,10 @@ import {Wrapper} from "../../../components/Layout";
 import Header from "../../../components/Header";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {
-    useParams
-} from "react-router-dom";
 
 export default function ImportAccount() {
     const history = useHistory();
     const {t} = useTranslation();
-    let { type,chain } = useParams();
 
     function back() {
         history.goBack();
@@ -18,8 +14,7 @@ export default function ImportAccount() {
 
     return(
         <Wrapper>
-            <Header lfIcon bg title={t('tl_importAccount')} goBack={back}/>
-            <h3 style={{textAlign: 'center'}}>{type+chain}</h3>
+            <Header lfIcon bg title={t('Title.importWallet')} goBack={back}/>
         </Wrapper>
     )
 }

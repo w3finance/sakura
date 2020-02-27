@@ -1,21 +1,21 @@
 {
-  "en": "English",
-  "zh": "简体中文",
-  "bt_cancel": "Cancel",
-  "bt_ok": "OK",
-  "tl_allAccounts": "All Accounts",
-  "tl_addAccount": "Add Account",
-  "tl_setting": "Setting",
-  "tl_language": "Language",
-  "tl_terms": "Terms of Use",
-
-  "a_noAccount": "No account yet!",
-
-  "tl_create": "Create",
-  "tl_createAccount": "Create Account",
-  "tl_import": "Import",
-  "tl_importAccount": "Import Account",
-  "tl_privateKey": "Private Key",
-  "tl_mnemonic": "Mnemonic",
-  "tl_keyStore": "Keystore"
+  "Title": {
+    "en": "English",
+    "zh": "简体中文",
+    "allWallets": "All Accounts",
+    "setting": "Setting",
+    "language": "Language",
+    "terms": "Terms of Use",
+    "createWallet": "Create Wallet",
+    "importWallet": "Import Wallet"
+  },
+  "Btn": {
+    "cancel": "Cancel",
+    "ok": "OK",
+    "create": "Create",
+    "import": "Import"
+  },
+  "AllWallets": {
+    "noWallet": "No account yet!"
+  }
 }

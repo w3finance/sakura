@@ -1,45 +1,82 @@
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import {Wrapper} from "../../components/Layout";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import Header from "../../components/Header";
 import {makeStyles} from '@material-ui/core/styles';
 import Settings from "@material-ui/icons/Settings";
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import Typography from "@material-ui/core/Typography";
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
+import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 
 function AllAccounts() {
     const classes = useStyles();
     const history = useHistory();
     const {t} = useTranslation();
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     function goSetting() {
         history.push("/setting");
     }
-    function goAdd() {
-        history.push("/addAccount");
+    function goCreate() {
+        history.push("/createAccount");
+    }
+    function goImport() {
+        history.push("/importAccount");
     }
 
     return (
         <Wrapper>
             <Header
-                title={t('tl_allAccounts')}
+                title={t('Title.allWallets')}
                 icon={<Settings style={{color: "rgba(0,0,0.5)"}}/>}
                 onClick={goSetting}
             />
             <div className={classes.container}>
                 <div className={classes.center}>
                     <Typography style={{color: 'rgba(16,16,16,.5)'}}>
-                        {t('a_noAccount')}
+                        {t('AllWallets.noWallet')}
                     </Typography>
                 </div>
                 <div className={classes.footer}>
-                    <Fab size="small" color="primary" aria-label="add" onClick={goAdd}>
-                        <AddIcon />
-                    </Fab>
+                    <SpeedDial
+                        ariaLabel="SpeedDial tooltip example"
+                        className={classes.speedDial}
+                        icon={<SpeedDialIcon />}
+                        onClose={handleClose}
+                        onOpen={handleOpen}
+                        open={open}
+                        FabProps={{size: "small"}}
+                    >
+                        <SpeedDialAction
+                            key={'import'}
+                            icon={<AutorenewIcon onClick={goImport}/>}
+                            tooltipTitle={t('Btn.import')}
+                            tooltipOpen
+                            onClick={handleClose}
+                        />
+                        <SpeedDialAction
+                            key={'create'}
+                            icon={<AddCircleOutlinedIcon onClick={goCreate}/>}
+                            tooltipTitle={t('Btn.create')}
+                            tooltipOpen
+                            onClick={handleClose}
+                        />
+                    </SpeedDial>
                 </div>
             </div>
+
         </Wrapper>
     )
 }
@@ -67,6 +104,13 @@ const useStyles = makeStyles(theme => ({
         height: '70px',
         display: 'flex',
         justifyContent: 'center',
+    },
+    speedDial: {
+        position: 'absolute',
+        bottom: theme.spacing(3),
+        left: 0,
+        right: 0,
+        margin: 'auto'
     }
 }));
 
