@@ -5,130 +5,66 @@ import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-
-const assets = ["Polkadot", "Kusama"];
-const keypairs = ["sr25519", "ed25519"];
+import Button from '@material-ui/core/Button';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import CreateInputForm from "./create-input-form";
 
 export default function CreateAccount() {
     const history = useHistory();
     const {t} = useTranslation();
     const classes = useStyles();
-    const [values, setValues] = useState({
-        name: "",
-        password: '',
-        pwd: '',
-    });
-    const [asset, setAsset] = useState("Polkadot");
-    const [keypair, setKeypair] = useState("ed25519");
+    const [activeStep, setActiveStep] = useState(0);
 
-    const handleChangeAsset = event => {
-        setAsset(event.target.value);
-    };
-
-    const handleChangeKeypair = event => {
-        setKeypair(event.target.value);
-    };
-
-    const handleChange = prop => event => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
+    const steps = [t('CreateWallet.step1'), t('CreateWallet.step2'), t('CreateWallet.step3')];
 
     function back() {
         history.goBack();
     }
 
-    return(
+    const handleNext = () => {
+        setActiveStep(prevActiveStep => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep(prevActiveStep => prevActiveStep - 1);
+    };
+
+    return (
         <Wrapper>
             <Header lfIcon bg title={t('Title.createWallet')} goBack={back}/>
             <Box className={classes.container}>
-
-                <Box className={classes.item}>
-                    <TextField
-                        id="select-asset"
-                        select
-                        required
-                        label="Select Wallet Type"
-                        value={asset}
-                        onChange={handleChangeAsset}
-                        margin="normal"
-                        className={classes.select}
-                        variant="outlined"
-                    >
-                        {assets.map(option => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    <TextField
-                        id="select-keypair"
-                        select
-                        required
-                        label="Select Crypto Type"
-                        value={keypair}
-                        onChange={handleChangeKeypair}
-                        margin="normal"
-                        className={classes.select}
-                        variant="outlined"
-                    >
-                        {keypairs.map(option => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+                {
+                    activeStep === 0 ? <CreateInputForm/> : null
+                }
+            </Box>
+            <Box className={classes.footer}>
+                <Stepper nonLinear activeStep={activeStep} className={classes.stepper}>
+                    {steps.map(label => (
+                        <Step key={label}>
+                            <StepLabel style={{margin: '0 10px'}}>{label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
+                <Box className={classes.buttons}>
+                    <Button disabled={activeStep === 0}
+                            disableElevation
+                            variant="contained"
+                            color="default"
+                            onClick={handleBack}
+                            className={classes.button}>
+                        {t('CreateWallet.back')}
+                    </Button>
+                    <Button disabled={activeStep === steps.length}
+                            disableElevation
+                            variant="contained"
+                            color="primary"
+                            onClick={handleNext}
+                            className={classes.button}>
+                        {activeStep >= steps.length - 1 ? t('CreateWallet.create') : t('CreateWallet.next')}
+                    </Button>
                 </Box>
-
-                <TextField id="filled-basic"
-                           disabled
-                           label="Mnemonic"
-                           defaultValue=""
-                           variant="outlined"
-                           margin="normal"
-                           className={classes.textField}
-
-                />
-
-                <TextField id="outlined-basic"
-                           required
-                           label="Wallet Name"
-                           placeholder="Wallet Name"
-                           InputLabelProps={{
-                               shrink: true,
-                           }}
-                           margin="normal"
-                           className={classes.textField}
-                           value={values.password}
-                           onChange={handleChange('name')}
-                />
-
-                <TextField id="outlined-basic"
-                           required
-                           label="Password"
-                           placeholder="Enter a password"
-                           helperText="This password will be used as the transaction password for the wallet."
-                           InputLabelProps={{
-                               shrink: true,
-                           }}
-                           margin="normal"
-                           className={classes.textField}
-                           value={values.password}
-                           onChange={handleChange('password')}
-                />
-                <TextField id="outlined-basic"
-                           required
-                           label="Confirm Password"
-                           placeholder="Confirm your password"
-                           InputLabelProps={{
-                               shrink: true,
-                           }}
-                           margin="normal"
-                           className={classes.textField}
-                           value={values.pwd}
-                           onChange={handleChange('pwd')}
-                />
             </Box>
         </Wrapper>
     )
@@ -136,22 +72,27 @@ export default function CreateAccount() {
 
 const useStyles = makeStyles(theme => ({
     container: {
-        flex: 1,
+        flexGrow: 1,
+        display: 'flex'
+    },
+    footer: {
+        height: '150px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
-    item: {
-        width: '80%',
+    stepper: {
+        background: 'transparent',
+        padding: '10px 24px 20px',
+    },
+    buttons: {
+        width: 240,
+        paddingTop: theme.spacing(2),
         display: 'flex',
-        marginTop: '30px'
+        justifyContent: 'space-between'
     },
-    select: {
-        flex: 1,
-        margin: '0 30px'
-    },
-    textField: {
-        width: 580,
-    },
-
+    button: {
+        width: 120,
+        margin: '0 20px',
+    }
 }));

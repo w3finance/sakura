@@ -17,5 +17,20 @@
   },
   "AllWallets": {
     "noWallet": "No account yet!"
+  },
+  "CreateWallet": {
+    "pwdHelper": "This password will be used as the transaction password for the wallet.",
+    "walletName": "Wallet Name",
+    "enterName": "Enter a name",
+    "password": "Password",
+    "enterPassword": "Enter a password",
+    "pwd": "Confirm Password",
+    "confirmPwd": "Confirm your password",
+    "step1": "Wallet Settings",
+    "step2": "Backup Wallet",
+    "step3": "Create Wallet",
+    "next": "Next",
+    "back": "Back",
+    "create": "Create"
   }
 }

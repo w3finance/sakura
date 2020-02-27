@@ -10,6 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {makeStyles} from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
+import Alert from '@material-ui/lab/Alert';
+import Collapse from '@material-ui/core/Collapse';
 
 export default function WelcomePage() {
     const [title, setTitle] = useState("");
@@ -17,12 +19,18 @@ export default function WelcomePage() {
     const language = useContext(SettingsContext).language;
     const history = useHistory();
     const {i18n} = useTranslation();
+    const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
     useEffect(() => {
-        console.log(`Current Language: ${language}`);
         i18n.changeLanguage(language).then(r => console.log(r));
         let timer;
+        let monitor = setTimeout(() => {
+            if (!open) {
+                setOpen(true);
+            }
+        }, 10000);
+
         try {
             (async () => {
                 if (judgeObj(api)) {
@@ -31,10 +39,11 @@ export default function WelcomePage() {
                         api.rpc.system.name(),
                         api.rpc.system.version()
                     ]);
+                    setOpen(false);
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}.`);
                     timer = setTimeout(() => {
                         history.push("/allAccounts");
-                    }, 1000);
+                    }, 2000);
                 }
             })()
         } catch (e) {
@@ -42,7 +51,8 @@ export default function WelcomePage() {
         }
 
         return () => {
-            clearTimeout(timer)
+            clearTimeout(timer);
+            clearTimeout(monitor);
         }
     }, [api]);
 
@@ -57,17 +67,22 @@ export default function WelcomePage() {
     return (
         <Wrapper>
             <Grid container direction="column" alignItems="center" style={{height: "100%"}}>
-                <Grid item>
+                <Grid item style={{marginTop: '5vmin'}}>
                     <img src={Logo} className="App-logo" alt="logo"/>
                 </Grid>
                 {
                     title === "" ?
                         <Grid item className={classes.process}>
                             <CircularProgress size={20} color={'inherit'}/>
+                            <Collapse in={open}>
+                                <Alert severity="info" style={{marginTop: '30px'}}>
+                                    It may take longer than expected, but it will be worth it!
+                                </Alert>
+                            </Collapse>
                         </Grid>
                         :
                         <Grid item className={classes.process}>
-                            <Typography style={{textAlign: "center", color: 'rgba(16,16,16,.5)'}}>{title}</Typography>
+                            <Typography style={{textAlign: "center", color: 'rgba(16,16,16,.5)', fontSize: '0.875rem'}}>{title}</Typography>
                         </Grid>
                 }
             </Grid>
@@ -78,7 +93,11 @@ export default function WelcomePage() {
 
 const useStyles = makeStyles({
     process: {
-        marginTop: '5vmin'
-    },
+        marginTop: '5vmin',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 

@@ -94,7 +94,7 @@ const useStyles = makeStyles(theme => ({
     center: {
         flex: '1',
         border: '1px dashed #F4F4F4',
-        margin: '0 15px 15px',
+        margin: '0 30px 15px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

@@ -6,7 +6,7 @@
     "setting": "设置",
     "language": "多语言",
     "terms": "用户协议",
-    "createWallet": "新建钱包",
+    "createWallet": "创建钱包",
     "importWallet": "导入钱包"
   },
   "Btn": {
@@ -17,5 +17,20 @@
   },
   "AllWallets": {
     "noWallet": "还没有账户!"
+  },
+  "CreateWallet": {
+    "pwdHelper": "This password will be used as the transaction password for the wallet.",
+    "walletName": "钱包名称",
+    "enterName": "",
+    "password": "钱包密码",
+    "enterPassword": "",
+    "pwd": "确认密码",
+    "confirmPwd": "",
+    "step1": "设置",
+    "step2": "备份",
+    "step3": "创建",
+    "next": "下一步",
+    "back": "上一步",
+    "create": "创建"
   }
 }
