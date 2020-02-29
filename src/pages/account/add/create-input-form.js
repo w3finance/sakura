@@ -116,6 +116,8 @@ function MnemonicForm() {
             <TextField id="outlined-basic"
                        variant="outlined"
                        helperText={t('CreateWallet.backupTip')}
+                       multiline
+                       rows="2"
                        InputProps={{
                            readOnly: true,
                        }}
@@ -137,6 +139,8 @@ function ConfirmMnemonicForm() {
             <TextField id="outlined-basic"
                        variant="outlined"
                        helperText={t('CreateWallet.backupTip')}
+                       multiline
+                       rows="2"
                        InputProps={{
                            readOnly: false,
                        }}
