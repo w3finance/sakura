@@ -31,6 +31,9 @@
     "step3": "Create Wallet",
     "next": "Next",
     "back": "Back",
-    "create": "Create"
+    "create": "Create",
+    "generatedMnemonic": "New mnemonic generated",
+    "inputMnemonic": "Confirm your Mnemonic",
+    "backupTip": "* Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!"
   }
 }

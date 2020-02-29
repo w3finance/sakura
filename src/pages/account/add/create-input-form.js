@@ -2,48 +2,38 @@ import React, {useState} from "react";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
+import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {useTranslation} from "react-i18next";
 
-const assets = ["Polkadot", "Kusama"];
+const chains = ["Polkadot", "Kusama"];
 const keypairs = ["ed25519", "sr25519"];
 
-export default function CreateInputForm(props) {
+function CreateInputForm(props) {
+    const { errors, formValues } = props;
     const classes = useStyles();
     const {t} = useTranslation();
-    const [values, setValues] = useState({
-        asset: "Polkadot",
-        keypair: "ed25519",
-        name: "",
-        password: "",
-        pwd: "",
-        error: false
-    });
+    const [values, setValues] = useState(formValues);
 
     const handleChange = prop => event => {
         setValues({...values, [prop]: event.target.value});
-    };
-
-    const checkPwd = () => {
-        if (values.password !== values.pwd) {
-            setValues({...values, ["error"]: true});
-        }
     };
 
     return (
         <Box className={classes.box}>
             <Box className={classes.item}>
                 <TextField
-                    id="select-asset"
+                    id="select-chain"
                     select
                     required
                     label="Select Wallet Type"
-                    value={values.asset}
-                    onChange={handleChange('asset')}
+                    value={values.chain}
+                    onChange={handleChange('chain')}
+                    inputRef={props.chainRef}
                     margin="normal"
                     className={classes.select}
                 >
-                    {assets.map(option => (
+                    {chains.map(option => (
                         <MenuItem key={option} value={option}>
                             {option}
                         </MenuItem>
@@ -56,6 +46,7 @@ export default function CreateInputForm(props) {
                     label="Select Crypto Type"
                     value={values.keypair}
                     onChange={handleChange('keypair')}
+                    inputRef={props.keypairRef}
                     margin="normal"
                     className={classes.select}
                 >
@@ -66,7 +57,8 @@ export default function CreateInputForm(props) {
                     ))}
                 </TextField>
             </Box>
-            <TextField id="outlined-basic"
+            <TextField id="name-basic"
+                       error={Boolean(errors.name)}
                        required
                        multiline
                        label={t('CreateWallet.walletName')}
@@ -74,36 +66,81 @@ export default function CreateInputForm(props) {
                        InputLabelProps={{
                            shrink: true,
                        }}
+                       inputRef={props.nameRef}
                        margin="normal"
                        className={classes.textField}
                        value={values.name}
                        onChange={handleChange('name')}
             />
-
-            <TextField id="outlined-basic"
+            <TextField id="password-basic"
+                       error={Boolean(errors.password)}
                        required
                        label={t('CreateWallet.password')}
                        placeholder={t('CreateWallet.enterPassword')}
                        InputLabelProps={{
                            shrink: true,
                        }}
+                       inputRef={props.passwordRef}
                        margin="normal"
                        className={classes.textField}
                        value={values.password}
                        onChange={handleChange('password')}
             />
-            <TextField id="outlined-basic"
+            <TextField id="pwd-basic"
+                       error={Boolean(errors.pwd)}
                        required
-                       error={values.error}
                        label={t('CreateWallet.pwd')}
                        placeholder={t('CreateWallet.confirmPwd')}
                        InputLabelProps={{
                            shrink: true,
                        }}
+                       inputRef={props.pwdRef}
                        margin="normal"
                        className={classes.textField}
                        value={values.pwd}
                        onChange={handleChange('pwd')}
+            />
+        </Box>
+    )
+}
+
+function MnemonicForm() {
+    const classes = useStyles();
+    const {t} = useTranslation();
+
+    return (
+        <Box className={classes.box}>
+            <Box className={classes.tip}>
+                {t('CreateWallet.generatedMnemonic')}
+            </Box>
+            <TextField id="outlined-basic"
+                       variant="outlined"
+                       helperText={t('CreateWallet.backupTip')}
+                       InputProps={{
+                           readOnly: true,
+                       }}
+                       className={classes.textField}
+            />
+        </Box>
+    )
+}
+
+function ConfirmMnemonicForm() {
+    const classes = useStyles();
+    const {t} = useTranslation();
+
+    return (
+        <Box className={classes.box}>
+            <Box className={classes.tip}>
+                {t('CreateWallet.inputMnemonic')}
+            </Box>
+            <TextField id="outlined-basic"
+                       variant="outlined"
+                       helperText={t('CreateWallet.backupTip')}
+                       InputProps={{
+                           readOnly: false,
+                       }}
+                       className={classes.textField}
             />
         </Box>
     )
@@ -118,14 +155,21 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center'
     },
     item: {
-        width: 580,
+        width: 550,
         display: 'flex',
         justifyContent: 'space-between',
     },
     select: {
-        width: 270
+        width: 255
     },
     textField: {
-        width: 580,
+        width: 550,
+        margin: theme.spacing(1)
+    },
+    tip: {
+        width: 550,
+        fontSize: '0.875rem',
     }
 }));
+
+export {CreateInputForm, MnemonicForm , ConfirmMnemonicForm}

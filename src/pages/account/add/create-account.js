@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {Wrapper} from "../../../components/Layout";
 import Header from "../../../components/Header";
 import {useHistory} from "react-router-dom";
@@ -9,26 +9,61 @@ import Button from '@material-ui/core/Button';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import CreateInputForm from "./create-input-form";
+import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-input-form";
 
 export default function CreateAccount() {
-    const history = useHistory();
     const {t} = useTranslation();
+    const history = useHistory();
     const classes = useStyles();
-    const [activeStep, setActiveStep] = useState(0);
-
     const steps = [t('CreateWallet.step1'), t('CreateWallet.step2'), t('CreateWallet.step3')];
+    const chainRef = useRef();
+    const keypairRef = useRef();
+    const nameRef = useRef();
+    const passwordRef = useRef();
+    const pwdRef = useRef();
+    const [activeStep, setActiveStep] = useState(0);
+    const [errors, setErrors] = useState({});
+    const [values, setValues] = useState({
+        chain: "Polkadot",
+        keypair: "ed25519",
+        name: "",
+        password: "",
+        pwd: "",
+    });
 
     function back() {
         history.goBack();
     }
 
     const handleNext = () => {
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
+        if (activeStep === 0) {//Account Settings
+            validate();
+        } else if (activeStep === 1) {//Backup
+            setActiveStep(prevActiveStep => prevActiveStep + 1);
+        } else {//Create
+            back()
+        }
     };
 
     const handleBack = () => {
         setActiveStep(prevActiveStep => prevActiveStep - 1);
+    };
+
+    const validateFormValues = formValidation();
+    const validate = () => {
+        const formValues = {
+            chain: chainRef.current.value,
+            keypair: keypairRef.current.value,
+            name: nameRef.current.value,
+            password: passwordRef.current.value,
+            pwd: pwdRef.current.value
+        };
+        const validation = validateFormValues(formValues);
+        setValues(formValues);
+        setErrors(validation.errors);
+        if (validation.success) {
+            setActiveStep(prevActiveStep => prevActiveStep + 1);
+        }
     };
 
     return (
@@ -36,7 +71,15 @@ export default function CreateAccount() {
             <Header lfIcon bg title={t('Title.createWallet')} goBack={back}/>
             <Box className={classes.container}>
                 {
-                    activeStep === 0 ? <CreateInputForm/> : null
+                    activeStep === 0 ? <CreateInputForm chainRef={chainRef}
+                                                        keypairRef={keypairRef}
+                                                        nameRef={nameRef}
+                                                        passwordRef={passwordRef}
+                                                        pwdRef={pwdRef}
+                                                        errors={errors}
+                                                        formValues={values}/>
+                                                        :
+                        ( activeStep === 1 ? <MnemonicForm/> : <ConfirmMnemonicForm/> )
                 }
             </Box>
             <Box className={classes.footer}>
@@ -68,6 +111,23 @@ export default function CreateAccount() {
             </Box>
         </Wrapper>
     )
+}
+
+function formValidation() {
+    return function validateFormValues(values) {
+        const errors = {};
+        if (values.name === "") {
+            errors.name = "no-account-name"
+        }
+        if (values.password === "") {
+            errors.password = "no-password"
+        }
+        if (values.pwd === "" || values.password !== values.pwd) {
+            errors.pwd = "password-no-match"
+        }
+        const success = Object.keys(errors).length === 0;
+        return { errors, success }
+    }
 }
 
 const useStyles = makeStyles(theme => ({

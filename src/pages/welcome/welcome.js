@@ -75,7 +75,7 @@ export default function WelcomePage() {
                         <Grid item className={classes.process}>
                             <CircularProgress size={20} color={'inherit'}/>
                             <Collapse in={open}>
-                                <Alert severity="info" style={{marginTop: '30px'}}>
+                                <Alert severity="info" style={{marginTop: '30px'}} onClose={() => {setOpen(false)}}>
                                     It may take longer than expected, but it will be worth it!
                                 </Alert>
                             </Collapse>
