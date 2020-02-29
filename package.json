@@ -33,6 +33,8 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.44",
     "@polkadot/api": "1.4.1",
+    "@polkadot/keyring": "^2.5.1",
+    "@polkadot/util-crypto": "^2.5.1",
     "electron": "8.0.0",
     "electron-builder": "^21.2.0",
     "i18next": "^19.0.3",

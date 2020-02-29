@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {useTranslation} from "react-i18next";
 
@@ -10,7 +9,7 @@ const chains = ["Polkadot", "Kusama"];
 const keypairs = ["ed25519", "sr25519"];
 
 function CreateInputForm(props) {
-    const { errors, formValues } = props;
+    const {errors, formValues} = props;
     const classes = useStyles();
     const {t} = useTranslation();
     const [values, setValues] = useState(formValues);
@@ -104,20 +103,22 @@ function CreateInputForm(props) {
     )
 }
 
-function MnemonicForm() {
+function MnemonicForm(props) {
+    const {seed} = props;
     const classes = useStyles();
     const {t} = useTranslation();
 
     return (
         <Box className={classes.box}>
             <Box className={classes.tip}>
-                {t('CreateWallet.generatedMnemonic')}
+                {t('CreateWallet.backupMnemonic')}
             </Box>
             <TextField id="outlined-basic"
                        variant="outlined"
                        helperText={t('CreateWallet.backupTip')}
                        multiline
                        rows="2"
+                       value={seed ? seed : ""}
                        InputProps={{
                            readOnly: true,
                        }}
@@ -127,20 +128,24 @@ function MnemonicForm() {
     )
 }
 
-function ConfirmMnemonicForm() {
+function ConfirmMnemonicForm(props) {
+    const {errors} = props;
     const classes = useStyles();
     const {t} = useTranslation();
 
     return (
         <Box className={classes.box}>
             <Box className={classes.tip}>
-                {t('CreateWallet.inputMnemonic')}
+                {t('CreateWallet.confirmMnemonic')}
             </Box>
             <TextField id="outlined-basic"
+                       error={Boolean(errors.seed)}
+                       autoFocus={true}
                        variant="outlined"
                        helperText={t('CreateWallet.backupTip')}
                        multiline
                        rows="2"
+                       inputRef={props.seedRef}
                        InputProps={{
                            readOnly: false,
                        }}
@@ -176,4 +181,4 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export {CreateInputForm, MnemonicForm , ConfirmMnemonicForm}
+export {CreateInputForm, MnemonicForm, ConfirmMnemonicForm}

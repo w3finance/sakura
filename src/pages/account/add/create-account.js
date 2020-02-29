@@ -10,6 +10,24 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-input-form";
+import {Keyring} from '@polkadot/api';
+import {mnemonicGenerate} from '@polkadot/util-crypto/mnemonic';
+
+function addressFromSeed(phrase, pairType) {
+    const keyring = new Keyring({type: pairType});
+    keyring.setSS58Format(0x02);
+    return keyring.addFromMnemonic(phrase).address;
+}
+
+function generateAddress(pairType) {
+    const seed = mnemonicGenerate();
+    const address = addressFromSeed(seed, pairType);
+    return {
+        address,
+        seed,
+        pairType
+    };
+}
 
 export default function CreateAccount() {
     const {t} = useTranslation();
@@ -21,6 +39,7 @@ export default function CreateAccount() {
     const nameRef = useRef();
     const passwordRef = useRef();
     const pwdRef = useRef();
+    const seedRef = useRef();
     const [activeStep, setActiveStep] = useState(0);
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
@@ -30,41 +49,55 @@ export default function CreateAccount() {
         password: "",
         pwd: "",
     });
+    const [{address, seed, pairType}, setAddress] = useState({});
 
     function back() {
         history.goBack();
     }
 
     const handleNext = () => {
-        if (activeStep === 0) {//Account Settings
+        if (activeStep === 0) {// Account Settings
             validate();
-        } else if (activeStep === 1) {//Backup
+        } else if (activeStep === 1) {// Backup
             setActiveStep(prevActiveStep => prevActiveStep + 1);
-        } else {//Create
-            back()
+        } else {// Create
+            if (seedRef.current['value'] && seedRef.current['value'] !== seed) {
+                setErrors({seed: "seed-no-match"});
+            } else {
+                // TODO: Create Account
+                back();
+            }
         }
     };
 
     const handleBack = () => {
+        if (activeStep !== 2) {
+            setAddress(generateAddress(values.keypair));
+        }
+        if (activeStep === 2 && Boolean(errors.seed)) {
+            delete errors.seed;
+        }
         setActiveStep(prevActiveStep => prevActiveStep - 1);
     };
 
     const validateFormValues = formValidation();
     const validate = () => {
         const formValues = {
-            chain: chainRef.current.value,
-            keypair: keypairRef.current.value,
-            name: nameRef.current.value,
-            password: passwordRef.current.value,
-            pwd: pwdRef.current.value
+            chain: chainRef.current['value'],
+            keypair: keypairRef.current['value'],
+            name: nameRef.current['value'],
+            password: passwordRef.current['value'],
+            pwd: pwdRef.current['value']
         };
         const validation = validateFormValues(formValues);
         setValues(formValues);
         setErrors(validation.errors);
         if (validation.success) {
+            setAddress(generateAddress(values.keypair));
             setActiveStep(prevActiveStep => prevActiveStep + 1);
         }
     };
+
 
     return (
         <Wrapper>
@@ -78,8 +111,9 @@ export default function CreateAccount() {
                                                         pwdRef={pwdRef}
                                                         errors={errors}
                                                         formValues={values}/>
-                                                        :
-                        ( activeStep === 1 ? <MnemonicForm/> : <ConfirmMnemonicForm/> )
+                        :
+                        (activeStep === 1 ? <MnemonicForm seed={seed}/> : <ConfirmMnemonicForm seedRef={seedRef}
+                                                                                               errors={errors}/>)
                 }
             </Box>
             <Box className={classes.footer}>
@@ -126,7 +160,7 @@ function formValidation() {
             errors.pwd = "password-no-match"
         }
         const success = Object.keys(errors).length === 0;
-        return { errors, success }
+        return {errors, success}
     }
 }
 

@@ -32,8 +32,8 @@
     "next": "Next",
     "back": "Back",
     "create": "Create",
-    "generatedMnemonic": "New mnemonic generated",
-    "inputMnemonic": "Confirm your Mnemonic",
+    "backupMnemonic": "Backup Mnemonic Phrase",
+    "confirmMnemonic": "Confirm Mnemonic",
     "backupTip": "* Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!"
   }
 }
