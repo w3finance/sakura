@@ -13,18 +13,36 @@ import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-input
 import {Keyring} from '@polkadot/api';
 import {mnemonicGenerate} from '@polkadot/util-crypto/mnemonic';
 
-function addressFromSeed(phrase, pairType) {
-    const keyring = new Keyring({type: pairType});
-    keyring.setSS58Format(0x02);
+const keyringed = new Keyring({type: "ed25519"});
+const keyringsr = new Keyring({type: "sr25519"});
+
+function addressFromPhrase(phrase, type, pairType) {
+    let keyring;
+    if (pairType === "ed25519") {
+        keyring = keyringed;
+    }else {
+        keyring = keyringsr;
+    }
+
+    switch (type) {
+        case 'Polkadot':
+            keyring.setSS58Format(0x00);
+            break;
+        case 'Kusama':
+            keyring.setSS58Format(0x02);
+            break;
+        default:
+            break;
+    }
     return keyring.addFromMnemonic(phrase).address;
 }
 
-function generateAddress(pairType) {
-    const seed = mnemonicGenerate();
-    const address = addressFromSeed(seed, pairType);
+function generateAddress(type, pairType) {
+    const phrase = mnemonicGenerate();
+    const address = addressFromPhrase(phrase, type, pairType);
     return {
         address,
-        seed,
+        phrase,
         pairType
     };
 }
@@ -34,22 +52,22 @@ export default function CreateAccount() {
     const history = useHistory();
     const classes = useStyles();
     const steps = [t('CreateWallet.step1'), t('CreateWallet.step2'), t('CreateWallet.step3')];
-    const chainRef = useRef();
+    const typeRef = useRef();
     const keypairRef = useRef();
     const nameRef = useRef();
     const passwordRef = useRef();
     const pwdRef = useRef();
-    const seedRef = useRef();
+    const phraseRef = useRef();
     const [activeStep, setActiveStep] = useState(0);
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
-        chain: "Polkadot",
+        type: "Polkadot",
         keypair: "ed25519",
         name: "",
         password: "",
         pwd: "",
     });
-    const [{address, seed, pairType}, setAddress] = useState({});
+    const [{address, phrase, pairType}, setAddress] = useState({});
 
     function back() {
         history.goBack();
@@ -61,8 +79,8 @@ export default function CreateAccount() {
         } else if (activeStep === 1) {// Backup
             setActiveStep(prevActiveStep => prevActiveStep + 1);
         } else {// Create
-            if (seedRef.current['value'] && seedRef.current['value'] !== seed) {
-                setErrors({seed: "seed-no-match"});
+            if (phraseRef.current['value'] === "" || phraseRef.current['value'] !== phrase) {
+                setErrors({phrase: "phrase-no-match"});
             } else {
                 // TODO: Create Account
                 back();
@@ -71,11 +89,8 @@ export default function CreateAccount() {
     };
 
     const handleBack = () => {
-        if (activeStep !== 2) {
-            setAddress(generateAddress(values.keypair));
-        }
-        if (activeStep === 2 && Boolean(errors.seed)) {
-            delete errors.seed;
+        if (activeStep === 2 && Boolean(errors.phrase)) {
+            delete errors.phrase;
         }
         setActiveStep(prevActiveStep => prevActiveStep - 1);
     };
@@ -83,17 +98,18 @@ export default function CreateAccount() {
     const validateFormValues = formValidation();
     const validate = () => {
         const formValues = {
-            chain: chainRef.current['value'],
+            type: typeRef.current['value'],
             keypair: keypairRef.current['value'],
             name: nameRef.current['value'],
             password: passwordRef.current['value'],
             pwd: pwdRef.current['value']
         };
-        const validation = validateFormValues(formValues);
         setValues(formValues);
+        const validation = validateFormValues(formValues);
         setErrors(validation.errors);
         if (validation.success) {
-            setAddress(generateAddress(values.keypair));
+            console.log(typeRef.current['value']+values.type);
+            setAddress(generateAddress(typeRef.current['value'],values.keypair));
             setActiveStep(prevActiveStep => prevActiveStep + 1);
         }
     };
@@ -104,7 +120,7 @@ export default function CreateAccount() {
             <Header lfIcon bg title={t('Title.createWallet')} goBack={back}/>
             <Box className={classes.container}>
                 {
-                    activeStep === 0 ? <CreateInputForm chainRef={chainRef}
+                    activeStep === 0 ? <CreateInputForm typeRef={typeRef}
                                                         keypairRef={keypairRef}
                                                         nameRef={nameRef}
                                                         passwordRef={passwordRef}
@@ -112,7 +128,7 @@ export default function CreateAccount() {
                                                         errors={errors}
                                                         formValues={values}/>
                         :
-                        (activeStep === 1 ? <MnemonicForm seed={seed}/> : <ConfirmMnemonicForm seedRef={seedRef}
+                        (activeStep === 1 ? <MnemonicForm phrase={phrase} address={address}/> : <ConfirmMnemonicForm phraseRef={phraseRef}
                                                                                                errors={errors}/>)
                 }
             </Box>

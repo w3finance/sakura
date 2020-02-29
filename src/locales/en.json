@@ -27,13 +27,15 @@
     "pwd": "Confirm Password",
     "confirmPwd": "Confirm your password",
     "step1": "Wallet Settings",
-    "step2": "Backup Wallet",
-    "step3": "Create Wallet",
+    "step2": "Backup Mnemonic",
+    "step3": "Confirm Mnemonic",
     "next": "Next",
     "back": "Back",
     "create": "Create",
+    "address": "Address",
     "backupMnemonic": "Backup Mnemonic Phrase",
     "confirmMnemonic": "Confirm Mnemonic",
+    "enterMnemonic": "Enter mnemonic phrases",
     "backupTip": "* Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!"
   }
 }

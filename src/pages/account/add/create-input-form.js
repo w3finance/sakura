@@ -4,8 +4,10 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import {makeStyles} from '@material-ui/core/styles';
 import {useTranslation} from "react-i18next";
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from "@material-ui/lab/AlertTitle";
 
-const chains = ["Polkadot", "Kusama"];
+const types = ["Polkadot", "Kusama"];
 const keypairs = ["ed25519", "sr25519"];
 
 function CreateInputForm(props) {
@@ -22,17 +24,17 @@ function CreateInputForm(props) {
         <Box className={classes.box}>
             <Box className={classes.item}>
                 <TextField
-                    id="select-chain"
+                    id="select-type"
                     select
                     required
                     label="Select Wallet Type"
-                    value={values.chain}
-                    onChange={handleChange('chain')}
-                    inputRef={props.chainRef}
+                    value={values.type}
+                    onChange={handleChange('type')}
+                    inputRef={props.typeRef}
                     margin="normal"
                     className={classes.select}
                 >
-                    {chains.map(option => (
+                    {types.map(option => (
                         <MenuItem key={option} value={option}>
                             {option}
                         </MenuItem>
@@ -104,7 +106,7 @@ function CreateInputForm(props) {
 }
 
 function MnemonicForm(props) {
-    const {seed} = props;
+    const {address,phrase} = props;
     const classes = useStyles();
     const {t} = useTranslation();
 
@@ -118,12 +120,16 @@ function MnemonicForm(props) {
                        helperText={t('CreateWallet.backupTip')}
                        multiline
                        rows="2"
-                       value={seed ? seed : ""}
+                       value={phrase ? phrase : ""}
                        InputProps={{
                            readOnly: true,
                        }}
                        className={classes.textField}
             />
+            <Alert severity="success" style={{marginTop: 20}}>
+                <AlertTitle>Address</AlertTitle>
+                {address}
+            </Alert>
         </Box>
     )
 }
@@ -139,13 +145,14 @@ function ConfirmMnemonicForm(props) {
                 {t('CreateWallet.confirmMnemonic')}
             </Box>
             <TextField id="outlined-basic"
-                       error={Boolean(errors.seed)}
+                       error={Boolean(errors.phrase)}
                        autoFocus={true}
                        variant="outlined"
                        helperText={t('CreateWallet.backupTip')}
                        multiline
                        rows="2"
-                       inputRef={props.seedRef}
+                       inputRef={props.phraseRef}
+                       placeholder={t('CreateWallet.enterMnemonic')}
                        InputProps={{
                            readOnly: false,
                        }}
