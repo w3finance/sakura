@@ -114,6 +114,10 @@ export default function CreateAccount() {
         }
     };
 
+    const refresh = () => {
+        setAddress(generateAddress(values.type,values.keypair))
+    };
+
 
     return (
         <Wrapper>
@@ -128,8 +132,11 @@ export default function CreateAccount() {
                                                         errors={errors}
                                                         formValues={values}/>
                         :
-                        (activeStep === 1 ? <MnemonicForm phrase={phrase} address={address}/> : <ConfirmMnemonicForm phraseRef={phraseRef}
-                                                                                               errors={errors}/>)
+                        (activeStep === 1 ? <MnemonicForm phrase={phrase}
+                                                          address={address}
+                                                          refresh={refresh}/>
+                                                          :
+                            <ConfirmMnemonicForm phraseRef={phraseRef} errors={errors}/>)
                 }
             </Box>
             <Box className={classes.footer}>

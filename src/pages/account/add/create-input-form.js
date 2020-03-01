@@ -5,7 +5,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {makeStyles} from '@material-ui/core/styles';
 import {useTranslation} from "react-i18next";
 import Alert from '@material-ui/lab/Alert';
-import AlertTitle from "@material-ui/lab/AlertTitle";
+import IconButton from '@material-ui/core/IconButton';
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 const types = ["Polkadot", "Kusama"];
 const keypairs = ["ed25519", "sr25519"];
@@ -101,33 +102,73 @@ function CreateInputForm(props) {
                        value={values.pwd}
                        onChange={handleChange('pwd')}
             />
+            {/*<RedditTextField id="name-basic"*/}
+            {/*                 error={Boolean(errors.name)}*/}
+            {/*                 variant="filled"*/}
+            {/*                 label={t('CreateWallet.walletName')}*/}
+            {/*                 placeholder={t('CreateWallet.enterName')}*/}
+            {/*                 inputProps={{'aria-label': 'naked'}}*/}
+            {/*                 inputRef={props.nameRef}*/}
+            {/*                 margin="normal"*/}
+            {/*                 className={classes.textField}*/}
+            {/*                 value={values.name}*/}
+            {/*                 onChange={handleChange('name')}*/}
+            {/*/>*/}
+            {/*<RedditTextField id="password-basic"*/}
+            {/*                 error={Boolean(errors.password)}*/}
+            {/*                 variant="filled"*/}
+            {/*                 label={t('CreateWallet.password')}*/}
+            {/*                 placeholder={t('CreateWallet.enterPassword')}*/}
+            {/*                 inputProps={{'aria-label': 'naked'}}*/}
+            {/*                 inputRef={props.passwordRef}*/}
+            {/*                 margin="normal"*/}
+            {/*                 className={classes.textField}*/}
+            {/*                 value={values.password}*/}
+            {/*                 onChange={handleChange('password')}*/}
+            {/*/>*/}
+            {/*<RedditTextField id="pwd-basic"*/}
+            {/*                 error={Boolean(errors.pwd)}*/}
+            {/*                 variant="filled"*/}
+            {/*                 label={t('CreateWallet.pwd')}*/}
+            {/*                 placeholder={t('CreateWallet.confirmPwd')}*/}
+            {/*                 inputProps={{'aria-label': 'naked'}}*/}
+            {/*                 inputRef={props.pwdRef}*/}
+            {/*                 margin="normal"*/}
+            {/*                 className={classes.textField}*/}
+            {/*                 value={values.pwd}*/}
+            {/*                 onChange={handleChange('pwd')}*/}
+            {/*/>*/}
         </Box>
     )
 }
 
 function MnemonicForm(props) {
-    const {address,phrase} = props;
+    const {address, phrase, refresh} = props;
     const classes = useStyles();
     const {t} = useTranslation();
 
     return (
         <Box className={classes.box}>
-            <Box className={classes.tip}>
+            <Box className={classes.title}>
                 {t('CreateWallet.backupMnemonic')}
             </Box>
-            <TextField id="outlined-basic"
-                       variant="outlined"
-                       helperText={t('CreateWallet.backupTip')}
-                       multiline
-                       rows="2"
-                       value={phrase ? phrase : ""}
-                       InputProps={{
-                           readOnly: true,
-                       }}
-                       className={classes.textField}
+            <Box className={classes.tip}>
+                {t('CreateWallet.backupTip')}
+            </Box>
+            <RedditTextField id="outlined-basic"
+                             label={t('CreateWallet.mnemonic')}
+                             variant="filled"
+                             multiline
+                             rows="2"
+                             value={phrase ? phrase : ""}
+                             inputProps={{'aria-label': 'naked'}}
+                             className={classes.textField}
             />
-            <Alert severity="success" style={{marginTop: 20}}>
-                <AlertTitle>Address</AlertTitle>
+            <Alert icon={false} severity="info" style={{marginTop: 10}} action={
+                <IconButton aria-label="refresh" size="small" style={{color: 'rgba(13,60,97,.9)'}} onClick={refresh}>
+                    <RefreshIcon/>
+                </IconButton>
+            }>
                 {address}
             </Alert>
         </Box>
@@ -141,25 +182,47 @@ function ConfirmMnemonicForm(props) {
 
     return (
         <Box className={classes.box}>
-            <Box className={classes.tip}>
+            <Box className={classes.title}>
                 {t('CreateWallet.confirmMnemonic')}
             </Box>
-            <TextField id="outlined-basic"
-                       error={Boolean(errors.phrase)}
-                       autoFocus={true}
-                       variant="outlined"
-                       helperText={t('CreateWallet.backupTip')}
-                       multiline
-                       rows="2"
-                       inputRef={props.phraseRef}
-                       placeholder={t('CreateWallet.enterMnemonic')}
-                       InputProps={{
-                           readOnly: false,
-                       }}
-                       className={classes.textField}
+            <Box className={classes.tip}>
+                {t('CreateWallet.backupTip')}
+            </Box>
+            <RedditTextField id="outlined-basic"
+                             label={t('CreateWallet.mnemonic')}
+                             error={Boolean(errors.phrase)}
+                             autoFocus={true}
+                             variant="filled"
+                             multiline
+                             rows="2"
+                             inputProps={{'aria-label': 'naked'}}
+                             inputRef={props.phraseRef}
+                             className={classes.textField}
             />
         </Box>
     )
+}
+
+const useStylesReddit = makeStyles(theme => ({
+    root: {
+        border: '1px solid #e2e2e1',
+        overflow: 'hidden',
+        borderRadius: 4,
+        color: 'rgb(66,66,70)',
+        transition: theme.transitions.create(['border-color']),
+        '&:hover': {
+            backgroundColor: '#FFF',
+        },
+        '&$focused': {
+            backgroundColor: '#FFF',
+        },
+    },
+    focused: {},
+}));
+
+function RedditTextField(props) {
+    const classes = useStylesReddit();
+    return <TextField InputProps={{classes, disableUnderline: true}} {...props} />;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -180,11 +243,16 @@ const useStyles = makeStyles(theme => ({
     },
     textField: {
         width: 550,
-        margin: theme.spacing(1)
+        margin: theme.spacing(1),
+    },
+    title: {
+        width: 550,
+        fontSize: 16,
     },
     tip: {
         width: 550,
-        fontSize: '0.875rem',
+        fontSize: 12,
+        color: 'rgba(16,16,16,.5)'
     }
 }));
 

@@ -20,7 +20,7 @@
   },
   "CreateWallet": {
     "pwdHelper": "This password will be used as the transaction password for the wallet.",
-    "walletName": "显示名称",
+    "walletName": "钱包名称",
     "enterName": "",
     "password": "密码保护",
     "enterPassword": "",
@@ -35,7 +35,7 @@
     "address": "地址",
     "backupMnemonic": "备份助记词",
     "confirmMnemonic": "确认助记词",
-    "enterMnemonic": "输入助记词",
-    "backupTip": "* 请妥善保管助记词, 拥有助记词等于拥有钱包资产所有权！"
+    "mnemonic": "助记词",
+    "backupTip": "请妥善保管助记词, 拥有助记词等于拥有钱包资产所有权！"
   }
 }

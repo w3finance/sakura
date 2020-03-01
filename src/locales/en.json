@@ -35,7 +35,7 @@
     "address": "Address",
     "backupMnemonic": "Backup Mnemonic Phrase",
     "confirmMnemonic": "Confirm Mnemonic",
-    "enterMnemonic": "Enter mnemonic phrases",
-    "backupTip": "* Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!"
+    "mnemonic": "Mnemonic",
+    "backupTip": "Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!"
   }
 }
