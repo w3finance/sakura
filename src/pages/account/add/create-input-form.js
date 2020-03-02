@@ -27,7 +27,6 @@ function CreateInputForm(props) {
                 <TextField
                     id="select-type"
                     select
-                    required
                     label="Select Wallet Type"
                     value={values.type}
                     onChange={handleChange('type')}
@@ -44,7 +43,6 @@ function CreateInputForm(props) {
                 <TextField
                     id="select-keypair"
                     select
-                    required
                     label="Select Crypto Type"
                     value={values.keypair}
                     onChange={handleChange('keypair')}

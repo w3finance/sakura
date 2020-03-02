@@ -18,7 +18,7 @@ export function SettingsProvider(props) {
             .then(([data]) => {
                 setSettings({...settings, ...data})
             })
-            .catch(e => console.log(e))
+            .catch(e => console.log(e));
     }, []);
 
     const updateSettings = (update) => {

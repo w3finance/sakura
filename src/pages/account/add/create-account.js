@@ -11,7 +11,9 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-input-form";
 import {Keyring} from '@polkadot/api';
-import {mnemonicGenerate} from '@polkadot/util-crypto/mnemonic';
+import {randomAsU8a, mnemonicGenerate} from '@polkadot/util-crypto/';
+// import { isHex, u8aToHex } from '@polkadot/util';
+import {AccountsContext} from "../../../context/accounts"
 
 const keyringed = new Keyring({type: "ed25519"});
 const keyringsr = new Keyring({type: "sr25519"});
@@ -20,7 +22,7 @@ function addressFromPhrase(phrase, type, pairType) {
     let keyring;
     if (pairType === "ed25519") {
         keyring = keyringed;
-    }else {
+    } else {
         keyring = keyringsr;
     }
 
@@ -38,7 +40,8 @@ function addressFromPhrase(phrase, type, pairType) {
 }
 
 function generateAddress(type, pairType) {
-    const phrase = mnemonicGenerate();
+    const phrase = mnemonicGenerate();// FROM助记词
+    // const phrase = u8aToHex(await randomAsU8a());// FROM私钥
     const address = addressFromPhrase(phrase, type, pairType);
     return {
         address,
@@ -68,6 +71,7 @@ export default function CreateAccount() {
         pwd: "",
     });
     const [{address, phrase, pairType}, setAddress] = useState({});
+    const {accounts, createAccount} = React.useContext(AccountsContext);
 
     function back() {
         history.goBack();
@@ -82,9 +86,27 @@ export default function CreateAccount() {
             if (phraseRef.current['value'] === "" || phraseRef.current['value'] !== phrase) {
                 setErrors({phrase: "phrase-no-match"});
             } else {
-                // TODO: Create Account
-                back();
+                // Store Account
+                onCreateAccount().then(() => {
+                    back();
+                });
             }
+        }
+    };
+
+    const onCreateAccount = async () => {
+        try {
+            createAccount({
+                [address]: {
+                    name: values.name,
+                    type: values.type,
+                    keypair: values.keypair,
+                    password: values.password,
+                    phrase: phrase
+                }
+            });
+        } catch (e) {
+            console.log(e)
         }
     };
 
@@ -108,16 +130,14 @@ export default function CreateAccount() {
         const validation = validateFormValues(formValues);
         setErrors(validation.errors);
         if (validation.success) {
-            console.log(typeRef.current['value']+values.type);
-            setAddress(generateAddress(typeRef.current['value'],values.keypair));
+            setAddress(generateAddress(typeRef.current['value'], values.keypair));
             setActiveStep(prevActiveStep => prevActiveStep + 1);
         }
     };
 
     const refresh = () => {
-        setAddress(generateAddress(values.type,values.keypair))
+        setAddress(generateAddress(values.type, values.keypair))
     };
-
 
     return (
         <Wrapper>
@@ -135,7 +155,7 @@ export default function CreateAccount() {
                         (activeStep === 1 ? <MnemonicForm phrase={phrase}
                                                           address={address}
                                                           refresh={refresh}/>
-                                                          :
+                            :
                             <ConfirmMnemonicForm phraseRef={phraseRef} errors={errors}/>)
                 }
             </Box>

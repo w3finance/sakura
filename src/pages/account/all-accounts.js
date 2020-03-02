@@ -63,14 +63,12 @@ function AllAccounts() {
                             key={'import'}
                             icon={<AutorenewIcon onClick={goImport}/>}
                             tooltipTitle={t('Btn.import')}
-                            tooltipOpen
                             onClick={handleClose}
                         />
                         <SpeedDialAction
                             key={'create'}
                             icon={<AddCircleOutlinedIcon onClick={goCreate}/>}
                             tooltipTitle={t('Btn.create')}
-                            tooltipOpen
                             onClick={handleClose}
                         />
                     </SpeedDial>

@@ -12,8 +12,8 @@
   "Btn": {
     "cancel": "取消",
     "ok": "确定",
-    "create": "Create",
-    "import": "Import"
+    "create": "创建钱包",
+    "import": "导入钱包"
   },
   "AllWallets": {
     "noWallet": "还没有账户!"

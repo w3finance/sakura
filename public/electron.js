@@ -103,3 +103,18 @@ expose("StoreSettings", function storeSettings(updatedSettings) {
 expose("AppVersion", function readSettings() {
     return app.getVersion();
 });
+
+////////// Accounts Store //////////
+const AccountsStore = new Store({
+    name: "Accounts",
+});
+
+expose("ReadAccount", function readAccount() {
+    return AccountsStore.has("keys") ? AccountsStore.get("keys") : {};
+});
+
+expose("StoreAccount", function storeAccount(accountData) {
+    const prevAccounts = AccountsStore.has("keys") ? AccountsStore.get("keys") : {};
+    AccountsStore.set("keys", {...prevAccounts, ...accountData});
+    return true
+});

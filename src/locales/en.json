@@ -12,8 +12,8 @@
   "Btn": {
     "cancel": "Cancel",
     "ok": "OK",
-    "create": "Create",
-    "import": "Import"
+    "create": "Create Wallet",
+    "import": "Import Wallet"
   },
   "AllWallets": {
     "noWallet": "No account yet!"
