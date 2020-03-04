@@ -10,10 +10,19 @@ export default function AccountCard(props) {
     return (
         <Box key={address} className={classes.account} style={{background: bg}}>
             <Box className={classes.name}>{account.name}</Box>
-            <Box className={classes.blance}>~ DOT</Box>
+            <Box className={classes.blance}>{`${'~ '+coin(account.type)}`}</Box>
             <Box className={classes.address}>{address}</Box>
         </Box>
     )
+}
+
+function coin(type) {
+    switch (type) {
+        case 'Polkadot':
+            return 'DOT';
+        case 'Kusama':
+            return 'KSM'
+    }
 }
 const useStyles = makeStyles(theme => ({
     account: {
