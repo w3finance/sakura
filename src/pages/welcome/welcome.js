@@ -25,11 +25,17 @@ export default function WelcomePage() {
     useEffect(() => {
         i18n.changeLanguage(language).then(r => console.log(r));
         let timer;
-        let monitor = setTimeout(() => {
+        let tipTimer = setTimeout(() => {
             if (!open) {
                 setOpen(true);
             }
         }, 10000);
+
+        let errorTimer = setTimeout(() => {
+            if (open) {
+                setOpen(false);
+            }
+        }, 60000);
 
         try {
             (async () => {
@@ -52,7 +58,8 @@ export default function WelcomePage() {
 
         return () => {
             clearTimeout(timer);
-            clearTimeout(monitor);
+            clearTimeout(tipTimer);
+            clearTimeout(errorTimer);
         }
     }, [api]);
 

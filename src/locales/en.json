@@ -21,8 +21,8 @@
   "CreateWallet": {
     "pwdHelper": "This password will be used as the transaction password for the wallet.",
     "walletName": "Wallet Name",
-    "enterName": "Enter a name",
-    "password": "Password",
+    "enterName": "Account",
+    "password": "Password Protect",
     "enterPassword": "Enter a password",
     "pwd": "Confirm Password",
     "confirmPwd": "Confirm your password",

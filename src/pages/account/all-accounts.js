@@ -4,19 +4,32 @@ import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import Header from "../../components/Header";
 import {makeStyles} from '@material-ui/core/styles';
+import {AccountsContext} from "../../context/accounts";
 import Settings from "@material-ui/icons/Settings";
-import Typography from "@material-ui/core/Typography";
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
+import Box from "@material-ui/core/Box";
+import AccountCard from "../../components/account/account-card";
+
+function NoAccount() {
+    const classes = useStyles();
+    const {t} = useTranslation();
+    return(
+        <Box className={classes.noAccount}>
+            {t('AllWallets.noWallet')}
+        </Box>
+    )
+}
 
 function AllAccounts() {
     const classes = useStyles();
     const history = useHistory();
     const {t} = useTranslation();
     const [open, setOpen] = useState(false);
+    const {accounts} = React.useContext(AccountsContext);
 
     const handleOpen = () => {
         setOpen(true);
@@ -43,13 +56,22 @@ function AllAccounts() {
                 icon={<Settings style={{color: "rgba(0,0,0.5)"}}/>}
                 onClick={goSetting}
             />
-            <div className={classes.container}>
-                <div className={classes.center}>
-                    <Typography style={{color: 'rgba(16,16,16,.5)'}}>
-                        {t('AllWallets.noWallet')}
-                    </Typography>
-                </div>
-                <div className={classes.footer}>
+            <Box className={classes.container}>
+                <Box className={classes.center}>
+                    {
+                        Object.keys(accounts).length === 0 ? <NoAccount />:
+                            <Box className={classes.accounts}>
+                                    {
+                                        Object.keys(accounts).map((key)=>{
+                                            return(
+                                                <AccountCard key={key} address={key} account={accounts[key]}/>
+                                            )
+                                        })
+                                    }
+                            </Box>
+                    }
+                </Box>
+                <Box className={classes.footer}>
                     <SpeedDial
                         ariaLabel="SpeedDial tooltip example"
                         className={classes.speedDial}
@@ -72,8 +94,8 @@ function AllAccounts() {
                             onClick={handleClose}
                         />
                     </SpeedDial>
-                </div>
-            </div>
+                </Box>
+            </Box>
 
         </Wrapper>
     )
@@ -84,19 +106,30 @@ const useStyles = makeStyles(theme => ({
         background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
     },
     container: {
-        flex: '1',
+        flex: 1,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
     },
     center: {
-        flex: '1',
-        border: '1px dashed #F4F4F4',
-        margin: '0 30px 15px',
+        flex: 1,
+        display: 'flex'
+    },
+    noAccount: {
+        flex: 1,
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        color: 'rgba(16,16,16,.5)'
+    },
+    accounts: {
+        width: 800,
+        height: 430,
+        overflowX: 'hidden',
+        overflowY: 'scroll',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignContent: 'flex-start'
     },
     footer: {
         height: '70px',
@@ -105,7 +138,7 @@ const useStyles = makeStyles(theme => ({
     },
     speedDial: {
         position: 'absolute',
-        bottom: theme.spacing(3),
+        bottom: theme.spacing(2.5),
         left: 0,
         right: 0,
         margin: 'auto'

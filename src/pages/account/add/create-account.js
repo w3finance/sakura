@@ -98,7 +98,7 @@ export default function CreateAccount() {
         try {
             createAccount({
                 [address]: {
-                    name: values.name,
+                    name: values.type + " " + values.name,
                     type: values.type,
                     keypair: values.keypair,
                     password: values.password,

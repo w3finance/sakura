@@ -1,15 +1,20 @@
 import React, {useState} from "react";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from "@material-ui/core/MenuItem";
 import {makeStyles} from '@material-ui/core/styles';
 import {useTranslation} from "react-i18next";
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+import HelpIcon from '@material-ui/icons/Help';
 import RefreshIcon from '@material-ui/icons/Refresh';
 
 const types = ["Polkadot", "Kusama"];
 const keypairs = ["ed25519", "sr25519"];
+const HelpIconWidth = 20;
 
 function CreateInputForm(props) {
     const {errors, formValues} = props;
@@ -40,31 +45,41 @@ function CreateInputForm(props) {
                         </MenuItem>
                     ))}
                 </TextField>
-                <TextField
-                    id="select-keypair"
-                    select
-                    label="Select Crypto Type"
-                    value={values.keypair}
-                    onChange={handleChange('keypair')}
-                    inputRef={props.keypairRef}
-                    margin="normal"
-                    className={classes.select}
-                >
-                    {keypairs.map(option => (
-                        <MenuItem key={option} value={option}>
-                            {option}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                <Grid container alignItems="flex-end" style={{width: 255+HelpIconWidth}}>
+                    <TextField
+                        id="select-keypair"
+                        select
+                        label="Select Crypto Type"
+                        value={values.keypair}
+                        onChange={handleChange('keypair')}
+                        inputRef={props.keypairRef}
+                        margin="normal"
+                        style={{flexGrow: 1}}
+                    >
+                        {keypairs.map(option => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <Grid style={{marginBottom: 8, width: HelpIconWidth}}>
+                        <Tooltip
+                            title={'Determines what cryptography will be used to create this account. Note that to validate on Polkadot, the session account must use "ed25519".'}>
+                            <HelpIcon fontSize={'small'} color={'action'}/>
+                        </Tooltip>
+                    </Grid>
+                </Grid>
             </Box>
             <TextField id="name-basic"
                        error={Boolean(errors.name)}
                        required
-                       multiline
                        label={t('CreateWallet.walletName')}
                        placeholder={t('CreateWallet.enterName')}
                        InputLabelProps={{
                            shrink: true,
+                       }}
+                       InputProps={{
+                           startAdornment: <InputAdornment position="start">{values.type+' -'}</InputAdornment>,
                        }}
                        inputRef={props.nameRef}
                        margin="normal"
@@ -100,42 +115,6 @@ function CreateInputForm(props) {
                        value={values.pwd}
                        onChange={handleChange('pwd')}
             />
-            {/*<RedditTextField id="name-basic"*/}
-            {/*                 error={Boolean(errors.name)}*/}
-            {/*                 variant="filled"*/}
-            {/*                 label={t('CreateWallet.walletName')}*/}
-            {/*                 placeholder={t('CreateWallet.enterName')}*/}
-            {/*                 inputProps={{'aria-label': 'naked'}}*/}
-            {/*                 inputRef={props.nameRef}*/}
-            {/*                 margin="normal"*/}
-            {/*                 className={classes.textField}*/}
-            {/*                 value={values.name}*/}
-            {/*                 onChange={handleChange('name')}*/}
-            {/*/>*/}
-            {/*<RedditTextField id="password-basic"*/}
-            {/*                 error={Boolean(errors.password)}*/}
-            {/*                 variant="filled"*/}
-            {/*                 label={t('CreateWallet.password')}*/}
-            {/*                 placeholder={t('CreateWallet.enterPassword')}*/}
-            {/*                 inputProps={{'aria-label': 'naked'}}*/}
-            {/*                 inputRef={props.passwordRef}*/}
-            {/*                 margin="normal"*/}
-            {/*                 className={classes.textField}*/}
-            {/*                 value={values.password}*/}
-            {/*                 onChange={handleChange('password')}*/}
-            {/*/>*/}
-            {/*<RedditTextField id="pwd-basic"*/}
-            {/*                 error={Boolean(errors.pwd)}*/}
-            {/*                 variant="filled"*/}
-            {/*                 label={t('CreateWallet.pwd')}*/}
-            {/*                 placeholder={t('CreateWallet.confirmPwd')}*/}
-            {/*                 inputProps={{'aria-label': 'naked'}}*/}
-            {/*                 inputRef={props.pwdRef}*/}
-            {/*                 margin="normal"*/}
-            {/*                 className={classes.textField}*/}
-            {/*                 value={values.pwd}*/}
-            {/*                 onChange={handleChange('pwd')}*/}
-            {/*/>*/}
         </Box>
     )
 }
@@ -232,12 +211,13 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center'
     },
     item: {
-        width: 550,
+        width: 550 + HelpIconWidth,
+        marginLeft: HelpIconWidth,
         display: 'flex',
         justifyContent: 'space-between',
     },
     select: {
-        width: 255
+        width: 255,
     },
     textField: {
         width: 550,

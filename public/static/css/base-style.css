@@ -36,3 +36,13 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+::-webkit-scrollbar{
+    width:20px;
+    height:8px;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 12px;
+    border: 6px solid rgba(0, 0, 0, 0);
+    box-shadow: 8px 0 0 #A5ADB7 inset;
+}
