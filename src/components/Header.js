@@ -28,7 +28,7 @@ function Header(props) {
             {
                 lfIcon ?
                     <Grid item className={classes.lfIcon}>
-                        <IconButton style={{backgroundColor: 'transparent'}}
+                        <IconButton aria-label="back" style={{backgroundColor: 'transparent'}}
                                     onClick={goBack}>
                             <ArrowBack style={{color: bg ? '#FFF' : 'rgba(16,16,16,1)'}}/>
                         </IconButton>
@@ -42,7 +42,7 @@ function Header(props) {
                 </Typography>
             </Grid>
             <Grid item className={classes.icon}>
-                <IconButton style={{backgroundColor: 'transparent'}}
+                <IconButton aria-label="settings" style={{backgroundColor: 'transparent'}}
                             onClick={onClick}>
                     {icon ? icon : null}
                 </IconButton>

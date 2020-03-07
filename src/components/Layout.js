@@ -25,11 +25,11 @@ function Drag() {
     )
 }
 
-const Wrapper = React.forwardRef(function Wrapper(props, ref) {
+const Wrapper = React.memo(function Wrapper(props) {
     const {children, style} = props;
     const styles = useStyles();
     return (
-        <div className={styles.wrapper} style={style} ref={ref}>
+        <div className={styles.wrapper} style={style}>
             <>
                 <Drag/>
                 {children}

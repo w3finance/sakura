@@ -21,9 +21,8 @@ export default function WelcomePage() {
     const {i18n} = useTranslation();
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
-
     useEffect(() => {
-        i18n.changeLanguage(language).then(r => console.log(r));
+        i18n.changeLanguage(language).then(() => undefined);
         let timer;
         let tipTimer = setTimeout(() => {
             if (!open) {
@@ -31,15 +30,15 @@ export default function WelcomePage() {
             }
         }, 10000);
 
-        let errorTimer = setTimeout(() => {
-            if (open) {
-                setOpen(false);
-            }
-        }, 60000);
+        // let errorTimer = setTimeout(() => {
+        //     if (open) {
+        //         setOpen(false);
+        //     }
+        // }, 60000);
 
         try {
             (async () => {
-                if (judgeObj(api)) {
+                if (Object.keys(api).length !== 0) {
                     const [chain, nodeName, nodeVersion] = await Promise.all([
                         api.rpc.system.chain(),
                         api.rpc.system.name(),
@@ -59,17 +58,9 @@ export default function WelcomePage() {
         return () => {
             clearTimeout(timer);
             clearTimeout(tipTimer);
-            clearTimeout(errorTimer);
+            // clearTimeout(errorTimer);
         }
     }, [api]);
-
-    function judgeObj(obj) {
-        let attr;
-        for (attr in obj) {
-            return true
-        }
-        return false
-    }
 
     return (
         <Wrapper>

@@ -12,9 +12,11 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 import Box from "@material-ui/core/Box";
-import AccountCard from "../../components/account/account-card";
+import AccountCard from "../../components/account/AccountCard";
+import {useKusamaApi} from "../../hook/kusama";
+import {usePolkadotApi} from "../../hook/polkadot";
 
-function NoAccount() {
+const NoAccount = React.memo(function NoAccount() {
     const classes = useStyles();
     const {t} = useTranslation();
     return(
@@ -22,6 +24,15 @@ function NoAccount() {
             {t('AllWallets.noWallet')}
         </Box>
     )
+});
+
+function areEqual(prevProps, nextProps) {
+    console.log('==='+JSON.stringify(prevProps)+JSON.stringify(nextProps));
+    if (prevProps === nextProps) {
+        return true
+    } else {
+        return false
+    }
 }
 
 function AllAccounts() {
@@ -30,6 +41,8 @@ function AllAccounts() {
     const {t} = useTranslation();
     const [open, setOpen] = useState(false);
     const {accounts} = React.useContext(AccountsContext);
+    const ksmApi = useKusamaApi();
+    const dotApi = usePolkadotApi();
 
     const handleOpen = () => {
         setOpen(true);
@@ -64,7 +77,10 @@ function AllAccounts() {
                                     {
                                         Object.keys(accounts).map((key)=>{
                                             return(
-                                                <AccountCard key={key} address={key} account={accounts[key]}/>
+                                                <AccountCard key={key}
+                                                             api={accounts[key].type === 'Polkadot' ? dotApi : ksmApi}
+                                                             address={key}
+                                                             account={accounts[key]}/>
                                             )
                                         })
                                     }
@@ -145,4 +161,4 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default React.memo(AllAccounts)
+export default React.memo(AllAccounts, areEqual)

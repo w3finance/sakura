@@ -50,7 +50,7 @@ function generateAddress(type, pairType) {
     };
 }
 
-export default function CreateAccount() {
+function CreateAccount() {
     const {t} = useTranslation();
     const history = useHistory();
     const classes = useStyles();
@@ -233,3 +233,5 @@ const useStyles = makeStyles(theme => ({
         margin: '0 20px',
     }
 }));
+
+export default React.memo(CreateAccount)

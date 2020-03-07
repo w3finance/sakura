@@ -1,29 +1,33 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Box from "@material-ui/core/Box";
 import {makeStyles} from '@material-ui/core/styles';
 
-
-export default function AccountCard(props) {
-    const {address, account} = props;
-    const bg = account.type === 'Polkadot' ? '#847EF2' : '#C785ED';
+function AccountCard(props) {
+    const {address, account, api} = props;
     const classes = useStyles();
+    const bg = account.type === 'Polkadot' ? '#847EF2' : '#C785ED';
+    const [balance, setBalance] = useState('0');
+
+    useEffect(() => {
+        (async () => {
+            const prop = await api.properties();
+            const tokenDecimals = Number(prop.get('tokenDecimals'));
+            const tokenUnit = prop.get('tokenSymbol').toString();
+            const obj = await api.freeBalance(address);
+            let str = String((obj / Math.pow(10, tokenDecimals)).toFixed(2)) + ' ' + tokenUnit;
+            setBalance(str);
+        })();
+    }, [address]);
+
     return (
         <Box key={address} className={classes.account} style={{background: bg}}>
             <Box className={classes.name}>{account.name}</Box>
-            <Box className={classes.blance}>{`${'~ '+coin(account.type)}`}</Box>
+            <Box className={classes.balance}>{balance}</Box>
             <Box className={classes.address}>{address}</Box>
         </Box>
     )
 }
 
-function coin(type) {
-    switch (type) {
-        case 'Polkadot':
-            return 'DOT';
-        case 'Kusama':
-            return 'KSM'
-    }
-}
 const useStyles = makeStyles(theme => ({
     account: {
         width: '355px',
@@ -39,7 +43,7 @@ const useStyles = makeStyles(theme => ({
         color: '#FFF',
         fontSize: '14px'
     },
-    blance: {
+    balance: {
         marginLeft: 20,
         marginTop: 30,
         color: '#FFF',
@@ -57,3 +61,5 @@ const useStyles = makeStyles(theme => ({
         fontSize: '14px'
     }
 }));
+
+export default React.memo(AccountCard)
