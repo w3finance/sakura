@@ -16,7 +16,7 @@ const types = ["Polkadot", "Kusama"];
 const keypairs = ["ed25519", "sr25519"];
 const HelpIconWidth = 20;
 
-function CreateInputForm(props) {
+const CreateInputForm = React.memo(function CreateInputForm(props) {
     const {errors, formValues} = props;
     const classes = useStyles();
     const {t} = useTranslation();
@@ -117,9 +117,9 @@ function CreateInputForm(props) {
             />
         </Box>
     )
-}
+});
 
-function MnemonicForm(props) {
+const MnemonicForm = React.memo(function MnemonicForm(props) {
     const {address, phrase, refresh} = props;
     const classes = useStyles();
     const {t} = useTranslation();
@@ -150,9 +150,9 @@ function MnemonicForm(props) {
             </Alert>
         </Box>
     )
-}
+});
 
-function ConfirmMnemonicForm(props) {
+const ConfirmMnemonicForm = React.memo(function ConfirmMnemonicForm(props) {
     const {errors} = props;
     const classes = useStyles();
     const {t} = useTranslation();
@@ -178,7 +178,7 @@ function ConfirmMnemonicForm(props) {
             />
         </Box>
     )
-}
+});
 
 const useStylesReddit = makeStyles(theme => ({
     root: {

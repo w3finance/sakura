@@ -34,8 +34,8 @@ export function useKusamaApi() {
             return new Promise(function (resolve, reject) {
                 try {
                     ;(async () => {
-                        const apis = await getApi();
-                        const balance = await apis.query.balances.freeBalance(address);
+                        const API = await getApi();
+                        const balance = await API.query.balances.freeBalance(address);
                         resolve(balance)
                     })()
                 } catch (error) {
@@ -48,8 +48,8 @@ export function useKusamaApi() {
             return new Promise(function (resolve, reject) {
                 try {
                     ;(async () => {
-                        const apis = await getApi();
-                        const p = await apis.rpc.system.properties();
+                        const API = await getApi();
+                        const p = await API.rpc.system.properties();
                         resolve(p)
                     })()
                 } catch (error) {
