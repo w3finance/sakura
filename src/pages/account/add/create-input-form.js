@@ -12,8 +12,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HelpIcon from '@material-ui/icons/Help';
 import RefreshIcon from '@material-ui/icons/Refresh';
 
-const types = ["Polkadot", "Kusama"];
-const keypairs = ["ed25519", "sr25519"];
+const types = ["Kusama"];
+const keypairs = ["sr25519", "ed25519"];
 const HelpIconWidth = 20;
 
 const CreateInputForm = React.memo(function CreateInputForm(props) {
@@ -31,6 +31,7 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
             <Box className={classes.item}>
                 <TextField
                     id="select-type"
+                    variant="filled"
                     select
                     label="Select Wallet Type"
                     value={values.type}
@@ -45,9 +46,10 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
                         </MenuItem>
                     ))}
                 </TextField>
-                <Grid container alignItems="flex-end" style={{width: 255+HelpIconWidth}}>
+                <Grid container alignItems="flex-end" style={{width: 255 + HelpIconWidth}}>
                     <TextField
                         id="select-keypair"
+                        variant="filled"
                         select
                         label="Select Crypto Type"
                         value={values.keypair}
@@ -62,9 +64,9 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
                             </MenuItem>
                         ))}
                     </TextField>
-                    <Grid style={{marginBottom: 8, width: HelpIconWidth}}>
+                    <Grid style={{marginBottom: 20, marginLeft: 5, width: HelpIconWidth}}>
                         <Tooltip
-                            title={'Determines what cryptography will be used to create this account. Note that to validate on Polkadot, the session account must use "ed25519".'}>
+                            title={'Note that to validate on Polkadot, the session account should use "ed25519".'}>
                             <HelpIcon fontSize={'small'} color={'action'}/>
                         </Tooltip>
                     </Grid>
@@ -79,7 +81,7 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
                            shrink: true,
                        }}
                        InputProps={{
-                           startAdornment: <InputAdornment position="start">{values.type+' -'}</InputAdornment>,
+                           startAdornment: <InputAdornment position="start">{values.type}</InputAdornment>,
                        }}
                        inputRef={props.nameRef}
                        margin="normal"

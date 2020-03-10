@@ -15,7 +15,7 @@ export function useKusamaApi() {
     const getApi = async () =>
         new Promise(function (resolve, reject) {
             try {
-                ;(async () => {
+                (async () => {
                     if (Object.keys(api).length === 0) {
                         const provider = new WsProvider(ENDPOINT);
                         const ksmApi = await ApiPromise.create({provider: provider});
@@ -33,9 +33,9 @@ export function useKusamaApi() {
         async freeBalance(address) {
             return new Promise(function (resolve, reject) {
                 try {
-                    ;(async () => {
+                    (async () => {
                         const API = await getApi();
-                        const balance = await API.query.balances.freeBalance(address);
+                        const balance = await API.query.system.account(address);
                         resolve(balance)
                     })()
                 } catch (error) {
@@ -47,7 +47,7 @@ export function useKusamaApi() {
         async properties() {
             return new Promise(function (resolve, reject) {
                 try {
-                    ;(async () => {
+                    (async () => {
                         const API = await getApi();
                         const p = await API.rpc.system.properties();
                         resolve(p)

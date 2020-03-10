@@ -8,10 +8,10 @@ import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {makeStyles} from "@material-ui/styles";
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
-import Alert from '@material-ui/lab/Alert';
 import Collapse from '@material-ui/core/Collapse';
+import Alert from '@material-ui/lab/Alert';
 
 export default function WelcomePage() {
     const [title, setTitle] = useState("");
@@ -28,7 +28,7 @@ export default function WelcomePage() {
             if (!open) {
                 setOpen(true);
             }
-        }, 10000);
+        }, 15000);
 
         // let errorTimer = setTimeout(() => {
         //     if (open) {

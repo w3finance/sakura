@@ -14,12 +14,11 @@ import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 import Box from "@material-ui/core/Box";
 import AccountCard from "../../components/account/AccountCard";
 import {useKusamaApi} from "../../hook/kusama";
-import {usePolkadotApi} from "../../hook/polkadot";
 
 const NoAccount = React.memo(function NoAccount() {
     const classes = useStyles();
     const {t} = useTranslation();
-    return(
+    return (
         <Box className={classes.noAccount}>
             {t('AllWallets.noWallet')}
         </Box>
@@ -27,7 +26,7 @@ const NoAccount = React.memo(function NoAccount() {
 });
 
 function areEqual(prevProps, nextProps) {
-    console.log('==='+JSON.stringify(prevProps)+JSON.stringify(nextProps));
+    console.log('===' + JSON.stringify(prevProps) + JSON.stringify(nextProps));
     if (prevProps === nextProps) {
         return true
     } else {
@@ -42,7 +41,6 @@ function AllAccounts() {
     const [open, setOpen] = useState(false);
     const {accounts} = React.useContext(AccountsContext);
     const ksmApi = useKusamaApi();
-    const dotApi = usePolkadotApi();
 
     const handleOpen = () => {
         setOpen(true);
@@ -55,9 +53,11 @@ function AllAccounts() {
     function goSetting() {
         history.push("/setting");
     }
+
     function goCreate() {
         history.push("/createAccount");
     }
+
     function goImport() {
         history.push("/importAccount");
     }
@@ -72,18 +72,18 @@ function AllAccounts() {
             <Box className={classes.container}>
                 <Box className={classes.center}>
                     {
-                        Object.keys(accounts).length === 0 ? <NoAccount />:
+                        Object.keys(accounts).length === 0 ? <NoAccount/> :
                             <Box className={classes.accounts}>
-                                    {
-                                        Object.keys(accounts).map((key)=>{
-                                            return(
-                                                <AccountCard key={key}
-                                                             api={accounts[key].type === 'Polkadot' ? dotApi : ksmApi}
-                                                             address={key}
-                                                             account={accounts[key]}/>
-                                            )
-                                        })
-                                    }
+                                {
+                                    Object.keys(accounts).map((key) => {
+                                        return (
+                                            <AccountCard key={key}
+                                                         api={ksmApi}
+                                                         address={key}
+                                                         account={accounts[key]}/>
+                                        )
+                                    })
+                                }
                             </Box>
                     }
                 </Box>
@@ -91,7 +91,7 @@ function AllAccounts() {
                     <SpeedDial
                         ariaLabel="SpeedDial tooltip example"
                         className={classes.speedDial}
-                        icon={<SpeedDialIcon />}
+                        icon={<SpeedDialIcon/>}
                         onClose={handleClose}
                         onOpen={handleOpen}
                         open={open}
@@ -101,13 +101,17 @@ function AllAccounts() {
                             key={'import'}
                             icon={<AutorenewIcon onClick={goImport}/>}
                             tooltipTitle={t('Btn.import')}
+                            tooltipOpen
                             onClick={handleClose}
+                            classes={{staticTooltipLabel: classes.staticTooltipLabel}}
                         />
                         <SpeedDialAction
                             key={'create'}
                             icon={<AddCircleOutlinedIcon onClick={goCreate}/>}
                             tooltipTitle={t('Btn.create')}
+                            tooltipOpen
                             onClick={handleClose}
+                            classes={{staticTooltipLabel: classes.staticTooltipLabel}}
                         />
                     </SpeedDial>
                 </Box>
@@ -118,8 +122,8 @@ function AllAccounts() {
 }
 
 const useStyles = makeStyles(theme => ({
-    button: {
-        background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+    staticTooltipLabel: {
+        whiteSpace: 'nowrap',
     },
     container: {
         flex: 1,
@@ -151,6 +155,7 @@ const useStyles = makeStyles(theme => ({
         height: '70px',
         display: 'flex',
         justifyContent: 'center',
+        position: 'relative'
     },
     speedDial: {
         position: 'absolute',

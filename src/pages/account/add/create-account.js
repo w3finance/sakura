@@ -9,21 +9,21 @@ import Button from '@material-ui/core/Button';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import MobileStepper from '@material-ui/core/MobileStepper';
 import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-input-form";
 import {Keyring} from '@polkadot/api';
-import {randomAsU8a, mnemonicGenerate} from '@polkadot/util-crypto/';
-// import { isHex, u8aToHex } from '@polkadot/util';
+import {mnemonicGenerate} from '@polkadot/util-crypto/mnemonic';
 import {AccountsContext} from "../../../context/accounts"
 
-const keyringed = new Keyring({type: "ed25519"});
 const keyringsr = new Keyring({type: "sr25519"});
+const keyringed = new Keyring({type: "ed25519"});
 
 function addressFromPhrase(phrase, type, pairType) {
     let keyring;
-    if (pairType === "ed25519") {
-        keyring = keyringed;
-    } else {
+    if (pairType === "sr25519") {
         keyring = keyringsr;
+    } else {
+        keyring = keyringed;
     }
 
     switch (type) {
@@ -64,8 +64,8 @@ function CreateAccount() {
     const [activeStep, setActiveStep] = useState(0);
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
-        type: "Polkadot",
-        keypair: "ed25519",
+        type: "Kusama",
+        keypair: "sr25519",
         name: "",
         password: "",
         pwd: "",
@@ -160,13 +160,21 @@ function CreateAccount() {
                 }
             </Box>
             <Box className={classes.footer}>
-                <Stepper nonLinear activeStep={activeStep} className={classes.stepper}>
-                    {steps.map(label => (
-                        <Step key={label}>
-                            <StepLabel style={{margin: '0 10px'}}>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
+                {/*/!*<Stepper nonLinear activeStep={activeStep} className={classes.stepper}>*!/*/}
+                {/*/!*    {steps.map(label => (*!/*/}
+                {/*/!*        <Step key={label}>*!/*/}
+                {/*/!*            <StepLabel style={{margin: '0 10px'}}>{label}</StepLabel>*!/*/}
+                {/*/!*        </Step>*!/*/}
+                {/*/!*    ))}*!/*/}
+                {/*</Stepper>*/}
+
+                <MobileStepper
+                    variant="dots"
+                    steps={steps.length}
+                    position="static"
+                    activeStep={activeStep}
+                    className={classes.stepper}
+                />
                 <Box className={classes.buttons}>
                     <Button disabled={activeStep === 0}
                             disableElevation

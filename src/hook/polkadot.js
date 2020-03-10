@@ -15,7 +15,7 @@ export function usePolkadotApi() {
     const getApi = async () =>
         new Promise(function (resolve, reject) {
             try {
-                ;(async () => {
+                (async () => {
                     if (Object.keys(api).length === 0) {
                         const provider = new WsProvider(ENDPOINT);
                         const dotApi = await ApiPromise.create({provider: provider});
@@ -33,7 +33,7 @@ export function usePolkadotApi() {
         async freeBalance(address) {
             return new Promise(function (resolve, reject) {
                 try {
-                    ;(async () => {
+                    (async () => {
                         const API = await getApi();
                         const balance = await API.query.balances.freeBalance(address);
                         resolve(balance)
@@ -47,7 +47,7 @@ export function usePolkadotApi() {
         async properties() {
             return new Promise(function (resolve, reject) {
                 try {
-                    ;(async () => {
+                    (async () => {
                         const API = await getApi();
                         const p = await API.rpc.system.properties();
                         resolve(p)

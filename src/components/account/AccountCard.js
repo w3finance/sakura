@@ -5,18 +5,21 @@ import {makeStyles} from '@material-ui/core/styles';
 function AccountCard(props) {
     const {address, account, api} = props;
     const classes = useStyles();
-    const bg = account.type === 'Polkadot' ? '#847EF2' : '#C785ED';
-    const [balance, setBalance] = useState('0');
+    const bg = account.type === 'Kusama' ? '#C785ED' : '#847EF2';
+    const [balance, setBalance] = useState('~');
 
     useEffect(() => {
-        (async () => {
-            const prop = await api.properties();
-            const tokenDecimals = Number(prop.get('tokenDecimals'));
-            const tokenUnit = prop.get('tokenSymbol').toString();
-            const obj = await api.freeBalance(address);
-            let str = String((obj / Math.pow(10, tokenDecimals)).toFixed(2)) + ' ' + tokenUnit;
-            setBalance(str);
-        })();
+        try {
+            (async () => {
+                const {tokenDecimals, tokenSymbol} = await api.properties();
+                const {nonce, data: balance} = await api.freeBalance(address);
+                let fix = (balance.free / Math.pow(10, tokenDecimals)) === 0 ? 0 : 3;
+                let free = String((balance.free / Math.pow(10, tokenDecimals)).toFixed(fix)) + ' ' + tokenSymbol;
+                setBalance(free);
+            })()
+        } catch (e) {
+            console.log(e)
+        }
     }, [address]);
 
     return (
