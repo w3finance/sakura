@@ -6,6 +6,7 @@ export const saveSettings = settingUpdate => Call("StoreSettings", settingUpdate
 
 // App
 export const getAppVersion = () => Call("AppVersion");
+export const copyToClipboard = text => Call("CopyToClipboard", text);
 
 // Accounts
 export const loadAccounts = () => Call("ReadAccount");

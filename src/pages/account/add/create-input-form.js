@@ -3,7 +3,7 @@ import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from "@material-ui/core/MenuItem";
-import {makeStyles} from '@material-ui/core/styles';
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useTranslation} from "react-i18next";
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';

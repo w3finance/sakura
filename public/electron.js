@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain} = require('electron');
+const {app, BrowserWindow, ipcMain, clipboard} = require('electron');
 const path = require('path');
 const url = require('url');
 const Store = require('electron-store');
@@ -102,6 +102,11 @@ expose("StoreSettings", function storeSettings(updatedSettings) {
 ////////// App API //////////
 expose("AppVersion", function readSettings() {
     return app.getVersion();
+});
+
+expose("CopyToClipboard", function copyToClipboard(text) {
+    clipboard.writeText(text);
+    return true
 });
 
 ////////// Accounts Store //////////

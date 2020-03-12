@@ -3,7 +3,7 @@ import {Wrapper} from "../../components/Layout";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import Header from "../../components/Header";
-import {makeStyles} from '@material-ui/core/styles';
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import {AccountsContext} from "../../context/accounts";
 import Settings from "@material-ui/icons/Settings";
 import SpeedDial from '@material-ui/lab/SpeedDial';

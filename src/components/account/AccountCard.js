@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
 import Box from "@material-ui/core/Box";
-import {makeStyles} from '@material-ui/core/styles';
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import {useSnackbar} from 'notistack';
+import {copyToClipboard} from "../../common/call";
 
 function AccountCard(props) {
-    const {address, account, api} = props;
+    const {enqueueSnackbar} = useSnackbar();
     const classes = useStyles();
+    const {address, account, api} = props;
     const bg = account.type === 'Kusama' ? '#C785ED' : '#847EF2';
     const [balance, setBalance] = useState('~');
 
@@ -22,11 +25,21 @@ function AccountCard(props) {
         }
     }, [address]);
 
+    const handleClickVariant = variant => () => {
+        copyToClipboard(address);
+        enqueueSnackbar('Copied to clipboard!', {
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+            }
+        })
+    };
+
     return (
         <Box key={address} className={classes.account} style={{background: bg}}>
             <Box className={classes.name}>{account.name}</Box>
             <Box className={classes.balance}>{balance}</Box>
-            <Box className={classes.address}>{address}</Box>
+            <Box className={classes.address} onClick={handleClickVariant('success')}>{address}</Box>
         </Box>
     )
 }

@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import SettingCell from "./cell";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {makeStyles} from "@material-ui/core/styles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import {SettingsContext} from "../../context/setting";
 import {getAppVersion} from "../../common/call";
@@ -19,7 +19,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const options = ['en', 'zh'];
 
-export default function Setting() {
+function Setting() {
     const history = useHistory();
     const {t, i18n} = useTranslation();
     const language = useContext(SettingsContext).language;
@@ -126,3 +126,5 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-end',
     }
 }));
+
+export default React.memo(Setting)

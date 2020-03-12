@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {HashRouter as Router, Switch, Route} from "react-router-dom";
 import {SettingsProvider} from "./context/setting";
 import {AccountsProvider} from "./context/accounts";
+import {SnackbarProvider} from 'notistack';
 import {ApiProvider} from "./context/api";
 import {I18nextProvider} from "react-i18next";
 import i18n from "./common/i18n";
@@ -18,7 +19,9 @@ const Providers = (props) => (
             <ApiProvider>
                 <AccountsProvider>
                     <I18nextProvider i18n={i18n}>
-                        {props.children}
+                        <SnackbarProvider maxSnack={3} autoHideDuration={2500}>
+                            {props.children}
+                        </SnackbarProvider>
                     </I18nextProvider>
                 </AccountsProvider>
             </ApiProvider>

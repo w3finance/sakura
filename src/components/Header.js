@@ -2,7 +2,7 @@ import React from "react";
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles(theme => ({
