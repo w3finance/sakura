@@ -1,12 +1,12 @@
 # Sakura Wallet
 
-[Sakura Wallet](https://www.dotpay.tech/) is a secure and user-friendly Polkadot desktop wallet.
+[Sakura Wallet](https://www.dotpay.tech/) is a Desktop wallet for the Polkadot ecosystem.
 <p align="left">
   <a href="https://github.com/dotpaytech/sakura/releases">
-    <img alt="MacOS" src="https://badgen.net/badge/icon/MacOS?icon=apple&label" />
+    <img alt="MacOS" src="https://badgen.net/badge/icon/MacOS" />
   </a>
   <a href="https://github.com/dotpaytech/sakura/releases">
-    <img alt="Windows" src="https://badgen.net/badge/icon/Windows?icon=windows&label" />
+    <img alt="Windows" src="https://badgen.net/badge/icon/Windows" />
   </a>
   <a href="https://github.com/dotpaytech/sakura/releases">
     <img alt="Linux" src="https://badgen.net/badge/icon/Linux" />
