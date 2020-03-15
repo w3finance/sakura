@@ -22,16 +22,18 @@ const useStyles = makeStyles(theme => ({
     line: {
         height: 1,
         width: "740px",
-        background: 'rgba(16,16,16,.1)',
+        background: '#F7F7F7',
         marginLeft: '30px',
     }
 }));
 
 function SettingCell(props) {
-    const {title, subTitle, icon, line, onClick} = props;
+    const {title, subTitle, icon, line, onClick, margin} = props;
     const classes = useStyles();
     return (
-        <Grid container alignItems="center" style={{height: '60px', width: '800px'}} onClick={onClick ? onClick : null}>
+        <Grid container alignItems="center"
+              style={{height: '60px', width: '800px', background: '#FFF', marginTop: margin ? '30px' : 0}}
+              onClick={onClick ? onClick : null}>
             <Grid item className={classes.title} style={{paddingLeft: '30px'}}>
                 <Typography>
                     {title}

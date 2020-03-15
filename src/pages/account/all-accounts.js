@@ -15,25 +15,6 @@ import Box from "@material-ui/core/Box";
 import AccountCard from "../../components/account/AccountCard";
 import {useKusamaApi} from "../../hook/kusama";
 
-const NoAccount = React.memo(function NoAccount() {
-    const classes = useStyles();
-    const {t} = useTranslation();
-    return (
-        <Box className={classes.noAccount}>
-            {t('AllWallets.noWallet')}
-        </Box>
-    )
-});
-
-function areEqual(prevProps, nextProps) {
-    console.log('===' + JSON.stringify(prevProps) + JSON.stringify(nextProps));
-    if (prevProps === nextProps) {
-        return true
-    } else {
-        return false
-    }
-}
-
 function AllAccounts() {
     const classes = useStyles();
     const history = useHistory();
@@ -60,6 +41,16 @@ function AllAccounts() {
 
     function goImport() {
         history.push("/importAccount");
+    }
+
+    function NoAccount() {
+        const classes = useStyles();
+        const {t} = useTranslation();
+        return (
+            <Box className={classes.noAccount}>
+                {t('AllWallets.noWallet')}
+            </Box>
+        )
     }
 
     return (
@@ -166,4 +157,4 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default React.memo(AllAccounts, areEqual)
+export default React.memo(AllAccounts)

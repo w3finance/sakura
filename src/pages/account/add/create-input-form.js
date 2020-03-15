@@ -5,22 +5,17 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from "@material-ui/core/MenuItem";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useTranslation} from "react-i18next";
-import Alert from '@material-ui/lab/Alert';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-import HelpIcon from '@material-ui/icons/Help';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import RefreshIcon from '@material-ui/icons/Refresh';
-
-const types = ["Kusama"];
-const keypairs = ["sr25519", "ed25519"];
-const HelpIconWidth = 20;
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 
 const CreateInputForm = React.memo(function CreateInputForm(props) {
     const {errors, formValues} = props;
     const classes = useStyles();
     const {t} = useTranslation();
     const [values, setValues] = useState(formValues);
+    const types = ["Kusama"];
 
     const handleChange = prop => event => {
         setValues({...values, [prop]: event.target.value});
@@ -28,50 +23,23 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
 
     return (
         <Box className={classes.box}>
-            <Box className={classes.item}>
-                <TextField
-                    id="select-type"
-                    variant="filled"
-                    select
-                    label="Select Wallet Type"
-                    value={values.type}
-                    onChange={handleChange('type')}
-                    inputRef={props.typeRef}
-                    margin="normal"
-                    className={classes.select}
-                >
-                    {types.map(option => (
-                        <MenuItem key={option} value={option}>
-                            {option}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <Grid container alignItems="flex-end" style={{width: 255 + HelpIconWidth}}>
-                    <TextField
-                        id="select-keypair"
-                        variant="filled"
-                        select
-                        label="Select Crypto Type"
-                        value={values.keypair}
-                        onChange={handleChange('keypair')}
-                        inputRef={props.keypairRef}
-                        margin="normal"
-                        style={{flexGrow: 1}}
-                    >
-                        {keypairs.map(option => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    <Grid style={{marginBottom: 20, marginLeft: 5, width: HelpIconWidth}}>
-                        <Tooltip
-                            title={'Note that to validate on Polkadot, the session account should use "ed25519".'}>
-                            <HelpIcon fontSize={'small'} color={'action'}/>
-                        </Tooltip>
-                    </Grid>
-                </Grid>
-            </Box>
+            <TextField
+                id="select-type"
+                variant="filled"
+                select
+                label="Select Wallet Type"
+                value={values.type}
+                onChange={handleChange('type')}
+                inputRef={props.typeRef}
+                margin="normal"
+                className={classes.textField}
+            >
+                {types.map(option => (
+                    <MenuItem key={option} value={option}>
+                        {option}
+                    </MenuItem>
+                ))}
+            </TextField>
             <TextField id="name-basic"
                        error={Boolean(errors.name)}
                        required
@@ -121,14 +89,35 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
     )
 });
 
+function ActionButton(props) {
+    const {icon, label, onClick} = props;
+
+    return (
+        <Box style={{display: 'flex', alignItems: 'center', marginRight: 10}} onClick={onClick}>
+            <IconButton aria-label="delete" size="small">
+                {icon ? icon : null}
+            </IconButton>
+            <Typography color="textSecondary" style={{fontSize: 14, cursor: 'pointer'}}>
+                {label}
+            </Typography>
+        </Box>
+    )
+}
+
 const MnemonicForm = React.memo(function MnemonicForm(props) {
-    const {address, phrase, refresh} = props;
+    const {address, phrase, refresh, copy} = props;
     const classes = useStyles();
     const {t} = useTranslation();
 
     return (
         <Box className={classes.box}>
             <Box className={classes.title}>
+                {t('CreateWallet.address')}
+            </Box>
+            <Box className={classes.tip}>
+                {address}
+            </Box>
+            <Box className={classes.title} style={{marginTop: 30}}>
                 {t('CreateWallet.backupMnemonic')}
             </Box>
             <Box className={classes.tip}>
@@ -143,13 +132,16 @@ const MnemonicForm = React.memo(function MnemonicForm(props) {
                              inputProps={{'aria-label': 'naked'}}
                              className={classes.textField}
             />
-            <Alert icon={false} severity="info" style={{marginTop: 10}} action={
-                <IconButton aria-label="refresh" size="small" style={{color: 'rgba(13,60,97,.9)'}} onClick={refresh}>
-                    <RefreshIcon/>
-                </IconButton>
-            }>
-                {address}
-            </Alert>
+            <Box className={classes.actionButton}>
+                <ActionButton icon={<FileCopyIcon fontSize="inherit" viewBox="0 0 26 26"/>}
+                              onClick={copy}
+                              label={t('CreateWallet.copy')}
+                />
+                <ActionButton icon={<RefreshIcon fontSize="small"/>}
+                              onClick={refresh}
+                              label={t('CreateWallet.regenerate')}
+                />
+            </Box>
         </Box>
     )
 });
@@ -213,10 +205,13 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center'
     },
     item: {
-        width: 550 + HelpIconWidth,
-        marginLeft: HelpIconWidth,
+        width: 550,
         display: 'flex',
         justifyContent: 'space-between',
+    },
+    actionButton: {
+        width: 550,
+        display: 'flex',
     },
     select: {
         width: 255,

@@ -6,26 +6,17 @@ import {useTranslation} from "react-i18next";
 import Box from '@material-ui/core/Box';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from '@material-ui/core/Button';
-// import Stepper from '@material-ui/core/Stepper';
-// import Step from '@material-ui/core/Step';
-// import StepLabel from '@material-ui/core/StepLabel';
 import MobileStepper from '@material-ui/core/MobileStepper';
+import {copyToClipboard} from "../../../common/call";
+import {useSnackbar} from 'notistack';
 import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-input-form";
 import {Keyring} from '@polkadot/api';
 import {mnemonicGenerate} from '@polkadot/util-crypto/mnemonic';
 import {AccountsContext} from "../../../context/accounts"
 
-const keyringsr = new Keyring({type: "sr25519"});
-const keyringed = new Keyring({type: "ed25519"});
+const keyring = new Keyring({type: "sr25519"});
 
-function addressFromPhrase(phrase, type, pairType) {
-    let keyring;
-    if (pairType === "sr25519") {
-        keyring = keyringsr;
-    } else {
-        keyring = keyringed;
-    }
-
+function addressFromPhrase(phrase, type) {
     switch (type) {
         case 'Polkadot':
             keyring.setSS58Format(0x00);
@@ -39,14 +30,13 @@ function addressFromPhrase(phrase, type, pairType) {
     return keyring.addFromMnemonic(phrase).address;
 }
 
-function generateAddress(type, pairType) {
-    const phrase = mnemonicGenerate();// FROM助记词
-    // const phrase = u8aToHex(await randomAsU8a());// FROM私钥
-    const address = addressFromPhrase(phrase, type, pairType);
+function generateAddress(type) {
+    const phrase = mnemonicGenerate();// Mnemonic
+    // const phrase = u8aToHex(await randomAsU8a());// Private Key
+    const address = addressFromPhrase(phrase, type);
     return {
         address,
         phrase,
-        pairType
     };
 }
 
@@ -54,9 +44,9 @@ function CreateAccount() {
     const {t} = useTranslation();
     const history = useHistory();
     const classes = useStyles();
+    const {enqueueSnackbar} = useSnackbar();
     const steps = [t('CreateWallet.step1'), t('CreateWallet.step2'), t('CreateWallet.step3')];
     const typeRef = useRef();
-    const keypairRef = useRef();
     const nameRef = useRef();
     const passwordRef = useRef();
     const pwdRef = useRef();
@@ -70,7 +60,7 @@ function CreateAccount() {
         password: "",
         pwd: "",
     });
-    const [{address, phrase, pairType}, setAddress] = useState({});
+    const [{address, phrase}, setAddress] = useState({});
     const {accounts, createAccount} = React.useContext(AccountsContext);
 
     function back() {
@@ -87,14 +77,14 @@ function CreateAccount() {
                 setErrors({phrase: "phrase-no-match"});
             } else {
                 // Store Account
-                onCreateAccount().then(() => {
+                storeAccount().then(() => {
                     back();
                 });
             }
         }
     };
 
-    const onCreateAccount = async () => {
+    const storeAccount = async () => {
         try {
             createAccount({
                 [address]: {
@@ -121,7 +111,7 @@ function CreateAccount() {
     const validate = () => {
         const formValues = {
             type: typeRef.current['value'],
-            keypair: keypairRef.current['value'],
+            keypair: "sr25519",
             name: nameRef.current['value'],
             password: passwordRef.current['value'],
             pwd: pwdRef.current['value']
@@ -139,13 +129,22 @@ function CreateAccount() {
         setAddress(generateAddress(values.type, values.keypair))
     };
 
+    const copy = () => {
+        copyToClipboard(phrase);
+        enqueueSnackbar(t('Common.copy'), {
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+            }
+        })
+    };
+
     return (
         <Wrapper>
             <Header lfIcon bg title={t('Title.createWallet')} goBack={back}/>
             <Box className={classes.container}>
                 {
                     activeStep === 0 ? <CreateInputForm typeRef={typeRef}
-                                                        keypairRef={keypairRef}
                                                         nameRef={nameRef}
                                                         passwordRef={passwordRef}
                                                         pwdRef={pwdRef}
@@ -154,20 +153,13 @@ function CreateAccount() {
                         :
                         (activeStep === 1 ? <MnemonicForm phrase={phrase}
                                                           address={address}
-                                                          refresh={refresh}/>
+                                                          refresh={refresh}
+                                                          copy={copy}/>
                             :
                             <ConfirmMnemonicForm phraseRef={phraseRef} errors={errors}/>)
                 }
             </Box>
             <Box className={classes.footer}>
-                {/*/!*<Stepper nonLinear activeStep={activeStep} className={classes.stepper}>*!/*/}
-                {/*/!*    {steps.map(label => (*!/*/}
-                {/*/!*        <Step key={label}>*!/*/}
-                {/*/!*            <StepLabel style={{margin: '0 10px'}}>{label}</StepLabel>*!/*/}
-                {/*/!*        </Step>*!/*/}
-                {/*/!*    ))}*!/*/}
-                {/*</Stepper>*/}
-
                 <MobileStepper
                     variant="dots"
                     steps={steps.length}

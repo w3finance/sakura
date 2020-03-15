@@ -3,31 +3,31 @@ import Box from "@material-ui/core/Box";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSnackbar} from 'notistack';
 import {copyToClipboard} from "../../common/call";
+import {useTranslation} from "react-i18next";
 
 function AccountCard(props) {
+    const {t} = useTranslation();
     const {enqueueSnackbar} = useSnackbar();
     const classes = useStyles();
     const {address, account, api} = props;
     const bg = account.type === 'Kusama' ? '#C785ED' : '#847EF2';
     const [balance, setBalance] = useState('~');
 
-    useEffect(() => {
-        try {
-            (async () => {
-                const {tokenDecimals, tokenSymbol} = await api.properties();
-                const {nonce, data: balance} = await api.freeBalance(address);
-                let fix = (balance.free / Math.pow(10, tokenDecimals)) === 0 ? 0 : 3;
-                let free = String((balance.free / Math.pow(10, tokenDecimals)).toFixed(fix)) + ' ' + tokenSymbol;
-                setBalance(free);
-            })()
-        } catch (e) {
-            console.log(e)
-        }
-    }, [address]);
+    try {
+        (async () => {
+            const {tokenDecimals, tokenSymbol} = await api.properties();
+            const {nonce, data: balance} = await api.freeBalance(address);
+            let fix = (balance.free / Math.pow(10, tokenDecimals)) === 0 ? 0 : 3;
+            let free = String((balance.free / Math.pow(10, tokenDecimals)).toFixed(fix)) + ' ' + tokenSymbol;
+            setBalance(free);
+        })()
+    } catch (e) {
+        console.log(e)
+    }
 
     const handleClickVariant = variant => () => {
         copyToClipboard(address);
-        enqueueSnackbar('Copied to clipboard!', {
+        enqueueSnackbar(t('Common.copy'), {
             anchorOrigin: {
                 vertical: 'bottom',
                 horizontal: 'left',

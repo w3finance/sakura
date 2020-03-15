@@ -15,6 +15,9 @@
     "create": "Create Wallet",
     "import": "Import Wallet"
   },
+  "Common": {
+    "copy": "Copied to clipboard!"
+  },
   "AllWallets": {
     "noWallet": "No account yet!"
   },
@@ -32,10 +35,12 @@
     "next": "Next",
     "back": "Back",
     "create": "Create",
-    "address": "Address",
+    "address": "Wallet Address",
     "backupMnemonic": "Backup Mnemonic Phrase",
     "confirmMnemonic": "Confirm Mnemonic",
     "mnemonic": "Mnemonic",
-    "backupTip": "Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!"
+    "backupTip": "Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!",
+    "copy": "Copy",
+    "regenerate": "Regenerate"
   }
 }

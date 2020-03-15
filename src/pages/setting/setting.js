@@ -25,7 +25,7 @@ function Setting() {
     const language = useContext(SettingsContext).language;
     const settings = useContext(SettingsContext);
     const classes = useStyles();
-    const [version, setVersion] = useState();
+    const [version, setVersion] = useState('');
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(language);
 
@@ -61,7 +61,7 @@ function Setting() {
     };
 
     return (
-        <Wrapper>
+        <Wrapper style={{background: 'rgb(242,243,245)'}}>
             <Dialog open={open}
                     onClose={handleClose}
                     fullWidth={true}
@@ -80,7 +80,7 @@ function Setting() {
                             <FormControlLabel value={option}
                                               key={option}
                                               control={<Radio color="primary"/>}
-                                              label={t(`${'Title.'+option}`)}/>
+                                              label={t(`${'Title.' + option}`)}/>
                         ))}
                     </RadioGroup>
                 </DialogContent>
@@ -93,16 +93,16 @@ function Setting() {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Header lfIcon bg title={t('Title.setting')} goBack={back}/>
+            <Header lfIcon title={t('Title.setting')} goBack={back}/>
             <SettingCell title={t('Title.language')}
-                  subTitle={t(`${'Title.'+language}`)}
-                  icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
-                  line
-                  onClick={changeLng}
+                         subTitle={t(`${'Title.' + language}`)}
+                         icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}
+                         line
+                         margin
+                         onClick={changeLng}
             />
             <SettingCell title={t('Title.terms')}
-                  icon={<NavigateNextIcon style={{color: "rgba(16,16,16,.5)"}}/>}
-                  line
+                         icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}
             />
             <div className={classes.footer}>
                 <div className={classes.version}>{`v${version}`}</div>

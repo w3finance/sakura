@@ -2,22 +2,22 @@
     height: 18vmin;
     pointer-events: none;
     width: 18vmin;
-    margin-top: 32vmin;
+    margin-top: 33vmin;
     filter: drop-shadow(0 0 20px rgb(63, 81, 181));
     border: none;
 }
 
-/*@media (prefers-reduced-motion: no-preference) {*/
-/*    .App-logo {*/
-/*        animation: App-logo-spin infinite 20s linear;*/
-/*    }*/
-/*}*/
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
 
-/*@keyframes App-logo-spin {*/
-/*    from {*/
-/*        transform: rotate(0deg);*/
-/*    }*/
-/*    to {*/
-/*        transform: rotate(360deg);*/
-/*    }*/
-/*}*/
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
