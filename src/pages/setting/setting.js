@@ -61,7 +61,7 @@ function Setting() {
     };
 
     return (
-        <Wrapper style={{background: 'rgb(242,243,245)'}}>
+        <Wrapper style={{background: '#F2F3F5'}}>
             <Dialog open={open}
                     onClose={handleClose}
                     fullWidth={true}

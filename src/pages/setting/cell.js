@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
         width: "740px",
         background: '#F7F7F7',
         marginLeft: '30px',
+        alignSelf: 'flex-end'
     }
 }));
 
@@ -32,28 +33,28 @@ function SettingCell(props) {
     const classes = useStyles();
     return (
         <Grid container alignItems="center"
-              style={{height: '60px', width: '800px', background: '#FFF', marginTop: margin ? '30px' : 0}}
+              style={{
+                  height: '60px',
+                  width: '800px',
+                  background: '#FFF',
+                  marginTop: margin ? '30px' : 0,
+                  cursor: 'pointer',
+              }}
               onClick={onClick ? onClick : null}>
-            <Grid item className={classes.title} style={{paddingLeft: '30px'}}>
-                <Typography>
-                    {title}
-                </Typography>
-            </Grid>
+            <Typography className={classes.title} style={{paddingLeft: '30px'}}>
+                {title}
+            </Typography>
             {
                 subTitle ?
-                    <Grid item className={classes.subTitle}>
-                        <Typography>
-                            {subTitle}
-                        </Typography>
-                    </Grid>
+                    <Typography className={classes.subTitle}>
+                        {subTitle}
+                    </Typography>
                     :
                     null
             }
-            <Grid item className={classes.icon}>
-                <IconButton style={{backgroundColor: 'transparent'}}>
-                    {icon ? icon : null}
-                </IconButton>
-            </Grid>
+            <IconButton style={{backgroundColor: 'transparent'}} className={classes.icon}>
+                {icon ? icon : null}
+            </IconButton>
             {line ? <div className={classes.line}/> : null}
         </Grid>
     )

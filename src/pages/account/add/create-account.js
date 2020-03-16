@@ -14,9 +14,21 @@ import {Keyring} from '@polkadot/api';
 import {mnemonicGenerate} from '@polkadot/util-crypto/mnemonic';
 import {AccountsContext} from "../../../context/accounts"
 
-const keyring = new Keyring({type: "sr25519"});
+const keyringsr = new Keyring({type: "sr25519"});
+const keyringed = new Keyring({type: "sr25519"});
 
-function addressFromPhrase(phrase, type) {
+function addressFromPhrase(phrase, type, keypair) {
+    let keyring;
+
+    switch (keypair) {
+        case 'ed25519':
+            keyring = keyringed;
+            break;
+        default:
+            keyring = keyringsr;
+            break;
+    }
+
     switch (type) {
         case 'Polkadot':
             keyring.setSS58Format(0x00);
@@ -25,15 +37,16 @@ function addressFromPhrase(phrase, type) {
             keyring.setSS58Format(0x02);
             break;
         default:
+            keyring.setSS58Format(42);
             break;
     }
     return keyring.addFromMnemonic(phrase).address;
 }
 
-function generateAddress(type) {
+function generateAddress(type, keypair) {
     const phrase = mnemonicGenerate();// Mnemonic
     // const phrase = u8aToHex(await randomAsU8a());// Private Key
-    const address = addressFromPhrase(phrase, type);
+    const address = addressFromPhrase(phrase, type, keypair);
     return {
         address,
         phrase,
@@ -47,6 +60,7 @@ function CreateAccount() {
     const {enqueueSnackbar} = useSnackbar();
     const steps = [t('CreateWallet.step1'), t('CreateWallet.step2'), t('CreateWallet.step3')];
     const typeRef = useRef();
+    const keypairRef = useRef();
     const nameRef = useRef();
     const passwordRef = useRef();
     const pwdRef = useRef();
@@ -88,7 +102,7 @@ function CreateAccount() {
         try {
             createAccount({
                 [address]: {
-                    name: values.type + " " + values.name,
+                    name: values.name,
                     type: values.type,
                     keypair: values.keypair,
                     password: values.password,
@@ -111,7 +125,7 @@ function CreateAccount() {
     const validate = () => {
         const formValues = {
             type: typeRef.current['value'],
-            keypair: "sr25519",
+            keypair: keypairRef.current['value'],
             name: nameRef.current['value'],
             password: passwordRef.current['value'],
             pwd: pwdRef.current['value']
@@ -125,7 +139,7 @@ function CreateAccount() {
         }
     };
 
-    const refresh = () => {
+    const regenerate = () => {
         setAddress(generateAddress(values.type, values.keypair))
     };
 
@@ -140,11 +154,12 @@ function CreateAccount() {
     };
 
     return (
-        <Wrapper>
+        <Wrapper style={{background: '#F2F3F5'}}>
             <Header lfIcon bg title={t('Title.createWallet')} goBack={back}/>
             <Box className={classes.container}>
                 {
                     activeStep === 0 ? <CreateInputForm typeRef={typeRef}
+                                                        keypairRef={keypairRef}
                                                         nameRef={nameRef}
                                                         passwordRef={passwordRef}
                                                         pwdRef={pwdRef}
@@ -153,7 +168,7 @@ function CreateAccount() {
                         :
                         (activeStep === 1 ? <MnemonicForm phrase={phrase}
                                                           address={address}
-                                                          refresh={refresh}
+                                                          regenerate={regenerate}
                                                           copy={copy}/>
                             :
                             <ConfirmMnemonicForm phraseRef={phraseRef} errors={errors}/>)
@@ -213,17 +228,17 @@ const useStyles = makeStyles(theme => ({
         display: 'flex'
     },
     footer: {
-        height: '150px',
+        height: '130px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
     stepper: {
         background: 'transparent',
-        padding: '10px 24px 20px',
+        padding: '10px 24px',
     },
     buttons: {
-        width: 240,
+        width: 280,
         paddingTop: theme.spacing(2),
         display: 'flex',
         justifyContent: 'space-between'

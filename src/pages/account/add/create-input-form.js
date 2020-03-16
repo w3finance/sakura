@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
-import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from "@material-ui/core/MenuItem";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useTranslation} from "react-i18next";
@@ -9,29 +8,46 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import {AccountsContext} from "../../../context/accounts";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Collapse from "@material-ui/core/Collapse";
+import {RedditTextField} from "../../../components/account/RedditTextField";
+
+const types = ["Kusama", "Polkadot", "Edgeware"];
+const keypairs = ["sr25519", "ed25519"];
+const WIDTH = 550;
 
 const CreateInputForm = React.memo(function CreateInputForm(props) {
     const {errors, formValues} = props;
     const classes = useStyles();
     const {t} = useTranslation();
     const [values, setValues] = useState(formValues);
-    const types = ["Kusama"];
+    const [checked, setChecked] = useState(false);
+    const {accounts} = React.useContext(AccountsContext);
 
     const handleChange = prop => event => {
         setValues({...values, [prop]: event.target.value});
+        if (Boolean(errors[prop])) {
+            delete errors[prop];
+        }
+    };
+
+    const toggleChecked = () => {
+        setChecked(prev => !prev);
     };
 
     return (
         <Box className={classes.box}>
             <TextField
-                id="select-type"
+                id="select-wallet"
                 variant="filled"
                 select
-                label="Select Wallet Type"
+                label="Select Wallet"
                 value={values.type}
                 onChange={handleChange('type')}
                 inputRef={props.typeRef}
-                margin="normal"
+                // margin="normal"
                 className={classes.textField}
             >
                 {types.map(option => (
@@ -40,51 +56,70 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
                     </MenuItem>
                 ))}
             </TextField>
-            <TextField id="name-basic"
+            <TextField id="name"
                        error={Boolean(errors.name)}
-                       required
                        label={t('CreateWallet.walletName')}
-                       placeholder={t('CreateWallet.enterName')}
+                       defaultValue={`Wallet${Object.keys(accounts).length + 1}`}
                        InputLabelProps={{
                            shrink: true,
-                       }}
-                       InputProps={{
-                           startAdornment: <InputAdornment position="start">{values.type}</InputAdornment>,
                        }}
                        inputRef={props.nameRef}
                        margin="normal"
                        className={classes.textField}
-                       value={values.name}
+                       value={values.name ? values.name : null}
                        onChange={handleChange('name')}
             />
-            <TextField id="password-basic"
+            <TextField id="password"
                        error={Boolean(errors.password)}
                        required
                        label={t('CreateWallet.password')}
-                       placeholder={t('CreateWallet.enterPassword')}
                        InputLabelProps={{
                            shrink: true,
                        }}
                        inputRef={props.passwordRef}
-                       margin="normal"
                        className={classes.textField}
                        value={values.password}
                        onChange={handleChange('password')}
             />
-            <TextField id="pwd-basic"
+            <TextField id="pwd"
                        error={Boolean(errors.pwd)}
                        required
                        label={t('CreateWallet.pwd')}
-                       placeholder={t('CreateWallet.confirmPwd')}
                        InputLabelProps={{
                            shrink: true,
                        }}
                        inputRef={props.pwdRef}
-                       margin="normal"
                        className={classes.textField}
                        value={values.pwd}
                        onChange={handleChange('pwd')}
             />
+            <Box className={classes.advanced}>
+                <FormControlLabel
+                    value="Advanced"
+                    control={<Switch color="primary" size="small" checked={checked} onChange={toggleChecked}/>}
+                    label="Advanced"
+                    labelPlacement="start"
+                    classes={{label: classes.label}}
+                />
+            </Box>
+            <Collapse in={checked}>
+                <TextField
+                    id="select-keypair"
+                    variant="filled"
+                    select
+                    label="Keypair Crypto Type"
+                    value={values.keypair}
+                    onChange={handleChange('keypair')}
+                    inputRef={props.keypairRef}
+                    className={classes.textField}
+                >
+                    {keypairs.map(option => (
+                        <MenuItem key={option} value={option}>
+                            {option}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            </Collapse>
         </Box>
     )
 });
@@ -97,7 +132,7 @@ function ActionButton(props) {
             <IconButton aria-label="delete" size="small">
                 {icon ? icon : null}
             </IconButton>
-            <Typography color="textSecondary" style={{fontSize: 14, cursor: 'pointer'}}>
+            <Typography style={{fontSize: '12px', cursor: 'pointer', color: 'rgba(0, 0, 0, 0.54)'}}>
                 {label}
             </Typography>
         </Box>
@@ -105,7 +140,7 @@ function ActionButton(props) {
 }
 
 const MnemonicForm = React.memo(function MnemonicForm(props) {
-    const {address, phrase, refresh, copy} = props;
+    const {address, phrase, regenerate, copy} = props;
     const classes = useStyles();
     const {t} = useTranslation();
 
@@ -138,7 +173,7 @@ const MnemonicForm = React.memo(function MnemonicForm(props) {
                               label={t('CreateWallet.copy')}
                 />
                 <ActionButton icon={<RefreshIcon fontSize="small"/>}
-                              onClick={refresh}
+                              onClick={regenerate}
                               label={t('CreateWallet.regenerate')}
                 />
             </Box>
@@ -174,28 +209,6 @@ const ConfirmMnemonicForm = React.memo(function ConfirmMnemonicForm(props) {
     )
 });
 
-const useStylesReddit = makeStyles(theme => ({
-    root: {
-        border: '1px solid #e2e2e1',
-        overflow: 'hidden',
-        borderRadius: 4,
-        color: 'rgb(66,66,70)',
-        transition: theme.transitions.create(['border-color']),
-        '&:hover': {
-            backgroundColor: '#FFF',
-        },
-        '&$focused': {
-            backgroundColor: '#FFF',
-        },
-    },
-    focused: {},
-}));
-
-function RedditTextField(props) {
-    const classes = useStylesReddit();
-    return <TextField InputProps={{classes, disableUnderline: true}} {...props} />;
-}
-
 const useStyles = makeStyles(theme => ({
     box: {
         flexGrow: 1,
@@ -204,31 +217,33 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    item: {
-        width: 550,
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
     actionButton: {
-        width: 550,
+        width: WIDTH,
         display: 'flex',
-    },
-    select: {
-        width: 255,
     },
     textField: {
-        width: 550,
-        margin: theme.spacing(1),
+        width: WIDTH,
+        marginTop: theme.spacing(0.7),
+        marginBottom: theme.spacing(0.7),
     },
     title: {
-        width: 550,
+        width: WIDTH,
         fontSize: 16,
     },
     tip: {
-        width: 550,
-        fontSize: 12,
-        color: 'rgba(16,16,16,.5)'
+        width: WIDTH,
+        fontSize: '12px',
+        color: 'rgba(0, 0, 0, 0.54)'
+    },
+    advanced: {
+        width: WIDTH,
+        display: 'flex',
+        justifyContent: 'flex-end'
+    },
+    label: {
+        color: 'rgba(0, 0, 0, 0.54)'
     }
+
 }));
 
 export {CreateInputForm, MnemonicForm, ConfirmMnemonicForm}
