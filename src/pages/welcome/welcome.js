@@ -48,7 +48,7 @@ function WelcomePage() {
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}.`);
                     timer = setTimeout(() => {
                         history.push("/allAccounts");
-                    }, 2000);
+                    }, 2500);
                 }
             })()
         } catch (e) {

@@ -1,10 +1,8 @@
 import React, {useState} from "react";
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Box from "@material-ui/core/Box";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -16,9 +14,16 @@ import {useTranslation} from "react-i18next";
 import TextField from "@material-ui/core/TextField";
 import {AccountsContext} from "../../../context/accounts";
 import {RedditTextField} from "../../../components/account/RedditTextField";
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+
+const supports = {
+    "DOT": "Polkadot",
+    "KSM": "Kusama"
+};
 
 const WalletInfo = React.memo(function WalletInfo(props) {
-    const {errors,formValues} = props;
+    const {errors, formValues} = props;
     const classes = useStyles();
     const {t} = useTranslation();
     const {accounts} = React.useContext(AccountsContext);
@@ -31,33 +36,28 @@ const WalletInfo = React.memo(function WalletInfo(props) {
         }
     };
 
-    return(
+    return (
         <Box className={classes.box}>
             <TextField id="name"
                        error={Boolean(errors.name)}
-                       required
                        label={t('CreateWallet.walletName')}
-                       defaultValue={`Wallet${Object.keys(accounts).length+1}`}
-                       placeholder={t('CreateWallet.enterName')}
+                       defaultValue={`Wallet${Object.keys(accounts).length + 1}`}
                        InputLabelProps={{
                            shrink: true,
                        }}
                        inputRef={props.nameRef}
-                       margin="normal"
                        className={classes.textField}
-                       value={values.name}
+                       value={values.name ? values.name : undefined}
                        onChange={handleChange('name')}
             />
             <TextField id="password"
                        error={Boolean(errors.password)}
                        required
                        label={t('CreateWallet.password')}
-                       placeholder={t('CreateWallet.enterPassword')}
                        InputLabelProps={{
                            shrink: true,
                        }}
                        inputRef={props.passwordRef}
-                       margin="normal"
                        className={classes.textField}
                        value={values.password}
                        onChange={handleChange('password')}
@@ -66,12 +66,10 @@ const WalletInfo = React.memo(function WalletInfo(props) {
                        error={Boolean(errors.pwd)}
                        required
                        label={t('CreateWallet.pwd')}
-                       placeholder={t('CreateWallet.confirmPwd')}
                        InputLabelProps={{
                            shrink: true,
                        }}
                        inputRef={props.pwdRef}
-                       margin="normal"
                        className={classes.textField}
                        value={values.pwd}
                        onChange={handleChange('pwd')}
@@ -80,7 +78,8 @@ const WalletInfo = React.memo(function WalletInfo(props) {
     )
 });
 
-const ToggleKey = React.memo(function ToggleKey() {
+const ToggleKey = React.memo(function ToggleKey(props) {
+    const {keyRef, key, inputKey} = props;
     const classes = useStyles();
     const {t} = useTranslation();
 
@@ -104,7 +103,7 @@ const ToggleKey = React.memo(function ToggleKey() {
         }
     };
 
-    return(
+    return (
         <Box className={classes.box}>
             <Box className={classes.item}>
                 <ToggleButtonGroup
@@ -124,12 +123,15 @@ const ToggleKey = React.memo(function ToggleKey() {
                     </ToggleButton>
                 </ToggleButtonGroup>
             </Box>
-            <RedditTextField id="outlined-basic"
+            <RedditTextField id="key"
                              label={toggle}
                              variant="filled"
+                             inputRef={keyRef}
                              autoFocus={true}
                              multiline
                              rows="2"
+                             value={key ? key : null}
+                             onChange={() => inputKey()}
                              inputProps={{'aria-label': 'naked'}}
                              className={classes.textField}
                              helperText={helper}
@@ -145,43 +147,35 @@ const ToggleChain = React.memo(function ToggleChain(props) {
     return (
         <Box className={classes.root}>
             <Box className={classes.container}>
-                <Typography variant="button">
-                    Select
+                <Typography variant="subtitle1" color="textSecondary">
+                    Import a wallet
                 </Typography>
                 <Box className={classes.list}>
                     <List dense={false}>
-                        <ListItem>
-                            <ListItemIcon>
-                                <FolderIcon/>
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Kusama"
-                                secondary={'KSM'}
-                            />
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="next" onClick={() => {
-                                    select('Kusama')
-                                }}>
-                                    <NavigateNextIcon style={{color: "#D3D3D3"}}/>
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                        <ListItem>
-                            <ListItemIcon>
-                                <FolderIcon/>
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Polkadot"
-                                secondary={'DOT'}
-                            />
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="next" onClick={() => {
-                                    select('Polkadot')
-                                }}>
-                                    <NavigateNextIcon style={{color: "#D3D3D3"}}/>
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
+                        {
+                            Object.keys(supports).map((key) => {
+                                return (
+                                    <ListItem>
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                {key}
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            primary={supports[key]}
+                                            secondary={key}
+                                        />
+                                        <ListItemSecondaryAction>
+                                            <IconButton edge="end" aria-label="next" onClick={() => {
+                                                select(supports[key])
+                                            }}>
+                                                <NavigateNextIcon style={{color: "#D3D3D3"}}/>
+                                            </IconButton>
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                )
+                            })
+                        }
                     </List>
                 </Box>
             </Box>

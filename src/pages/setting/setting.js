@@ -93,7 +93,7 @@ function Setting() {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Header lfIcon title={t('Title.setting')} goBack={back}/>
+            <Header lfIcon bg title={t('Title.setting')} goBack={back}/>
             <SettingCell title={t('Title.language')}
                          subTitle={t(`${'Title.' + language}`)}
                          icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}

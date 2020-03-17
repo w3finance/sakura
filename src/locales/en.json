@@ -24,14 +24,8 @@
   "CreateWallet": {
     "pwdHelper": "This password will be used as the transaction password for the wallet.",
     "walletName": "Name",
-    "enterName": "Account",
-    "password": "Password Protect",
-    "enterPassword": "Enter a password",
+    "password": "Wallet Password",
     "pwd": "Confirm Password",
-    "confirmPwd": "Confirm your password",
-    "step1": "Wallet Settings",
-    "step2": "Backup Mnemonic",
-    "step3": "Confirm Mnemonic",
     "next": "Next",
     "back": "Back",
     "create": "Create",
@@ -41,6 +35,7 @@
     "mnemonic": "Mnemonic",
     "backupTip": "Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!",
     "copy": "Copy",
-    "regenerate": "Regenerate"
+    "regenerate": "Regenerate",
+    "advanced": "Advanced"
   }
 }

@@ -9,24 +9,21 @@ import Button from '@material-ui/core/Button';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import {copyToClipboard} from "../../../common/call";
 import {useSnackbar} from 'notistack';
-import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-input-form";
+import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-form";
 import {Keyring} from '@polkadot/api';
 import {mnemonicGenerate} from '@polkadot/util-crypto/mnemonic';
 import {AccountsContext} from "../../../context/accounts"
 
 const keyringsr = new Keyring({type: "sr25519"});
-const keyringed = new Keyring({type: "sr25519"});
+const keyringed = new Keyring({type: "ed25519"});
 
 function addressFromPhrase(phrase, type, keypair) {
     let keyring;
 
-    switch (keypair) {
-        case 'ed25519':
-            keyring = keyringed;
-            break;
-        default:
-            keyring = keyringsr;
-            break;
+    if (keypair === 'ed25519') {
+        keyring = keyringed;
+    } else {
+        keyring = keyringsr;
     }
 
     switch (type) {
@@ -45,7 +42,7 @@ function addressFromPhrase(phrase, type, keypair) {
 
 function generateAddress(type, keypair) {
     const phrase = mnemonicGenerate();// Mnemonic
-    // const phrase = u8aToHex(await randomAsU8a());// Private Key
+    // const key = u8aToHex(await randomAsU8a());// Private Key
     const address = addressFromPhrase(phrase, type, keypair);
     return {
         address,
@@ -58,7 +55,6 @@ function CreateAccount() {
     const history = useHistory();
     const classes = useStyles();
     const {enqueueSnackbar} = useSnackbar();
-    const steps = [t('CreateWallet.step1'), t('CreateWallet.step2'), t('CreateWallet.step3')];
     const typeRef = useRef();
     const keypairRef = useRef();
     const nameRef = useRef();
@@ -177,7 +173,7 @@ function CreateAccount() {
             <Box className={classes.footer}>
                 <MobileStepper
                     variant="dots"
-                    steps={steps.length}
+                    steps={3}
                     position="static"
                     activeStep={activeStep}
                     className={classes.stepper}
@@ -191,13 +187,13 @@ function CreateAccount() {
                             className={classes.button}>
                         {t('CreateWallet.back')}
                     </Button>
-                    <Button disabled={activeStep === steps.length}
+                    <Button disabled={activeStep === 3}
                             disableElevation
                             variant="contained"
                             color="primary"
                             onClick={handleNext}
                             className={classes.button}>
-                        {activeStep >= steps.length - 1 ? t('CreateWallet.create') : t('CreateWallet.next')}
+                        {activeStep >= 2 ? t('CreateWallet.create') : t('CreateWallet.next')}
                     </Button>
                 </Box>
             </Box>

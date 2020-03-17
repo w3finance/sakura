@@ -43,11 +43,10 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
                 id="select-wallet"
                 variant="filled"
                 select
-                label="Select Wallet"
+                label="Select Wallet Type"
                 value={values.type}
                 onChange={handleChange('type')}
                 inputRef={props.typeRef}
-                // margin="normal"
                 className={classes.textField}
             >
                 {types.map(option => (
@@ -64,9 +63,8 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
                            shrink: true,
                        }}
                        inputRef={props.nameRef}
-                       margin="normal"
                        className={classes.textField}
-                       value={values.name ? values.name : null}
+                       value={values.name ? values.name : undefined}
                        onChange={handleChange('name')}
             />
             <TextField id="password"
@@ -97,7 +95,7 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
                 <FormControlLabel
                     value="Advanced"
                     control={<Switch color="primary" size="small" checked={checked} onChange={toggleChecked}/>}
-                    label="Advanced"
+                    label={t('CreateWallet.advanced')}
                     labelPlacement="start"
                     classes={{label: classes.label}}
                 />
@@ -158,7 +156,7 @@ const MnemonicForm = React.memo(function MnemonicForm(props) {
             <Box className={classes.tip}>
                 {t('CreateWallet.backupTip')}
             </Box>
-            <RedditTextField id="outlined-basic"
+            <RedditTextField id="key"
                              label={t('CreateWallet.mnemonic')}
                              variant="filled"
                              multiline
