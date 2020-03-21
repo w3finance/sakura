@@ -6,11 +6,11 @@ import {AccountsProvider} from "./context/accounts";
 import {SnackbarProvider} from 'notistack';
 import {ApiProvider} from "./context/api";
 import {I18nextProvider} from "react-i18next";
-import i18n from "./common/i18n";
+import i18n from "./util/i18n";
 import WelcomePage from "./pages/welcome/welcome";
 import AllAccounts from "./pages/account/all-accounts";
-import CreateAccount from "./pages/account/add/create-account";
-import ImportAccount from "./pages/account/add/import-account";
+import CreateAccount from "./pages/add/create-account";
+import ImportAccount from "./pages/add/import-account";
 import Setting from "./pages/setting/setting";
 
 const Providers = (props) => (

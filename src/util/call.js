@@ -1,4 +1,4 @@
-import {Call} from "../message/message";
+import {Call} from "./message";
 
 // Settings
 export const loadSettings = () => Call("ReadSettings");

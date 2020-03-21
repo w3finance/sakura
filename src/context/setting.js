@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
-import {loadSettings, saveSettings} from "../common/call";
+import {loadSettings, saveSettings} from "../util/call";
 
 const initialSettings = {
     "language": "en",

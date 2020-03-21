@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Wrapper} from "../../components/Layout";
 import Header from "../../components/Header";
-import SettingCell from "./cell";
+import SettingCell from "../../components/setting/cell";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import {SettingsContext} from "../../context/setting";
-import {getAppVersion} from "../../common/call";
+import {getAppVersion} from "../../util/call";
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';

@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
-import {loadAccounts, saveAccounts} from "../common/call";
+import {loadAccounts, saveAccounts} from "../util/call";
 
 const initialAccounts = {};
 

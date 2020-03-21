@@ -12,8 +12,8 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import {useTranslation} from "react-i18next";
 import TextField from "@material-ui/core/TextField";
-import {AccountsContext} from "../../../context/accounts";
-import {RedditTextField} from "../../../components/account/RedditTextField";
+import {AccountsContext} from "../../context/accounts";
+import {RedditTextField} from "../RedditTextField";
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 

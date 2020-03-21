@@ -1,18 +1,18 @@
 import React, {useState, useRef} from "react";
-import {Wrapper} from "../../../components/Layout";
-import Header from "../../../components/Header";
+import {Wrapper} from "../../components/Layout";
+import Header from "../../components/Header";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import Box from '@material-ui/core/Box';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from '@material-ui/core/Button';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import {copyToClipboard} from "../../../common/call";
+import {copyToClipboard} from "../../util/call";
 import {useSnackbar} from 'notistack';
-import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "./create-form";
+import {CreateInputForm, MnemonicForm, ConfirmMnemonicForm} from "../../components/add/create-form";
 import {Keyring} from '@polkadot/api';
 import {mnemonicGenerate} from '@polkadot/util-crypto/mnemonic';
-import {AccountsContext} from "../../../context/accounts"
+import {AccountsContext} from "../../context/accounts"
 
 const keyringsr = new Keyring({type: "sr25519"});
 const keyringed = new Keyring({type: "ed25519"});

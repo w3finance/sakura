@@ -8,11 +8,11 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import {AccountsContext} from "../../../context/accounts";
+import {AccountsContext} from "../../context/accounts";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Collapse from "@material-ui/core/Collapse";
-import {RedditTextField} from "../../../components/account/RedditTextField";
+import {RedditTextField} from "../RedditTextField";
 
 const types = ["Kusama", "Polkadot", "Edgeware"];
 const keypairs = ["sr25519", "ed25519"];

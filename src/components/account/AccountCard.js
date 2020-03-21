@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Box from "@material-ui/core/Box";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSnackbar} from 'notistack';
-import {copyToClipboard} from "../../common/call";
+import {copyToClipboard} from "../../util/call";
 import {useTranslation} from "react-i18next";
 
 function AccountCard(props) {
