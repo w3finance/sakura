@@ -43,7 +43,7 @@ const CreateInputForm = React.memo(function CreateInputForm(props) {
                 id="select-wallet"
                 variant="filled"
                 select
-                label="Select Wallet Type"
+                label="Which Wallet do you want create?"
                 value={values.type}
                 onChange={handleChange('type')}
                 inputRef={props.typeRef}

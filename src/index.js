@@ -34,7 +34,7 @@ class App extends React.Component {
         return (
             <Providers>
                 <Switch>
-                    <Route exact path="/" component={WelcomePage}/>
+                    <Route exact path="/" component={ImportAccount}/>
                     <Route exact path="/allAccounts" component={AllAccounts}/>
                     <Route exact path="/createAccount" component={CreateAccount}/>
                     <Route exact path="/importAccount" component={ImportAccount}/>

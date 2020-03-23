@@ -66,6 +66,8 @@ function CreateAccount() {
     const [values, setValues] = useState({
         type: "Kusama",
         keypair: "sr25519",
+        phrase: "",
+        private: "",
         name: "",
         password: "",
         pwd: "",
@@ -101,8 +103,9 @@ function CreateAccount() {
                     name: values.name,
                     type: values.type,
                     keypair: values.keypair,
+                    phrase: phrase,
+                    private: "",
                     password: values.password,
-                    phrase: phrase
                 }
             });
         } catch (e) {

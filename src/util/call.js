@@ -1,4 +1,4 @@
-import {Call} from "./message";
+import {Call} from "./ipc";
 
 // Settings
 export const loadSettings = () => Call("ReadSettings");

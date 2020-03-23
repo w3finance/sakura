@@ -6,43 +6,20 @@ import {useTranslation} from "react-i18next";
 import Box from "@material-ui/core/Box";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
-import {ToggleChain, ToggleKey, WalletInfo} from "../../components/add/import-form";
-import {Keyring} from "@polkadot/api";
-
-const keyring = new Keyring({type: "sr25519"});
-const judgeKey = (key, chain) =>{
-    switch (chain) {
-        case 'Polkadot':
-            keyring.setSS58Format(0x00);
-            break;
-        case 'Kusama':
-            keyring.setSS58Format(0x02);
-            break;
-        default:
-            keyring.setSS58Format(42);
-            break;
-    }
-    return new Promise(((resolve, reject) => {
-        const address = keyring.addFromMnemonic(key).address;
-        try {
-            resolve(keyring.addFromMnemonic(key).address)
-        } catch (e) {
-            reject(e)
-        }
-    }))
-};
+import {ToggleType} from "../../components/add/import-form";
 
 function ImportAccount() {
     const history = useHistory();
     const {t} = useTranslation();
     const classes = useStyles();
-    const keyRef = useRef();
+    const typeRef = useRef();
     const [activeStep, setActiveStep] = useState(0);
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
-        type: "",
+        type: "Kusama",
         keypair: "sr25519",
-        key: "",
+        phrase: "",
+        private: "",
         name: "",
         password: "",
         pwd: "",
@@ -58,24 +35,13 @@ function ImportAccount() {
 
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
-        if (activeStep === 1){
+        if (activeStep === 1) {
 
-            judgeKey(values.key,values.type)
-
-        } else if (activeStep === 2){
+        } else if (activeStep === 2) {
             setActiveStep(prevActiveStep => prevActiveStep + 1);
         } else {
             setActiveStep(prevActiveStep => prevActiveStep + 1);
         }
-    };
-
-    const select = chain => {
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
-        setValues({...values, ['type']: chain});
-    };
-
-    const inputKey = () =>{
-        setValues({...values, ['key']: keyRef.current['value']});
     };
 
     return (
@@ -84,14 +50,12 @@ function ImportAccount() {
             <Box className={classes.container}>
                 {
                     activeStep === 0 ?
-                        <ToggleChain select={select}/>
+                        <ToggleType formValues={values}
+                                    typeRef={typeRef}
+
+                        />
                         :
-                        (
-                            activeStep === 1 ?
-                                <ToggleKey keyRef={keyRef} inputKey={inputKey}/>
-                                :
-                                <WalletInfo errors={errors} formValues={values}/>
-                        )
+                        null
                 }
             </Box>
             {
