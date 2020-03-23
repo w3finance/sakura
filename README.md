@@ -55,5 +55,9 @@ yarn dist:win
 yarn dist:linux
 ```
 
+### Working prototype
+You can find our working prototype through the [link](https://free.modao.cc/app/e28c820ad8f37333312fef08577f87e9bb94ace4?simulator_type=device&sticky).
+![](./public/static/img/sakura-home.png)
+
 ### License
 GPL v3.
