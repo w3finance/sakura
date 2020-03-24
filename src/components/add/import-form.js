@@ -45,7 +45,7 @@ const ImportForm = React.memo(function ImportForm(props) {
                              inputRef={keyRef}
                              className={classes.textField}
                              onChange={type === '0' ? handleChange('phrase') : handleChange('private')}
-                             helperText={t('CreateWallet.inputMnemonic')}
+                             helperText={type === '0' ? t('CreateWallet.inputMnemonic') : t('CreateWallet.inputPrivateKey')}
             />
 
             <RedditTextField id="outlined-basic"
