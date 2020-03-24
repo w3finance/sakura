@@ -97,7 +97,7 @@ function ImportAccount() {
     const validate = () => {
         const formValues = {
             type: values.type,
-            keypair: keypairRef.current['value'],
+            keypair: values.keypair,
             phrase: type === '0' ? keyRef.current['value'] : "",
             private: type === '1' ? keyRef.current['value'] : "",
             name: nameRef.current['value'],
@@ -135,8 +135,7 @@ function ImportAccount() {
             <Box className={classes.container}>
                 {
                     activeStep === 0 ?
-                        <ToggleType formValues={values}
-                                    typeRef={typeRef}
+                        <ToggleType typeRef={typeRef}
                                     keypairRef={keypairRef}
                                     select={handleSelect}
                         />

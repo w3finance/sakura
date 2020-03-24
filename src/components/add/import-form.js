@@ -78,8 +78,11 @@ const ImportForm = React.memo(function ImportForm(props) {
 });
 
 const ToggleType = React.memo(function ToggleType(props) {
-    const {formValues, typeRef, keypairRef, select} = props;
-    const [values, setValues] = useState(formValues);
+    const {typeRef, keypairRef, select} = props;
+    const [values, setValues] = useState({
+        type: "Kusama",
+        keypair: "sr25519",
+    });
     const classes = useStyles();
     const {t} = useTranslation();
     const [checked, setChecked] = useState(false);
@@ -128,7 +131,7 @@ const ToggleType = React.memo(function ToggleType(props) {
                     label="Keypair Crypto Type"
                     value={values.keypair}
                     onChange={handleChange('keypair')}
-                    inputRef={props.keypairRef}
+                    inputRef={keypairRef}
                     className={classes.textFieldNoMargin}
                 >
                     {keypairs.map(option => (
