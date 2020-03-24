@@ -10,16 +10,18 @@ function AccountCard(props) {
     const {enqueueSnackbar} = useSnackbar();
     const classes = useStyles();
     const {address, account, api} = props;
-    const bg = account.type === 'Kusama' ? '#C785ED' : '#847EF2';
+    const bg = account.type === 'Kusama' ? '#C785ED' : (account.type === 'Polkadot' ? '#847EF2' : '#565F75');
     const [balance, setBalance] = useState('~');
 
     try {
         (async () => {
-            const {tokenDecimals, tokenSymbol} = await api.properties();
-            const {nonce, data: balance} = await api.freeBalance(address);
-            let fix = (balance.free / Math.pow(10, tokenDecimals)) === 0 ? 0 : 3;
-            let free = String((balance.free / Math.pow(10, tokenDecimals)).toFixed(fix)) + ' ' + tokenSymbol;
-            setBalance(free);
+            if (Object.keys(api).length !== 0){
+                const {tokenDecimals, tokenSymbol} = await api.properties();
+                const {nonce, data: balance} = await api.freeBalance(address);
+                let fix = (balance.free / Math.pow(10, tokenDecimals)) === 0 ? 0 : 3;
+                let free = String((balance.free / Math.pow(10, tokenDecimals)).toFixed(fix)) + ' ' + tokenSymbol;
+                setBalance(free);
+            }
         })()
     } catch (e) {
         console.log(e)

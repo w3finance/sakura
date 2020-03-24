@@ -42,7 +42,19 @@ const ImportForm = React.memo(function ImportForm(props) {
                              inputProps={{'aria-label': 'naked'}}
                              className={classes.textField}
                              onChange={handleChange('phrase')}
-                             helperText={'请输入助记词'}
+                             helperText={'Please input mnemonic'}
+            />
+
+            <RedditTextField id="outlined-basic"
+                             label={t('CreateWallet.password')}
+                             error={Boolean(errors.password)}
+                             variant="filled"
+                             multiline
+                             rows="1"
+                             inputProps={{'aria-label': 'naked'}}
+                             className={classes.textFieldNoMargin}
+                             onChange={handleChange('password')}
+                             helperText={'Wallet Password'}
             />
 
             <RedditTextField id="outlined-basic"
@@ -55,18 +67,6 @@ const ImportForm = React.memo(function ImportForm(props) {
                              inputProps={{'aria-label': 'naked'}}
                              className={classes.textField}
                              onChange={handleChange('name')}
-                             helperText={'钱包名称'}
-            />
-            <RedditTextField id="outlined-basic"
-                             label={t('CreateWallet.password')}
-                             error={Boolean(errors.password)}
-                             variant="filled"
-                             multiline
-                             rows="1"
-                             inputProps={{'aria-label': 'naked'}}
-                             className={classes.textFieldNoMargin}
-                             onChange={handleChange('password')}
-                             helperText={'钱包密码'}
             />
         </Box>
     )

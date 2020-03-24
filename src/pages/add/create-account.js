@@ -33,6 +33,9 @@ function addressFromPhrase(phrase, type, keypair) {
         case 'Kusama':
             keyring.setSS58Format(0x02);
             break;
+        case 'Edgeware':
+            keyring.setSS58Format(0x07);
+            break;
         default:
             keyring.setSS58Format(42);
             break;

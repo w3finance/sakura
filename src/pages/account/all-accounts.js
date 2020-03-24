@@ -69,7 +69,7 @@ function AllAccounts() {
                                     Object.keys(accounts).map((key) => {
                                         return (
                                             <AccountCard key={key}
-                                                         api={ksmApi}
+                                                         api={accounts[key].type === 'Kusama' ? ksmApi : {}}
                                                          address={key}
                                                          account={accounts[key]}/>
                                         )
