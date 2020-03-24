@@ -36,6 +36,8 @@
     "backupTip": "Please be sure to back up the Mnemonic, obtaining Mnemonic equals owning all assets!",
     "copy": "Copy",
     "regenerate": "Regenerate",
-    "advanced": "Advanced"
+    "advanced": "Advanced",
+    "inputMnemonic": "Enter mnemonic phrases separated by spaces",
+    "setPassword": "Set password"
   }
 }

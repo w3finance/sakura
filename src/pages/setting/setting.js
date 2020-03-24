@@ -97,10 +97,10 @@ function Setting() {
             <SettingCell title={t('Title.language')}
                          subTitle={t(`${'Title.' + language}`)}
                          icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}
-                         line
                          margin
                          onClick={changeLng}
             />
+            <div className={classes.line}/>
             <SettingCell title={t('Title.terms')}
                          icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}
             />
@@ -124,6 +124,12 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
+    },
+    line: {
+        height: 1,
+        width: "740px",
+        background: '#F7F7F7',
+        marginLeft: '30px'
     }
 }));
 

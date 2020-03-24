@@ -18,18 +18,11 @@ const useStyles = makeStyles(theme => ({
     },
     icon: {
         marginRight: '18px',
-    },
-    line: {
-        height: 1,
-        width: "740px",
-        background: '#F7F7F7',
-        marginLeft: '30px',
-        alignSelf: 'flex-end'
     }
 }));
 
 function SettingCell(props) {
-    const {title, subTitle, icon, line, onClick, margin} = props;
+    const {title, subTitle, icon, onClick, margin} = props;
     const classes = useStyles();
     return (
         <Grid container alignItems="center"
@@ -55,7 +48,6 @@ function SettingCell(props) {
             <IconButton style={{backgroundColor: 'transparent'}} className={classes.icon}>
                 {icon ? icon : null}
             </IconButton>
-            {line ? <div className={classes.line}/> : null}
         </Grid>
     )
 }

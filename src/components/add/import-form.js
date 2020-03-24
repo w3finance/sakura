@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import {useTranslation} from "react-i18next";
 import {AccountsContext} from "../../context/accounts";
 import {RedditTextField} from "../RedditTextField";
@@ -42,7 +42,7 @@ const ImportForm = React.memo(function ImportForm(props) {
                              inputProps={{'aria-label': 'naked'}}
                              className={classes.textField}
                              onChange={handleChange('phrase')}
-                             helperText={'Please input mnemonic'}
+                             helperText={t('CreateWallet.inputMnemonic')}
             />
 
             <RedditTextField id="outlined-basic"
@@ -52,9 +52,9 @@ const ImportForm = React.memo(function ImportForm(props) {
                              multiline
                              rows="1"
                              inputProps={{'aria-label': 'naked'}}
-                             className={classes.textFieldNoMargin}
+                             className={classes.textField}
                              onChange={handleChange('password')}
-                             helperText={'Wallet Password'}
+                             helperText={t('CreateWallet.setPassword')}
             />
 
             <RedditTextField id="outlined-basic"
@@ -65,7 +65,7 @@ const ImportForm = React.memo(function ImportForm(props) {
                              rows="1"
                              defaultValue={`Wallet${Object.keys(accounts).length + 1}`}
                              inputProps={{'aria-label': 'naked'}}
-                             className={classes.textField}
+                             className={classes.textFieldNoMargin}
                              onChange={handleChange('name')}
             />
         </Box>
@@ -101,7 +101,6 @@ const ToggleType = React.memo(function ToggleType(props) {
                     </MenuItem>
                 ))}
             </TextField>
-
             <List className={classes.list}>
                 {
                     Object.keys(actions).map(key => {
@@ -114,7 +113,7 @@ const ToggleType = React.memo(function ToggleType(props) {
                                 />
                                 <ListItemSecondaryAction>
                                     <IconButton edge="end" aria-label="go">
-                                        <ArrowForwardIcon/>
+                                        <NavigateNextIcon style={{color: "#D3D3D3"}}/>
                                     </IconButton>
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -145,6 +144,7 @@ const useStyles = makeStyles(theme => ({
     list: {
         width: WIDTH,
         marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(5),
         background: '#FFF',
         borderRadius: 6
     },

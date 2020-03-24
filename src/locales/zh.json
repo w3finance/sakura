@@ -36,6 +36,8 @@
     "backupTip": "请妥善保管助记词, 拥有助记词等于拥有钱包资产所有权！",
     "copy": "复制",
     "regenerate": "重新生成",
-    "advanced": "高级设置"
+    "advanced": "高级设置",
+    "inputMnemonic": "输入助记词并使用空格分隔",
+    "setPassword": "设置密码"
   }
 }
