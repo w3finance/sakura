@@ -88,9 +88,7 @@ function ImportAccount() {
             type: typeRef.current['value'],
             keypair: keypairRef.current['value']
         });
-        setTimeout(() => {
-            setActiveStep(prevActiveStep => prevActiveStep + 1);
-        }, 250);
+        setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
 
     const validateFormValues = formValidation();
@@ -203,7 +201,6 @@ function formValidation() {
         return {errors, success}
     }
 }
-
 
 const useStyles = makeStyles(theme => ({
     container: {
