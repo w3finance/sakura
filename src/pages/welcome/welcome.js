@@ -20,6 +20,10 @@ function WelcomePage() {
     const history = useHistory();
     const {i18n} = useTranslation();
     const [open, setOpen] = React.useState(false);
+    const [{type, text}, setText] = React.useState({
+        type: 'info',
+        text: 'It may take longer than expected, but it will be worth it!'
+    });
     const classes = useStyles();
     useEffect(() => {
         i18n.changeLanguage(language).then(() => undefined);
@@ -28,13 +32,18 @@ function WelcomePage() {
             if (!open) {
                 setOpen(true);
             }
-        }, 15000);
+        }, 10000);
 
-        // let errorTimer = setTimeout(() => {
-        //     if (open) {
-        //         setOpen(false);
-        //     }
-        // }, 60000);
+        let errorTimer = setTimeout(() => {
+            setOpen(false);
+            setTimeout(() => {
+                setOpen(true);
+                setText({
+                    type: 'error',
+                    text: 'Connection failed, please check your network settings'
+                })
+            }, 1000);
+        }, 30000);
 
         try {
             (async () => {
@@ -45,6 +54,7 @@ function WelcomePage() {
                         api.rpc.system.version()
                     ]);
                     setOpen(false);
+                    clearTimeout(errorTimer);
                     setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}.`);
                     timer = setTimeout(() => {
                         history.push("/allAccounts");
@@ -58,7 +68,9 @@ function WelcomePage() {
         return () => {
             clearTimeout(timer);
             clearTimeout(tipTimer);
-            // clearTimeout(errorTimer);
+            if (errorTimer) {
+                clearTimeout(errorTimer);
+            }
         }
     }, [api]);
 
@@ -73,20 +85,25 @@ function WelcomePage() {
                         <Grid item className={classes.process}>
                             <CircularProgress size={20} color={'inherit'}/>
                             <Collapse in={open}>
-                                <Alert severity="info" style={{marginTop: '30px'}} onClose={() => {setOpen(false)}}>
-                                    It may take longer than expected, but it will be worth it!
+                                <Alert severity={type} style={{marginTop: '30px'}} onClose={() => {
+                                    setOpen(false)
+                                }}>
+                                    {text}
                                 </Alert>
                             </Collapse>
                         </Grid>
                         :
                         <Grid item className={classes.process}>
-                            <Typography style={{textAlign: "center", color: 'rgba(16,16,16,.5)', fontSize: '0.875rem'}}>{title}</Typography>
+                            <Typography style={{
+                                textAlign: "center",
+                                color: 'rgba(16,16,16,.5)',
+                                fontSize: '0.875rem'
+                            }}>{title}</Typography>
                         </Grid>
                 }
             </Grid>
         </Wrapper>
     )
-
 }
 
 const useStyles = makeStyles({
