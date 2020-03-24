@@ -29,6 +29,7 @@
     "next": "Next",
     "back": "Back",
     "create": "Create",
+    "import": "Import",
     "address": "Wallet Address",
     "backupMnemonic": "Backup Mnemonic Phrase",
     "confirmMnemonic": "Confirm Mnemonic",
@@ -38,6 +39,10 @@
     "regenerate": "Regenerate",
     "advanced": "Advanced",
     "inputMnemonic": "Enter mnemonic phrases separated by spaces",
-    "setPassword": "Set password"
+    "inputPrivateKey": "Enter private key",
+    "setPassword": "Set password",
+    "importViaMnemonic": "Enter a mnemonic phrase",
+    "importViaPrivateKey": "Enter a private key",
+    "private": "Private Key"
   }
 }

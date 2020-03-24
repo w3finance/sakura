@@ -29,6 +29,7 @@
     "next": "下一步",
     "back": "上一步",
     "create": "创建",
+    "import": "导入",
     "address": "钱包地址",
     "backupMnemonic": "备份助记词",
     "confirmMnemonic": "确认助记词",
@@ -38,6 +39,10 @@
     "regenerate": "重新生成",
     "advanced": "高级设置",
     "inputMnemonic": "输入助记词并使用空格分隔",
-    "setPassword": "设置密码"
+    "inputPrivateKey": "输入钱包私钥",
+    "setPassword": "设置密码",
+    "importViaMnemonic": "导入助记词",
+    "importViaPrivateKey": "导入私钥",
+    "private": "私钥"
   }
 }

@@ -12,19 +12,21 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import {useTranslation} from "react-i18next";
 import {AccountsContext} from "../../context/accounts";
 import {RedditTextField} from "../RedditTextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import Collapse from "@material-ui/core/Collapse";
 
+const types = ["Kusama", "Polkadot", "Edgeware"];
+const keypairs = ["sr25519", "ed25519"];
 const WIDTH = 550;
 
 const ImportForm = React.memo(function ImportForm(props) {
-    const {formValues} = props;
+    const {type, errors, keyRef, passwordRef, nameRef} = props;
     const classes = useStyles();
     const {t} = useTranslation();
     const {accounts} = React.useContext(AccountsContext);
-    const [values, setValues] = useState(formValues);
-    const [errors, setErrors] = useState({});
 
-    const handleChange = prop => event => {
-        setValues({...values, [prop]: event.target.value});
+    const handleChange = prop => {
         if (Boolean(errors[prop])) {
             delete errors[prop];
         }
@@ -33,15 +35,16 @@ const ImportForm = React.memo(function ImportForm(props) {
     return (
         <Box className={classes.root}>
             <RedditTextField id="outlined-basic"
-                             label={t('CreateWallet.mnemonic')}
-                             error={Boolean(errors.phrase)}
+                             label={type === '0' ? t('CreateWallet.mnemonic') : t('CreateWallet.private')}
+                             error={type === '0' ? Boolean(errors.phrase) : Boolean(errors.private)}
                              autoFocus={true}
                              variant="filled"
                              multiline
                              rows="2"
                              inputProps={{'aria-label': 'naked'}}
+                             inputRef={keyRef}
                              className={classes.textField}
-                             onChange={handleChange('phrase')}
+                             onChange={type === '0' ? handleChange('phrase') : handleChange('private')}
                              helperText={t('CreateWallet.inputMnemonic')}
             />
 
@@ -52,6 +55,7 @@ const ImportForm = React.memo(function ImportForm(props) {
                              multiline
                              rows="1"
                              inputProps={{'aria-label': 'naked'}}
+                             inputRef={passwordRef}
                              className={classes.textField}
                              onChange={handleChange('password')}
                              helperText={t('CreateWallet.setPassword')}
@@ -65,6 +69,7 @@ const ImportForm = React.memo(function ImportForm(props) {
                              rows="1"
                              defaultValue={`Wallet${Object.keys(accounts).length + 1}`}
                              inputProps={{'aria-label': 'naked'}}
+                             inputRef={nameRef}
                              className={classes.textFieldNoMargin}
                              onChange={handleChange('name')}
             />
@@ -73,14 +78,19 @@ const ImportForm = React.memo(function ImportForm(props) {
 });
 
 const ToggleType = React.memo(function ToggleType(props) {
-    const {formValues, typeRef, select} = props;
+    const {formValues, typeRef, keypairRef, select} = props;
     const [values, setValues] = useState(formValues);
     const classes = useStyles();
-    const types = ["Kusama", "Polkadot", "Edgeware"];
-    const actions = ['Import by Mnemonic', 'Import by Private Key'];
+    const {t} = useTranslation();
+    const [checked, setChecked] = useState(false);
+    const actions = [t('CreateWallet.importViaMnemonic'), t('CreateWallet.importViaPrivateKey')];
 
     const handleChange = prop => event => {
         setValues({...values, [prop]: event.target.value});
+    };
+
+    const toggleChecked = () => {
+        setChecked(prev => !prev);
     };
 
     return (
@@ -93,7 +103,7 @@ const ToggleType = React.memo(function ToggleType(props) {
                 value={values.type}
                 onChange={handleChange('type')}
                 inputRef={typeRef}
-                className={classes.textField}
+                className={classes.textFieldNoMargin}
             >
                 {types.map(option => (
                     <MenuItem key={option} value={option}>
@@ -101,6 +111,33 @@ const ToggleType = React.memo(function ToggleType(props) {
                     </MenuItem>
                 ))}
             </TextField>
+            <Box className={classes.advanced}>
+                <FormControlLabel
+                    value="Advanced"
+                    control={<Switch color="primary" size="small" checked={checked} onChange={toggleChecked}/>}
+                    label={t('CreateWallet.advanced')}
+                    labelPlacement="start"
+                    classes={{label: classes.label}}
+                />
+            </Box>
+            <Collapse in={checked}>
+                <TextField
+                    id="select-keypair"
+                    variant="filled"
+                    select
+                    label="Keypair Crypto Type"
+                    value={values.keypair}
+                    onChange={handleChange('keypair')}
+                    inputRef={props.keypairRef}
+                    className={classes.textFieldNoMargin}
+                >
+                    {keypairs.map(option => (
+                        <MenuItem key={option} value={option}>
+                            {option}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            </Collapse>
             <List className={classes.list}>
                 {
                     Object.keys(actions).map(key => {
@@ -143,11 +180,21 @@ const useStyles = makeStyles(theme => ({
     },
     list: {
         width: WIDTH,
-        marginTop: theme.spacing(3),
+        marginTop: theme.spacing(2),
         marginBottom: theme.spacing(5),
         background: '#FFF',
         borderRadius: 6
     },
+    advanced: {
+        width: WIDTH,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        marginBottom: theme.spacing(0.7)
+    },
+    label: {
+        color: 'rgba(0, 0, 0, 0.54)',
+        fontSize: 14
+    }
 }));
 
 export {ToggleType, ImportForm}

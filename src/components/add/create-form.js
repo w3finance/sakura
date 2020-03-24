@@ -239,9 +239,9 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-end'
     },
     label: {
-        color: 'rgba(0, 0, 0, 0.54)'
+        color: 'rgba(0, 0, 0, 0.54)',
+        fontSize: 14
     }
-
 }));
 
 export {CreateInputForm, MnemonicForm, ConfirmMnemonicForm}
