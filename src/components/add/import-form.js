@@ -9,12 +9,71 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import Grid from '@material-ui/core/Grid';
+import {useTranslation} from "react-i18next";
+import {AccountsContext} from "../../context/accounts";
+import {RedditTextField} from "../RedditTextField";
 
 const WIDTH = 550;
 
+const ImportForm = React.memo(function ImportForm(props) {
+    const {formValues} = props;
+    const classes = useStyles();
+    const {t} = useTranslation();
+    const {accounts} = React.useContext(AccountsContext);
+    const [values, setValues] = useState(formValues);
+    const [errors, setErrors] = useState({});
+
+    const handleChange = prop => event => {
+        setValues({...values, [prop]: event.target.value});
+        if (Boolean(errors[prop])) {
+            delete errors[prop];
+        }
+    };
+
+    return (
+        <Box className={classes.root}>
+            <RedditTextField id="outlined-basic"
+                             label={t('CreateWallet.mnemonic')}
+                             error={Boolean(errors.phrase)}
+                             autoFocus={true}
+                             variant="filled"
+                             multiline
+                             rows="2"
+                             inputProps={{'aria-label': 'naked'}}
+                             className={classes.textField}
+                             onChange={handleChange('phrase')}
+                             helperText={'请输入助记词'}
+            />
+
+            <RedditTextField id="outlined-basic"
+                             label={t('CreateWallet.walletName')}
+                             error={Boolean(errors.name)}
+                             variant="filled"
+                             multiline
+                             rows="1"
+                             defaultValue={`Wallet${Object.keys(accounts).length + 1}`}
+                             inputProps={{'aria-label': 'naked'}}
+                             className={classes.textField}
+                             onChange={handleChange('name')}
+                             helperText={'钱包名称'}
+            />
+            <RedditTextField id="outlined-basic"
+                             label={t('CreateWallet.password')}
+                             error={Boolean(errors.password)}
+                             variant="filled"
+                             multiline
+                             rows="1"
+                             inputProps={{'aria-label': 'naked'}}
+                             className={classes.textFieldNoMargin}
+                             onChange={handleChange('password')}
+                             helperText={'钱包密码'}
+            />
+        </Box>
+    )
+});
+
 const ToggleType = React.memo(function ToggleType(props) {
-    const {formValues, typeRef} = props;
+    const {formValues, typeRef, select} = props;
     const [values, setValues] = useState(formValues);
     const classes = useStyles();
     const types = ["Kusama", "Polkadot", "Edgeware"];
@@ -45,15 +104,17 @@ const ToggleType = React.memo(function ToggleType(props) {
 
             <List className={classes.list}>
                 {
-                    Object.keys(actions).map(key=>{
+                    Object.keys(actions).map(key => {
                         return (
-                            <ListItem button={true} divider={key==='0'} key={key}>
+                            <ListItem button={true} divider={key === '0'} key={key} onClick={() => {
+                                select(key)
+                            }}>
                                 <ListItemText
                                     primary={actions[key]}
                                 />
                                 <ListItemSecondaryAction>
                                     <IconButton edge="end" aria-label="go">
-                                        <ArrowForwardIcon />
+                                        <ArrowForwardIcon/>
                                     </IconButton>
                                 </ListItemSecondaryAction>
                             </ListItem>
@@ -75,6 +136,10 @@ const useStyles = makeStyles(theme => ({
     },
     textField: {
         width: WIDTH,
+        marginBottom: theme.spacing(2),
+    },
+    textFieldNoMargin: {
+        width: WIDTH,
         marginBottom: theme.spacing(0.7),
     },
     list: {
@@ -82,7 +147,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(3),
         background: '#FFF',
         borderRadius: 6
-    }
+    },
 }));
 
-export {ToggleType}
+export {ToggleType, ImportForm}

@@ -10,10 +10,10 @@ const useStylesReddit = makeStyles(theme => ({
         color: 'rgb(66,66,70)',
         transition: theme.transitions.create(['border-color']),
         '&:hover': {
-            backgroundColor: '#FFF',
+            // backgroundColor: '#FFF',
         },
         '&$focused': {
-            backgroundColor: '#FFF',
+            // backgroundColor: '#FFF',
         },
     }
 }));

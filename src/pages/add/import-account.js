@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import Box from "@material-ui/core/Box";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
-import {ToggleType} from "../../components/add/import-form";
+import {ToggleType, ImportForm} from "../../components/add/import-form";
 
 function ImportAccount() {
     const history = useHistory();
@@ -34,14 +34,18 @@ function ImportAccount() {
     };
 
     const handleNext = () => {
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
         if (activeStep === 1) {
-
-        } else if (activeStep === 2) {
-            setActiveStep(prevActiveStep => prevActiveStep + 1);
-        } else {
             setActiveStep(prevActiveStep => prevActiveStep + 1);
         }
+    };
+
+    const handleSelect = (event) => {
+        if (event) {
+            console.log('Private Key')
+        } else {
+            console.log('Mnemonic')
+        }
+        setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
 
     return (
@@ -52,10 +56,10 @@ function ImportAccount() {
                     activeStep === 0 ?
                         <ToggleType formValues={values}
                                     typeRef={typeRef}
-
+                                    select={handleSelect}
                         />
                         :
-                        null
+                        <ImportForm/>
                 }
             </Box>
             {
@@ -78,7 +82,7 @@ function ImportAccount() {
                                     color="primary"
                                     onClick={handleNext}
                                     className={classes.button}>
-                                {activeStep >= 2 ? 'Import' : t('CreateWallet.next')}
+                                {activeStep >= 1 ? 'Import' : t('CreateWallet.next')}
                             </Button>
                         </Box>
                     </Box>
@@ -93,7 +97,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
     },
     footer: {
-        height: '150px',
+        height: '130px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
