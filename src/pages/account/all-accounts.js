@@ -14,6 +14,8 @@ import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 import Box from "@material-ui/core/Box";
 import AccountCard from "../../components/account/AccountCard";
 import {useKusamaApi} from "../../hook/kusama";
+import {usePolkadotApi} from "../../hook/polkadot";
+import {useEdgewareApi} from "../../hook/edgeware";
 
 function AllAccounts() {
     const classes = useStyles();
@@ -22,6 +24,21 @@ function AllAccounts() {
     const [open, setOpen] = useState(false);
     const {accounts} = React.useContext(AccountsContext);
     const ksmApi = useKusamaApi();
+    const dotApi = usePolkadotApi();
+    const edgApi = useEdgewareApi();
+
+    const handleApi = type => {
+        switch (type) {
+            case 'Polkadot':
+                return {};
+            case 'Kusama':
+                return ksmApi;
+            case 'Edgeware':
+                return {};
+            default:
+                break;
+        }
+    };
 
     const handleOpen = () => {
         setOpen(true);
@@ -69,7 +86,7 @@ function AllAccounts() {
                                     Object.keys(accounts).map((key) => {
                                         return (
                                             <AccountCard key={key}
-                                                         api={accounts[key].type === 'Kusama' ? ksmApi : {}}
+                                                         api={handleApi(accounts[key].type)}
                                                          address={key}
                                                          account={accounts[key]}/>
                                         )
