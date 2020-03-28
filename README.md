@@ -20,17 +20,7 @@ yarn
 Then you can run:
 
 ```bash
-yarn start
-# or
-yarn start:win
-```
-
-Open another terminal run:
-
-```bash
 yarn dev
-# or
-yarn dev:win
 ```
 
 You will see the app in development mode with electron.
@@ -49,10 +39,6 @@ Create a package for OSX, Windows and Linux.
 
 ```bash
 yarn dist
-# or
-yarn dist:win
-# or
-yarn dist:linux
 ```
 
 ### Working prototype
