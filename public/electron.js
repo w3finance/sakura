@@ -2,6 +2,7 @@
 const {app, BrowserWindow, ipcMain, clipboard} = require('electron');
 const path = require('path');
 const url = require('url');
+const isDev = require('electron-is-dev');
 const Store = require('electron-store');
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -9,7 +10,7 @@ const Store = require('electron-store');
 let mainWindow;
 
 function createWindow() {
-    const startUrl = process.env.ELECTRON_START_URL || url.format({
+    const startUrl = isDev ? 'http://localhost:3000' : url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
         slashes: true,
@@ -23,10 +24,10 @@ function createWindow() {
         minHeight: 600,
         resizable: false,
         title: "Sakura Wallet",
-        backgroundColor: '#FFFFFF',
         titleBarStyle: process.platform === 'darwin' ? 'hidden' : 'default',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: true
         }
     });
 
@@ -67,6 +68,8 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+// https://medium.com/@johndyer24/building-a-production-electron-create-react-app-application-with-shared-code-using-electron-builder-c1f70f0e2649
 
 function expose(
     messageType,

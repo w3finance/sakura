@@ -1,4 +1,4 @@
-const {ipcRenderer} = window;
+const {ipcRenderer} = require('electron');
 
 function sendMessage(messageType, ...args) {
     const responsePromise = new Promise((resolve, reject) => {

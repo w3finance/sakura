@@ -1,29 +1,29 @@
 {
-  "name": "Sakura",
+  "name": "sakura",
   "version": "0.0.1",
-  "description": "Sakura Wallet is a secure and user-friendly Polkadot desktop wallet",
+  "description": "Sakura is a secure and user-friendly Desktop wallet for Polkadot ecosystem",
   "license": "GPL v3",
   "author": {
-    "name": "W3 Finance",
-    "email": "hizhaoyun@gmail.com"
+    "name": "W3 Finance"
   },
   "private": true,
+  "repository": "https://github.com/w3finance/sakura",
   "homepage": "./",
   "main": "public/electron.js",
   "scripts": {
-    "start": "export BROWSER=none && react-scripts start",
-    "start:win": "set BROWSER=none && react-scripts start",
-    "build": "react-scripts build",
-    "pack": "electron-builder --dir",
-    "dev": "export ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "dev:win": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "dist": "yarn build && rm -rf dist && electron-builder build --mac",
-    "dist:win": "yarn build && rd /s/q dist && electron-builder build --win --x64",
-    "dist:linux": "yarn build && rm -rf dist && electron-builder build --linux"
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "postinstall": "electron-builder install-app-deps",
+    "dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "clean": "rimraf dist/*",
+    "dist": "yarn build && yarn clean && electron-builder build -mwl --x64 --config ./electron-builder.yml"
   },
   "dependencies": {
+    "electron-is-dev": "^1.1.0",
     "electron-store": "^5.1.1",
-    "react-scripts": "3.4.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@material-ui/core": "^4.9.7",
@@ -32,15 +32,22 @@
     "@polkadot/api": "1.8.1",
     "@polkadot/keyring": "2.6.2",
     "@polkadot/util-crypto": "2.6.2",
-    "electron": "8.1.1",
+    "@rescripts/cli": "^0.0.14",
+    "@rescripts/rescript-env": "^0.0.12",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.2",
+    "electron": "^8.2.0",
     "electron-builder": "^22.4.1",
     "i18next": "^19.3.2",
     "notistack": "^0.9.9",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
     "react-i18next": "^11.3.3",
     "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "wait-on": "^4.0.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,5 +63,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "keywords": [
+    "Electron",
+    "Polkadot Wallet",
+    "Kusama",
+    "Edgeware"
+  ]
 }

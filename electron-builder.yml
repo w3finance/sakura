@@ -1,15 +1,15 @@
 productName: Sakura
-appId: tech.dotpay.sakura
-copyright: Copyright © 2019 Sakura Wallet
+appId: finance.w3.sakura
+copyright: Copyright © 2020 W3 Finance
+
+asar: true
 
 directories:
   buildResources: public/
+  output: dist/
 
-nsis:
-  oneClick: false
-  createDesktopShortcut: always
-  createStartMenuShortcut: true
-  runAfterFinish: false
+files:
+  - build/
 
 dmg:
   sign: false
@@ -17,16 +17,13 @@ dmg:
 
 mac:
   artifactName: "${productName}-v${version}-${os}.${ext}"
-  category: public.app-category.finance
-  gatekeeperAssess: false
-  hardenedRuntime: true
+  category: public.app-category.tools
   identity: null
   target:
     - zip
     - dmg
 
 win:
-  verifyUpdateCodeSignature: false
   artifactName: "${productName}-v${version}-setup.${ext}"
   target:
     - target: nsis
@@ -35,6 +32,5 @@ win:
 
 linux:
   artifactName: "${productName}-v${version}-${arch}.${ext}"
-  category: Finance
   target:
     - AppImage

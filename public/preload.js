@@ -10,7 +10,3 @@ window.addEventListener('DOMContentLoaded', () => {
         replaceText(`${type}-version`, process.versions[type])
     }
 });
-
-// https://medium.com/@johndyer24/building-a-production-electron-create-react-app-application-with-shared-code-using-electron-builder-c1f70f0e2649
-const { ipcRenderer } = require('electron');
-window.ipcRenderer = ipcRenderer;
