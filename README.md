@@ -1,6 +1,6 @@
 # [Sakura Wallet](https://www.dotpay.tech/)
 
-Sakura Wallet is a Desktop wallet for the Polkadot ecosystem.
+Sakura is a Desktop wallet for the Polkadot ecosystem.
 <p align="left">
   <a href="https://github.com/w3finance/sakura/releases">
     <img alt="MacOS" src="https://img.shields.io/badge/Platform-MacOS | Windows | Linux-blue" />
@@ -12,7 +12,7 @@ Sakura Wallet is a Desktop wallet for the Polkadot ecosystem.
 To clone and run this repo you'll need [Node.js](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/) installed on your computer.
 
 ```bash
-git clone https://github.com/dotpaytech/sakura.git
+git clone https://github.com/w3finance/sakura.git
 cd sakura
 yarn
 ```
