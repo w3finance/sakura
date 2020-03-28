@@ -2,7 +2,7 @@
 
 Sakura Wallet is a Desktop wallet for the Polkadot ecosystem.
 <p align="left">
-  <a href="https://github.com/dotpaytech/sakura/releases">
+  <a href="https://github.com/w3finance/sakura/releases">
     <img alt="MacOS" src="https://img.shields.io/badge/Platform-MacOS | Windows | Linux-blue" />
   </a>
 </p>
