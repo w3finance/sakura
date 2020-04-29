@@ -25,6 +25,7 @@ function createWindow() {
         resizable: false,
         title: "Sakura Wallet",
         titleBarStyle: process.platform === 'darwin' ? 'hidden' : 'default',
+        icon: path.join(__dirname, 'icon.png'),
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true
@@ -70,7 +71,6 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 
 // https://medium.com/@johndyer24/building-a-production-electron-create-react-app-application-with-shared-code-using-electron-builder-c1f70f0e2649
-
 function expose(
     messageType,
     handler

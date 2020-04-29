@@ -8,22 +8,26 @@ directories:
   buildResources: public/
   output: dist/
 
-files:
-  - build/
-
 dmg:
   sign: false
-  artifactName: "${productName}-v${version}.${ext}"
+
+nsis:
+  oneClick: false
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  runAfterFinish: false
 
 mac:
   artifactName: "${productName}-v${version}-${os}.${ext}"
-  category: public.app-category.tools
+  hardenedRuntime: true
+  gatekeeperAssess: false
   identity: null
   target:
     - zip
     - dmg
 
 win:
+  verifyUpdateCodeSignature: false
   artifactName: "${productName}-v${version}-setup.${ext}"
   target:
     - target: nsis
