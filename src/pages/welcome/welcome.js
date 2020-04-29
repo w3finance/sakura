@@ -40,7 +40,7 @@ function WelcomePage() {
                 setOpen(true);
                 setText({
                     type: 'error',
-                    text: 'Connection failed, please check your network settings'
+                    text: 'Connection failed, please check your network settings!'
                 })
             }, 1000);
         }, 30000);
@@ -48,14 +48,12 @@ function WelcomePage() {
         try {
             (async () => {
                 if (Object.keys(api).length !== 0) {
-                    const [chain, nodeName, nodeVersion] = await Promise.all([
+                    const [chain] = await Promise.all([
                         api.rpc.system.chain(),
-                        api.rpc.system.name(),
-                        api.rpc.system.version()
                     ]);
                     setOpen(false);
                     clearTimeout(errorTimer);
-                    setTitle(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}.`);
+                    setTitle(`Thanks for use Sakura, you are connected to chain ${chain}.`);
                     timer = setTimeout(() => {
                         history.push("/allAccounts");
                     }, 2500);
@@ -76,8 +74,8 @@ function WelcomePage() {
 
     return (
         <Wrapper>
-            <Grid container direction="column" alignItems="center" style={{height: "100%"}}>
-                <Grid item style={{marginTop: '5vmin'}}>
+            <Grid container direction="column" alignItems="center">
+                <Grid item>
                     <img src={Logo} className="App-logo" alt="logo"/>
                 </Grid>
                 {

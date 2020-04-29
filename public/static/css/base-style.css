@@ -4,6 +4,8 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+    cursor: default;
+    font-family: "Roboto", sans-serif;
 }
 
 #root {
@@ -12,14 +14,7 @@ body {
     margin: auto;
     padding: 0;
     background-color: rgb(252,252,252);
-}
-
-body {
-    background-color: white;
-    cursor: default;
-    font-family: "Roboto", sans-serif;
-    font-size: 13px;
-    line-height: 20px;
+    overflow: hidden;
 }
 
 img {
