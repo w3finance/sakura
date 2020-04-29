@@ -1,23 +1,40 @@
-# [Sakura Wallet](https://www.dotpay.tech/)
+<h1 align="center">Sakura Wallet</h1>
 
-Sakura is a Desktop wallet for the Polkadot ecosystem.
-<p align="left">
-  <a href="https://github.com/w3finance/sakura/releases">
-    <img alt="MacOS" src="https://img.shields.io/badge/Platform-MacOS | Windows | Linux-blue" />
+<p align="center">
+  <a href="https://github.com/w3finance/sakura">
+    <img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/w3finance/PolkaKey/blob/master/LICENSE">
+    <img alt="License" src="https://badgen.net/github/license/w3finance/sakura" />
+  </a>
+  <a href="https://github.com/w3finance/sakura/releases/latest">
+    <img alt="MacOS" src="https://badgen.net/badge/icon/MacOS?icon=apple&label&color=cyan" />
+  </a>
+  <a href="https://github.com/w3finance/sakura/releases/latest">
+    <img alt="Windows" src="https://badgen.net/badge/icon/Windows?icon=windows&label&color=cyan" />
   </a>
 </p>
 
-### Development
+<br />
+
+`Sakura` is a Desktop Wallet for the `Polkadot` ecosystem.
+
+`Sakura` 是一个桌面钱包, 支持Polkadot、Kusama等大多数Polkadot生态项目.
+
+## Roadmap | 路线图
+
+> ⚠️ Active development.
+
+- [x] Architecture and Working Prototype
+- [x] Support Create and Restore Account
+- [ ] Security Store
+- [ ] Receive and Transfer
+
+## Development | 开发
 
 To clone and run this repo you'll need [Node.js](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/) installed on your computer.
 
-```bash
-git clone https://github.com/w3finance/sakura.git
-cd sakura
-yarn
-```
-
-Then you can run:
+In the project directory, you can run:
 
 ```bash
 yarn dev
@@ -25,25 +42,11 @@ yarn dev
 
 You will see the app in development mode with electron.
 
-### DevTools
-
-Toggle DevTools:
-
-* OSX: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-* Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-* Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-
-### Production build.
-
-Create a package for OSX, Windows and Linux.
-
 ```bash
 yarn dist
 ```
 
-### Working prototype
-You can find our working prototype through the [link](https://free.modao.cc/app/e28c820ad8f37333312fef08577f87e9bb94ace4?simulator_type=device&sticky).
-![](./public/static/img/sakura-home.png)
+Pack the app for production to the `dist` folder.
 
-### License
+## License
 GPL v3.
