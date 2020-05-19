@@ -4,7 +4,8 @@
  */
 
 import {useContext} from "react";
-import {ApiPromise, WsProvider} from '@polkadot/api';
+import {ApiPromise} from '@polkadot/api';
+import {WsProvider} from '@polkadot/rpc-provider';
 import {ApiContext} from "../context/api";
 
 const ENDPOINT = "wss://mainnet1.edgewa.re/";
@@ -35,7 +36,8 @@ export function useEdgewareApi() {
                 try {
                     (async () => {
                         const API = await getApi();
-                        const balance = await API.query.balances.account(address);
+                        const balance = await API.query.system.account(address);
+                        console.log('Edgeware: '+balance)
                         resolve(balance)
                     })()
                 } catch (error) {

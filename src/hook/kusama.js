@@ -4,7 +4,8 @@
  */
 
 import {useContext} from "react";
-import {ApiPromise, WsProvider} from '@polkadot/api';
+import {ApiPromise} from '@polkadot/api';
+import {WsProvider} from '@polkadot/rpc-provider';
 import {ApiContext} from "../context/api";
 
 const ENDPOINT = "wss://kusama-rpc.polkadot.io/";
