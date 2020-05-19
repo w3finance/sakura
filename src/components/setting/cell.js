@@ -28,9 +28,9 @@ function SettingCell(props) {
         <Grid container alignItems="center"
               style={{
                   height: '60px',
-                  width: '800px',
+                  width: '100%',
                   background: '#FFF',
-                  marginTop: margin ? '30px' : 0,
+                  marginTop: margin ? '20px' : 0,
                   cursor: 'pointer',
               }}
               onClick={onClick ? onClick : null}>

@@ -53,7 +53,7 @@ function WelcomePage() {
                     ]);
                     setOpen(false);
                     clearTimeout(errorTimer);
-                    setTitle(`Thanks for use Sakura, you are connected to chain ${chain}.`);
+                    setTitle(`You are connected to chain ${chain}.`);
                     timer = setTimeout(() => {
                         history.push("/allAccounts");
                     }, 2500);
@@ -74,7 +74,7 @@ function WelcomePage() {
 
     return (
         <Wrapper>
-            <Grid container direction="column" alignItems="center">
+            <Grid container direction="column" alignItems="center" style={{WebkitAppRegion: 'drag'}}>
                 <Grid item>
                     <img src={Logo} className="App-logo" alt="logo"/>
                 </Grid>

@@ -1,20 +1,6 @@
-html,
 body {
-    width: 100vw;
-    height: 100vh;
     margin: 0;
     padding: 0;
-    cursor: default;
-    font-family: "Roboto", sans-serif;
-}
-
-#root {
-    width: 800px;
-    height: 600px;
-    margin: auto;
-    padding: 0;
-    background-color: rgb(252,252,252);
-    overflow: hidden;
 }
 
 img {

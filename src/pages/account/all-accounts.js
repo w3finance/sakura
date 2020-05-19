@@ -14,8 +14,6 @@ import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 import Box from "@material-ui/core/Box";
 import AccountCard from "../../components/account/AccountCard";
 import {useKusamaApi} from "../../hook/kusama";
-import {usePolkadotApi} from "../../hook/polkadot";
-import {useEdgewareApi} from "../../hook/edgeware";
 
 function AllAccounts() {
     const classes = useStyles();
@@ -24,21 +22,6 @@ function AllAccounts() {
     const [open, setOpen] = useState(false);
     const {accounts} = React.useContext(AccountsContext);
     const ksmApi = useKusamaApi();
-    const dotApi = usePolkadotApi();
-    const edgApi = useEdgewareApi();
-
-    const handleApi = type => {
-        switch (type) {
-            case 'Polkadot':
-                return {};
-            case 'Kusama':
-                return ksmApi;
-            case 'Edgeware':
-                return {};
-            default:
-                break;
-        }
-    };
 
     const handleOpen = () => {
         setOpen(true);
@@ -78,70 +61,61 @@ function AllAccounts() {
                 onClick={goSetting}
             />
             <Box className={classes.container}>
-                <Box className={classes.center}>
-                    {
-                        Object.keys(accounts).length === 0 ? <NoAccount/> :
-                            <Box className={classes.accounts}>
-                                {
-                                    Object.keys(accounts).map((key) => {
-                                        return (
-                                            <AccountCard key={key}
-                                                         api={handleApi(accounts[key].type)}
-                                                         address={key}
-                                                         account={accounts[key]}/>
-                                        )
-                                    })
-                                }
-                            </Box>
-                    }
-                </Box>
-                <Box className={classes.footer}>
-                    <SpeedDial
-                        ariaLabel="SpeedDial tooltip example"
-                        className={classes.speedDial}
-                        icon={<SpeedDialIcon/>}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                        open={open}
-                        FabProps={{size: "small"}}
-                    >
-                        <SpeedDialAction
-                            key={'import'}
-                            icon={<AutorenewIcon onClick={goImport}/>}
-                            tooltipTitle={t('Btn.import')}
-                            tooltipOpen
-                            onClick={handleClose}
-                            classes={{staticTooltipLabel: classes.staticTooltipLabel}}
-                        />
-                        <SpeedDialAction
-                            key={'create'}
-                            icon={<AddCircleOutlinedIcon onClick={goCreate}/>}
-                            tooltipTitle={t('Btn.create')}
-                            tooltipOpen
-                            onClick={handleClose}
-                            classes={{staticTooltipLabel: classes.staticTooltipLabel}}
-                        />
-                    </SpeedDial>
-                </Box>
+                {
+                    Object.keys(accounts).length === 0 ? <NoAccount/> :
+                        <Box className={classes.accounts}>
+                            {
+                                Object.keys(accounts).map((key) => {
+                                    return (
+                                        <AccountCard key={key}
+                                                     api={ksmApi}
+                                                     address={key}
+                                                     account={accounts[key]}
+                                        />
+                                    )
+                                })
+                            }
+                        </Box>
+                }
             </Box>
-
+            <Box className={classes.footer}>
+                <SpeedDial
+                    ariaLabel="SpeedDial tooltip example"
+                    className={classes.speedDial}
+                    icon={<SpeedDialIcon/>}
+                    onClose={handleClose}
+                    onOpen={handleOpen}
+                    open={open}
+                    FabProps={{size: "small"}}
+                >
+                    <SpeedDialAction
+                        key={'import'}
+                        icon={<AutorenewIcon onClick={goImport}/>}
+                        tooltipTitle={t('Btn.import')}
+                        tooltipOpen
+                        onClick={handleClose}
+                        classes={{staticTooltipLabel: classes.staticTooltipLabel}}
+                    />
+                    <SpeedDialAction
+                        key={'create'}
+                        icon={<AddCircleOutlinedIcon onClick={goCreate}/>}
+                        tooltipTitle={t('Btn.create')}
+                        tooltipOpen
+                        onClick={handleClose}
+                        classes={{staticTooltipLabel: classes.staticTooltipLabel}}
+                    />
+                </SpeedDial>
+            </Box>
         </Wrapper>
     )
 }
 
 const useStyles = makeStyles(theme => ({
-    staticTooltipLabel: {
-        whiteSpace: 'nowrap',
-    },
     container: {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-    },
-    center: {
-        flex: 1,
-        display: 'flex'
     },
     noAccount: {
         flex: 1,
@@ -151,26 +125,28 @@ const useStyles = makeStyles(theme => ({
         color: 'rgba(16,16,16,.5)'
     },
     accounts: {
-        width: 800,
-        height: 430,
-        overflowX: 'hidden',
-        overflowY: 'scroll',
+        height: '76vh',
         display: 'flex',
         flexWrap: 'wrap',
+        overflowX: 'hidden',
+        overflowY: 'scroll',
         alignContent: 'flex-start'
     },
     footer: {
-        height: '70px',
+        height: '11vh',
         display: 'flex',
         justifyContent: 'center',
         position: 'relative'
     },
     speedDial: {
         position: 'absolute',
-        bottom: theme.spacing(2.5),
+        bottom: theme.spacing(1.5),
         left: 0,
         right: 0,
         margin: 'auto'
+    },
+    staticTooltipLabel: {
+        whiteSpace: 'nowrap',
     }
 }));
 

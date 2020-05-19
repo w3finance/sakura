@@ -12,6 +12,8 @@ import AllAccounts from "./pages/account/all-accounts";
 import CreateAccount from "./pages/add/create-account";
 import ImportAccount from "./pages/add/import-account";
 import Setting from "./pages/setting/setting";
+import Account from "./pages/account/account";
+
 
 const Providers = (props) => (
     <Router>
@@ -36,6 +38,7 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={WelcomePage}/>
                     <Route exact path="/allAccounts" component={AllAccounts}/>
+                    <Route exact path="/account/:accountId" component={Account}/>
                     <Route exact path="/createAccount" component={CreateAccount}/>
                     <Route exact path="/importAccount" component={ImportAccount}/>
                     <Route exact path="/setting" component={Setting}/>

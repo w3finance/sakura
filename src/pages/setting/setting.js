@@ -94,42 +94,44 @@ function Setting() {
                 </DialogActions>
             </Dialog>
             <Header lfIcon bg title={t('Title.setting')} goBack={back}/>
-            <SettingCell title={t('Title.language')}
-                         subTitle={t(`${'Title.' + language}`)}
-                         icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}
-                         margin
-                         onClick={changeLng}
-            />
-            <div className={classes.line}/>
-            <SettingCell title={t('Title.terms')}
-                         icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}
-            />
+            <div className={classes.container}>
+                <SettingCell title={t('Title.language')}
+                             subTitle={t(`${'Title.' + language}`)}
+                             icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}
+                             margin
+                             onClick={changeLng}
+                />
+                <div className={classes.line}/>
+                <SettingCell title={t('Title.terms')}
+                             icon={<NavigateNextIcon style={{color: "#D3D3D3"}}/>}
+                />
+            </div>
             <div className={classes.footer}>
-                <div className={classes.version}>{`v${version}`}</div>
+                {`v${version}`}
             </div>
         </Wrapper>
     )
 }
 
 const useStyles = makeStyles(theme => ({
-    version: {
-        color: 'rgba(16,16,16,.5)',
-        fontSize: 16,
-        width: '100%',
-        height: '50px',
-        textAlign: 'center'
-    },
-    footer: {
-        flexGrow: '1',
+    container: {
+        flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-end',
+        //justifyContent: 'center',
+    },
+    footer: {
+        height: '10vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'rgba(16,16,16,.5)',
     },
     line: {
         height: 1,
-        width: "740px",
+        width: '90vw',
         background: '#F7F7F7',
-        marginLeft: '30px'
+        marginLeft: '5vw'
     }
 }));
 

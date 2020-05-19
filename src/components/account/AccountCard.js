@@ -4,12 +4,14 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSnackbar} from 'notistack';
 import {copyToClipboard} from "../../util/call";
 import {useTranslation} from "react-i18next";
+import {useHistory} from "react-router-dom";
 
 function AccountCard(props) {
     const {t} = useTranslation();
+    const history = useHistory();
     const {enqueueSnackbar} = useSnackbar();
     const classes = useStyles();
-    const {address, account, api} = props;
+    const {api, address, account} = props;
     const bg = account.type === 'Kusama' ? '#C785ED' : (account.type === 'Polkadot' ? '#847EF2' : '#565F75');
     const [balance, setBalance] = useState('~');
 
@@ -27,6 +29,10 @@ function AccountCard(props) {
         console.log(e)
     }
 
+    const handleClick = (e) => {
+        console.log(e.currentTarget)
+    };
+
     const handleClickVariant = variant => () => {
         copyToClipboard(address);
         enqueueSnackbar(t('Common.copy'), {
@@ -37,22 +43,26 @@ function AccountCard(props) {
         })
     };
 
+    const goAccount = (accountId) => {
+        history.push(`/account/:${accountId}`)
+    };
+
     return (
-        <Box key={address} className={classes.account} style={{background: bg}}>
+        <Box key={address} className={classes.account} style={{background: bg}} onClick={() => goAccount(address)}>
             <Box className={classes.name}>{account.name}</Box>
             <Box className={classes.balance}>{balance}</Box>
-            <Box className={classes.address} onClick={handleClickVariant('success')}>{address}</Box>
+            <Box className={classes.address} onClick={(event) => handleClick(event)}>{address}</Box>
         </Box>
     )
 }
 
 const useStyles = makeStyles(theme => ({
     account: {
-        width: '355px',
+        width: '350px',
         height: '120px',
-        borderRadius: '8px',
+        borderRadius: '10px',
         boxShadow: '0px 0px 4px rgba(0,0,0,0.3)',
-        margin: '0 0 30px 30px',
+        margin: '0 0 20px 30px',
         cursor: 'pointer'
     },
     name: {
