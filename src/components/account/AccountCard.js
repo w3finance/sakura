@@ -7,9 +7,7 @@ import {useTranslation} from "react-i18next";
 import {useHistory} from "react-router-dom";
 
 function AccountCard(props) {
-    const {t} = useTranslation();
     const history = useHistory();
-    const {enqueueSnackbar} = useSnackbar();
     const classes = useStyles();
     const {api, address, account} = props;
     const bg = account.type === 'Kusama' ? '#C785ED' : (account.type === 'Polkadot' ? '#847EF2' : '#565F75');
@@ -29,11 +27,26 @@ function AccountCard(props) {
         console.log(e)
     }
 
-    const handleClick = (e) => {
-        console.log(e.currentTarget)
+    const goAccount = () => {
+        history.push(`/account/:${address}`)
     };
 
-    const handleClickVariant = variant => () => {
+    return (
+        <Box key={address} className={classes.account} style={{background: bg}} onClick={() => goAccount()}>
+            <Box className={classes.name}>{account.name}</Box>
+            <Box className={classes.balance}>{balance}</Box>
+            <Address address={address}/>
+        </Box>
+    )
+}
+
+function Address(props) {
+    const {address} = props;
+    const classes = useStyles();
+    const {t} = useTranslation();
+    const {enqueueSnackbar} = useSnackbar();
+
+    const handleClickVariant = () => {
         copyToClipboard(address);
         enqueueSnackbar(t('Common.copy'), {
             anchorOrigin: {
@@ -43,16 +56,8 @@ function AccountCard(props) {
         })
     };
 
-    const goAccount = (accountId) => {
-        history.push(`/account/:${accountId}`)
-    };
-
     return (
-        <Box key={address} className={classes.account} style={{background: bg}} onClick={() => goAccount(address)}>
-            <Box className={classes.name}>{account.name}</Box>
-            <Box className={classes.balance}>{balance}</Box>
-            <Box className={classes.address} onClick={(event) => handleClick(event)}>{address}</Box>
-        </Box>
+        <Box id="address" className={classes.address} onClick={handleClickVariant}>{address}</Box>
     )
 }
 

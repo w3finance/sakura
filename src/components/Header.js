@@ -26,7 +26,7 @@ function Header(props) {
     const classes = useStyles();
     return (
         <Grid container alignItems="center"
-              style={{height: '15vh',background: bg ? '#3f51b5' : 'rgb(252,252,252)',WebkitAppRegion: 'drag'}}>
+              style={{height: '15vh',background: bg ? '#3f51b5' : '#FCFCFC',WebkitAppRegion: 'drag'}}>
             {
                 lfIcon ?
                     <Grid item className={classes.lfIcon}>

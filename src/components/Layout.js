@@ -7,6 +7,7 @@ const useStyles = makeStyles({
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: '#FCFCFC'
     }
 });
 
